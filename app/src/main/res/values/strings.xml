@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">CMMS</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_search_machine">SearchMachineActivity</string>
+    <string name="title_activity_search_request">SearchRequest</string>
+    <string name="title_activity_business_report">BusinessReportActivity</string>
+    <string name="title_activity_search_machine_qr">SearchMachineQRActivity</string>
+    <string name="title_activity_search_machine_list">SearchMachineListActivity</string>
+    <string name="title_activity_machine_information">MachineInformationActivity</string>
+    <string name="title_activity_search_request_list">SearchRequestListActivity</string>
+    <string name="title_activity_display_request">DisplayRequestActivity</string>
+    <string name="title_activity_display_maintenance_log">DisplayMaintenanceLogActivity</string>
+    <string name="title_activity_maintenance_log_list">MaintenanceLogListActivity</string>
+</resources>

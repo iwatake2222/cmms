@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(HomeActivity.EXTRA_USER_LEVEL, "technician");
         startActivity(intent);
 
+        User.getInstance().userID = "7292030";
 
     }
 }

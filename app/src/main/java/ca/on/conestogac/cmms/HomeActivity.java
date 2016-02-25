@@ -20,10 +20,10 @@ public class HomeActivity extends AppCompatActivity {
 
         String userLevel = getIntent().getStringExtra(EXTRA_USER_LEVEL);
         if (userLevel == null) {
-            DebugUtility.logError("unexpedted call");
+            Utility.logError("unexpedted call");
             //throw new IllegalArgumentException();
         } else {
-            DebugUtility.showToast(this.getApplicationContext(), "Login as  " + userLevel);
+            Utility.showToast(this.getApplicationContext(), "Login as  " + userLevel);
         }
     }
 

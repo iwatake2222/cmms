@@ -6,7 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class DisplayRequestActivity extends AppCompatActivity {
+    public static final String EXTRA_REQUEST = "ca.on.conestogac.cmms.EXTRA_REQUEST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +18,21 @@ public class DisplayRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_request);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        // for debug
+        String request = getIntent().getStringExtra(EXTRA_REQUEST);
+        if (request == null) {
+            Utility.logError("unexpedted call");
+            throw new IllegalArgumentException();
+        } else {
+            try{
+                WorkRequest workRequest = new WorkRequest(new JSONObject(request));
+                Utility.logDebug(workRequest.toString());
+            } catch (JSONException e) {
+                Utility.logError(e.getMessage());
+            }
+        }
     }
 
     public void onClickCreateMaintenanceLog(View view) {

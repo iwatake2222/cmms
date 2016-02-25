@@ -1,5 +1,6 @@
 package ca.on.conestogac.cmms;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -9,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import org.json.JSONArray;
@@ -16,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class SearchRequestActivity extends AppCompatActivity  implements LoaderManager.LoaderCallbacks<String>  {
     private enum LIST_TYPE {
@@ -31,6 +35,8 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
     private String mProgress;
     private String mStatus;
     private String mPriority;
+    private String mFrom;
+    private String mTo;
     private ArrayAdapter<String> mAdapterCampus;
     private ArrayAdapter<String> mAdapterShop;
     private ArrayAdapter<String> mAdapterProgress;
@@ -44,10 +50,30 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        initElements();
+        initDateElements();
+        initListElements();
+
+        // todo: delete sample
+        /*
+        Bundle bundle = new Bundle();
+        bundle.putString("url", "http://cmmsmock.apphb.com/Service1.svc/machinepost");
+        bundle.putString("method", "POST");
+        JSONObject jsonParam = new JSONObject();
+        try{
+            jsonParam.put("userID", User.getInstance().userID);
+            jsonParam.put("MachineID", "3432");
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+        String param = jsonParam.toString();
+
+        bundle.putString("param", param);
+        getSupportLoaderManager().restartLoader(0, bundle, this);
+        */
     }
 
     public void onClickSearch(View view) {
+        EditText editTextKeywords = (EditText)findViewById(R.id.editTextSearchRequestKeywords);
         if(mCampus.compareTo("Any")==0)mCampus="";
         if(mShop.compareTo("Any")==0)mShop="";
         if(mProgress.compareTo("Any")==0)mProgress="";
@@ -57,6 +83,24 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
         Bundle bundle = new Bundle();
         bundle.putString("url", ValueConstants.SERVER_URL + "SearchWorkRequest");
         bundle.putString("method", "POST");
+        JSONObject jsonParam = new JSONObject();
+        try{
+            jsonParam.put("userID", User.getInstance().userID);
+            jsonParam.put("requestID", "");
+            jsonParam.put("machineID", "");
+            jsonParam.put("campus", mCampus);
+            jsonParam.put("shop", mShop);
+            jsonParam.put("progress",mProgress );
+            jsonParam.put("status", mStatus);
+            jsonParam.put("creationDateFrom", mFrom);
+            jsonParam.put("creationDateTo", mTo);
+            jsonParam.put("keywords", editTextKeywords.getText().toString().trim());
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+        String param = jsonParam.toString();
+        /*
+        bundle.putString("method", "GET");
         String param = "userID=" + User.getInstance().userID;
         param += "&requestID=null";
         param += "&machineID=null";
@@ -64,19 +108,69 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
         param += "&shop=" + mShop;
         param += "&progress=" + mProgress;
         param += "&status=" + mStatus;
+        param += "&creationDateFrom=" + mFrom;
+        param += "&creationDateTo=" + mTo;
+        try {
+            param += "&keywords=" + URLEncoder.encode(editTextKeywords.getText().toString().trim(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Utility.logError(e.getMessage());
+        }
+        */
         bundle.putString("param", param);
         getSupportLoaderManager().restartLoader(0, bundle, this);
+
+        //todo: for test
+        Intent intent = new Intent(this, SearchRequestListActivity.class);
+        intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST,"[{\"requestID\":\"req123\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160201\", \"createdBy\":\"Alice\", \"progress\":\"Open\", \"title\":\"Shaft broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"hoge hoge hoge\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req456\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160101\", \"createdBy\":\"Alice\", \"progress\":\"Closed\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]}]");
+        startActivity(intent);
     }
 
     private void retrieveRequestList(JSONArray jsonArray) {
+        Utility.logDebug(jsonArray.toString());
         // Start SearchRequestListActivity
         Intent intent = new Intent(this, SearchRequestListActivity.class);
         intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST, jsonArray.toString());
         startActivity(intent);
     }
 
+    private void initDateElements() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);    // 0 - 11
+        month++;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-    private void initElements() {
+        mFrom = Utility.convertDateToStringRaw(year - 1, month, day);
+        EditText editTextFrom = (EditText)findViewById(R.id.editTextSearchRequestFrom);
+        editTextFrom.setText(Utility.convertDateToString(year - 1, month, day));
+        mTo = Utility.convertDateToStringRaw(year, month, day);
+        EditText editTextTo = (EditText)findViewById(R.id.editTextSearchRequestTo);
+        editTextTo.setText(Utility.convertDateToString(year, month, day));
+    }
+
+    public void onClickFrom(View view) {
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                mFrom = Utility.convertDateToStringRaw(year, monthOfYear, dayOfMonth);
+                EditText editText = (EditText)findViewById(R.id.editTextSearchRequestFrom);
+                editText.setText(Utility.convertDateToString(year, monthOfYear, dayOfMonth));
+            }
+        }, Integer.parseInt(mFrom.substring(0, 4)), Integer.parseInt(mFrom.substring(4, 6)), Integer.parseInt(mFrom.substring(6, 8)));
+        datePickerDialog.show();
+    }
+
+    public void onClickTo(View view) {
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                mTo = Utility.convertDateToStringRaw(year, monthOfYear, dayOfMonth);
+                EditText editText = (EditText)findViewById(R.id.editTextSearchRequestTo);
+                editText.setText(Utility.convertDateToString(year, monthOfYear, dayOfMonth));
+            }
+        }, Integer.parseInt(mTo.substring(0, 4)), Integer.parseInt(mTo.substring(4, 6)), Integer.parseInt(mTo.substring(6, 8)));
+        datePickerDialog.show();
+    }
+
+    private void initListElements() {
         mAdapterCampus = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         mAdapterCampus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAdapterShop = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
@@ -192,7 +286,17 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
         Bundle bundle = new Bundle();
         bundle.putString("url", ValueConstants.SERVER_URL + API);
         bundle.putString("method", "POST");
+        JSONObject jsonParam = new JSONObject();
+        try{
+            jsonParam.put("userID", User.getInstance().userID);
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+        String param = jsonParam.toString();
+        /*
+        bundle.putString("method", "GET");
         String param = "userID=" + User.getInstance().userID;
+        */
         bundle.putString("param", param);
         getSupportLoaderManager().restartLoader(0, bundle, this);
     }
@@ -201,7 +305,18 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
         Bundle bundle = new Bundle();
         bundle.putString("url", ValueConstants.SERVER_URL + API);
         bundle.putString("method", "POST");
+        JSONObject jsonParam = new JSONObject();
+        try{
+            jsonParam.put("userID", User.getInstance().userID);
+            jsonParam.put("campustName", campustName);
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+        String param = jsonParam.toString();
+        /*
+        bundle.putString("method", "GET");
         String param = "userID=" + User.getInstance().userID + "&campustName=" + campustName;
+        */
         bundle.putString("param", param);
         getSupportLoaderManager().restartLoader(0, bundle, this);
     }
@@ -213,7 +328,7 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
                 items.add(jsonArray.getString(i));
             }
         } catch (JSONException e) {
-            DebugUtility.logError(e.getMessage());
+            Utility.logError(e.getMessage());
         }
 
         switch(listType){
@@ -258,7 +373,7 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
                 callAPI("GetCampusList");
                 break;
             default:
-                DebugUtility.logError("Implementation error");
+                Utility.logError("Implementation error");
         }
     }
 
@@ -266,7 +381,7 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
     @Override
     public Loader<String> onCreateLoader(int id, Bundle args) {
         HttpAsyncLoader loader = new HttpAsyncLoader(this, args.getString("url"), args.getString("method"), args.getString("param"));
-        DebugUtility.logDebug("onCreateLoader: " + args.getString("url"));
+        //Utility.logDebug("onCreateLoader: " + args.getString("url"));
         loader.forceLoad();
         return loader;
     }
@@ -275,12 +390,12 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
     public void onLoadFinished(Loader<String> loader, String data) {
         if ( loader.getId() == 0 ) {
             if (data != null) {
-                DebugUtility.logDebug(data);
+                Utility.logDebug(data);
                 try {
                     JSONObject jsonObject = new JSONObject(data);
                     String result = jsonObject.getString("result");
                     if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
-                        DebugUtility.logError(result);
+                        Utility.logError(result);
                         // todo: error message
                     }
                     if(jsonObject.has("campusName")){
@@ -308,10 +423,10 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
                         retrieveRequestList(jsonArray);
                     }
                 } catch (JSONException e) {
-                    DebugUtility.logError(e.getMessage());
+                    Utility.logError(e.getMessage());
                 }
             } else {
-                DebugUtility.logError("");
+                Utility.logError("");
             }
         }
     }

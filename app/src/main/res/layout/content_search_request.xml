@@ -15,13 +15,6 @@
     tools:context=".SearchRequestActivity"
     tools:showIn="@layout/activity_search_request">
 
-    <TextView
-        android:textSize="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search for Work Request"/>
-
     <LinearLayout
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
@@ -32,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
+            android:layout_gravity="center"
             android:text="Campus:"/>
         <Spinner
             android:layout_width="0dp"
@@ -50,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
+            android:layout_gravity="center"
             android:text="Shop:"/>
         <Spinner
             android:layout_width="0dp"
@@ -68,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
+            android:layout_gravity="center"
             android:text="Progress:"/>
         <Spinner
             android:layout_width="0dp"
@@ -86,6 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
+            android:layout_gravity="center"
             android:text="Status:"/>
         <Spinner
             android:layout_width="0dp"
@@ -104,6 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
+            android:layout_gravity="center"
             android:text="Priority:"/>
         <Spinner
             android:layout_width="0dp"
@@ -112,7 +110,72 @@
             android:id="@+id/spinnerSearchRequestPriority"
             android:layout_gravity="center_horizontal"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_gravity="center"
+            android:text="From:"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:id="@+id/editTextSearchRequestFrom"
+            android:inputType="date"
+            android:clickable="true"
+            android:focusable="false"
+            android:onClick="onClickFrom"
+            android:layout_gravity="left"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_gravity="center"
+            android:text="To:"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:id="@+id/editTextSearchRequestTo"
+            android:inputType="date"
+            android:clickable="true"
+            android:focusable="false"
+            android:onClick="onClickTo"
+            android:layout_gravity="left"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_gravity="center"
+            android:text="Keyword:"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:id="@+id/editTextSearchRequestKeywords"
+            android:layout_gravity="left"/>
+    </LinearLayout>
     <Button
         android:background="#ff8f38"
         android:id="@+id/buttonSearchRequest"
@@ -120,5 +183,8 @@
         android:layout_height="wrap_content"
         android:onClick="onClickSearch"
         android:text="Search"/>
+
+
+
 
 </LinearLayout>

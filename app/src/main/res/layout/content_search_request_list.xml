@@ -15,15 +15,41 @@
     tools:context=".SearchRequestListActivity"
     tools:showIn="@layout/activity_search_request_list">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Work Request List"/>
-    <Button
-        android:id="@+id/buttonRequestListItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClickSelect"
-        android:text="Assume selecting one of work requests"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sort by: "/>
+        <Button
+            android:id="@+id/buttonRequestListCreationDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSortByCreationDate"
+            android:text="Creation Date"/>
+        <Button
+            android:id="@+id/buttonRequestListDueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSortByDueDate"
+            android:text="Due Date"/>
+        <Button
+            android:id="@+id/buttonRequestListProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSortByProgress"
+            android:text="Progress"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listViewRequestList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+
+
 
 </LinearLayout>

@@ -3,9 +3,6 @@ package ca.on.conestogac.cmms;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +18,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class SearchRequestActivity extends AppCompatActivity  implements LoaderManager.LoaderCallbacks<String>  {
+public class SearchRequestActivity extends BaseActivity  {
     private enum LIST_TYPE {
         CAMPUS,
         SHOP,
@@ -53,36 +50,16 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
         initDateElements();
         initListElements();
 
-        // todo: delete sample
-        /*
-        Bundle bundle = new Bundle();
-        bundle.putString("url", "http://cmmsmock.apphb.com/Service1.svc/machinepost");
-        bundle.putString("method", "POST");
-        JSONObject jsonParam = new JSONObject();
-        try{
-            jsonParam.put("userID", User.getInstance().userID);
-            jsonParam.put("MachineID", "3432");
-        } catch (JSONException e) {
-            Utility.logDebug(e.getMessage());
-        }
-        String param = jsonParam.toString();
-
-        bundle.putString("param", param);
-        getSupportLoaderManager().restartLoader(0, bundle, this);
-        */
     }
 
     public void onClickSearch(View view) {
         EditText editTextKeywords = (EditText)findViewById(R.id.editTextSearchRequestKeywords);
-        if(mCampus.compareTo("Any")==0)mCampus="";
-        if(mShop.compareTo("Any")==0)mShop="";
-        if(mProgress.compareTo("Any")==0)mProgress="";
-        if(mStatus.compareTo("Any")==0)mStatus="";
-        if(mPriority.compareTo("Any")==0)mPriority="";
-        // call Web API
-        Bundle bundle = new Bundle();
-        bundle.putString("url", ValueConstants.SERVER_URL + "SearchWorkRequest");
-        bundle.putString("method", "POST");
+        if(mCampus.compareTo(ValueConstants.ITEM_ANY)==0)mCampus="";
+        if(mShop.compareTo(ValueConstants.ITEM_ANY)==0)mShop="";
+        if(mProgress.compareTo(ValueConstants.ITEM_ANY)==0)mProgress="";
+        if(mStatus.compareTo(ValueConstants.ITEM_ANY)==0)mStatus="";
+        if(mPriority.compareTo(ValueConstants.ITEM_ANY)==0)mPriority="";
+
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("userID", User.getInstance().userID);
@@ -98,30 +75,11 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }
-        String param = jsonParam.toString();
-        /*
-        bundle.putString("method", "GET");
-        String param = "userID=" + User.getInstance().userID;
-        param += "&requestID=null";
-        param += "&machineID=null";
-        param += "&campus=" + mCampus;
-        param += "&shop=" + mShop;
-        param += "&progress=" + mProgress;
-        param += "&status=" + mStatus;
-        param += "&creationDateFrom=" + mFrom;
-        param += "&creationDateTo=" + mTo;
-        try {
-            param += "&keywords=" + URLEncoder.encode(editTextKeywords.getText().toString().trim(), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            Utility.logError(e.getMessage());
-        }
-        */
-        bundle.putString("param", param);
-        getSupportLoaderManager().restartLoader(0, bundle, this);
+        callAPI("SearchWorkRequest", jsonParam);
 
         //todo: for test
         Intent intent = new Intent(this, SearchRequestListActivity.class);
-        intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST,"[{\"requestID\":\"req123\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160201\", \"createdBy\":\"Alice\", \"progress\":\"Open\", \"title\":\"Shaft broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"hoge hoge hoge\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req456\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160101\", \"createdBy\":\"Alice\", \"progress\":\"Closed\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]}]");
+        intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST, "[{\"requestID\":\"req123\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160201\", \"createdBy\":\"Alice\", \"progress\":\"Open\", \"title\":\"Shaft broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"hoge hoge hoge\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req456\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160101\", \"createdBy\":\"Alice\", \"progress\":\"Closed\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]}]");
         startActivity(intent);
     }
 
@@ -155,7 +113,7 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
                 EditText editText = (EditText)findViewById(R.id.editTextSearchRequestFrom);
                 editText.setText(Utility.convertDateToString(year, monthOfYear, dayOfMonth));
             }
-        }, Integer.parseInt(mFrom.substring(0, 4)), Integer.parseInt(mFrom.substring(4, 6)), Integer.parseInt(mFrom.substring(6, 8)));
+        }, Integer.parseInt(mFrom.substring(0, 4)), Integer.parseInt(mFrom.substring(4, 6)) - 1, Integer.parseInt(mFrom.substring(6, 8)));
         datePickerDialog.show();
     }
 
@@ -166,7 +124,7 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
                 EditText editText = (EditText)findViewById(R.id.editTextSearchRequestTo);
                 editText.setText(Utility.convertDateToString(year, monthOfYear, dayOfMonth));
             }
-        }, Integer.parseInt(mTo.substring(0, 4)), Integer.parseInt(mTo.substring(4, 6)), Integer.parseInt(mTo.substring(6, 8)));
+        }, Integer.parseInt(mTo.substring(0, 4)), Integer.parseInt(mTo.substring(4, 6)) - 1, Integer.parseInt(mTo.substring(6, 8)));
         datePickerDialog.show();
     }
 
@@ -191,11 +149,11 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
                 Spinner spinner = (Spinner) parent;
                 String item = (String) spinner.getSelectedItem();
                 mCampus = item;
-                if(mCampus.compareTo("Any") != 0){
-                    callAPIforShop("GetShopList", mCampus); // refresh mShop list
+                if(mCampus.compareTo(ValueConstants.ITEM_ANY) != 0){
+                    callAPIforShop(); // refresh mShop list
                 } else {
                     mAdapterShop.clear();
-                    mAdapterShop.add("Any");
+                    mAdapterShop.add(ValueConstants.ITEM_ANY);
                 }
             }
 
@@ -279,47 +237,48 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
         // need to call by serial
         // call GetCampusList at the last to avoid double call
         // GetProgressList -> GetStatusList -> GetPriorityList -> GetCampusList -> GetShopList
-        callAPI("GetProgressList");
+        callAPIwoParam("GetProgressList");
     }
 
-    private void callAPI(String API){
-        Bundle bundle = new Bundle();
-        bundle.putString("url", ValueConstants.SERVER_URL + API);
-        bundle.putString("method", "POST");
-        JSONObject jsonParam = new JSONObject();
-        try{
-            jsonParam.put("userID", User.getInstance().userID);
+
+
+    @Override
+    void onAPIResponse(String jsonString) {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            String result = jsonObject.getString("result");
+            if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
+                // do something if needed when error happens
+            }
+            if(jsonObject.has("campusName")){
+                JSONArray jsonArray = jsonObject.getJSONArray("campusName");
+                setList(jsonArray, LIST_TYPE.CAMPUS);
+            }
+            if(jsonObject.has("shopName")){
+                JSONArray jsonArray = jsonObject.getJSONArray("shopName");
+                setList(jsonArray, LIST_TYPE.SHOP);
+            }
+            if(jsonObject.has("progress")){
+                JSONArray jsonArray = jsonObject.getJSONArray("progress");
+                setList(jsonArray, LIST_TYPE.PROGRESS);
+            }
+            if(jsonObject.has("status")){
+                JSONArray jsonArray = jsonObject.getJSONArray("status");
+                setList(jsonArray, LIST_TYPE.STATUS);
+            }
+            if(jsonObject.has("priority")){
+                JSONArray jsonArray = jsonObject.getJSONArray("priority");
+                setList(jsonArray, LIST_TYPE.PRIORITY);
+            }
+            if(jsonObject.has("requestList")){
+                JSONArray jsonArray = jsonObject.getJSONArray("requestList");
+                retrieveRequestList(jsonArray);
+            }
         } catch (JSONException e) {
-            Utility.logDebug(e.getMessage());
+            Utility.logError(e.getMessage());
         }
-        String param = jsonParam.toString();
-        /*
-        bundle.putString("method", "GET");
-        String param = "userID=" + User.getInstance().userID;
-        */
-        bundle.putString("param", param);
-        getSupportLoaderManager().restartLoader(0, bundle, this);
     }
 
-    private void callAPIforShop(String API, String campustName){
-        Bundle bundle = new Bundle();
-        bundle.putString("url", ValueConstants.SERVER_URL + API);
-        bundle.putString("method", "POST");
-        JSONObject jsonParam = new JSONObject();
-        try{
-            jsonParam.put("userID", User.getInstance().userID);
-            jsonParam.put("campustName", campustName);
-        } catch (JSONException e) {
-            Utility.logDebug(e.getMessage());
-        }
-        String param = jsonParam.toString();
-        /*
-        bundle.putString("method", "GET");
-        String param = "userID=" + User.getInstance().userID + "&campustName=" + campustName;
-        */
-        bundle.putString("param", param);
-        getSupportLoaderManager().restartLoader(0, bundle, this);
-    }
 
     private void setList(JSONArray jsonArray, LIST_TYPE listType) {
         ArrayList<String> items = new ArrayList<>();
@@ -334,114 +293,66 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
         switch(listType){
             case CAMPUS:
                 mAdapterCampus.clear();
-                mAdapterCampus.add("Any");
+                mAdapterCampus.add(ValueConstants.ITEM_ANY);
                 for (int i = 0; i < items.size(); i++) {
                     mAdapterCampus.add(items.get(i));
                 }
-                // GetShopList is called when CAMPUS list set
-                //callAPIforShop("GetShopList", aaa);
                 break;
             case SHOP:
                 mAdapterShop.clear();
-                mAdapterShop.add("Any");
+                mAdapterShop.add(ValueConstants.ITEM_ANY);
                 for (int i = 0; i < items.size(); i++) {
                     mAdapterShop.add(items.get(i));
                 }
                 break;
             case PROGRESS:
                 mAdapterProgress.clear();
-                mAdapterProgress.add("Any");
+                mAdapterProgress.add(ValueConstants.ITEM_ANY);
                 for (int i = 0; i < items.size(); i++) {
                     mAdapterProgress.add(items.get(i));
                 }
-                callAPI("GetStatusList");
+                callAPIwoParam("GetStatusList");
                 break;
             case STATUS:
                 mAdapterStatus.clear();
-                mAdapterStatus.add("Any");
+                mAdapterStatus.add(ValueConstants.ITEM_ANY);
                 for (int i = 0; i < items.size(); i++) {
                     mAdapterStatus.add(items.get(i));
                 }
-                callAPI("GetPriorityList");
+                callAPIwoParam("GetPriorityList");
                 break;
             case PRIORITY:
                 mAdapterPriority.clear();
-                mAdapterPriority.add("Any");
+                mAdapterPriority.add(ValueConstants.ITEM_ANY);
                 for (int i = 0; i < items.size(); i++) {
                     mAdapterPriority.add(items.get(i));
                 }
-                callAPI("GetCampusList");
+                callAPIwoParam("GetCampusList");
                 break;
             default:
                 Utility.logError("Implementation error");
         }
     }
 
-
-    @Override
-    public Loader<String> onCreateLoader(int id, Bundle args) {
-        HttpAsyncLoader loader = new HttpAsyncLoader(this, args.getString("url"), args.getString("method"), args.getString("param"));
-        //Utility.logDebug("onCreateLoader: " + args.getString("url"));
-        loader.forceLoad();
-        return loader;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<String> loader, String data) {
-        if ( loader.getId() == 0 ) {
-            if (data != null) {
-                Utility.logDebug(data);
-                try {
-                    JSONObject jsonObject = new JSONObject(data);
-                    String result = jsonObject.getString("result");
-                    if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
-                        Utility.logError(result);
-                        // todo: error message
-                    }
-                    if(jsonObject.has("campusName")){
-                        JSONArray jsonArray = jsonObject.getJSONArray("campusName");
-                        setList(jsonArray, LIST_TYPE.CAMPUS);
-                    }
-                    if(jsonObject.has("shopName")){
-                        JSONArray jsonArray = jsonObject.getJSONArray("shopName");
-                        setList(jsonArray, LIST_TYPE.SHOP);
-                    }
-                    if(jsonObject.has("progress")){
-                        JSONArray jsonArray = jsonObject.getJSONArray("progress");
-                        setList(jsonArray, LIST_TYPE.PROGRESS);
-                    }
-                    if(jsonObject.has("status")){
-                        JSONArray jsonArray = jsonObject.getJSONArray("status");
-                        setList(jsonArray, LIST_TYPE.STATUS);
-                    }
-                    if(jsonObject.has("priority")){
-                        JSONArray jsonArray = jsonObject.getJSONArray("priority");
-                        setList(jsonArray, LIST_TYPE.PRIORITY);
-                    }
-                    if(jsonObject.has("requestList")){
-                        JSONArray jsonArray = jsonObject.getJSONArray("requestList");
-                        retrieveRequestList(jsonArray);
-                    }
-                } catch (JSONException e) {
-                    Utility.logError(e.getMessage());
-                }
-            } else {
-                Utility.logError("");
-            }
+    private void callAPIforShop() {
+        JSONObject jsonParam = new JSONObject();
+        try{
+            jsonParam.put("userID", User.getInstance().userID);
+            jsonParam.put("campus", mCampus);
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
         }
+        callAPI("GetShopList", jsonParam);
     }
 
-    @Override
-    public void onLoaderReset(Loader<String> loader) {
-        // do nothing
-    }
+
 
 
 
     // todo: delete
     private void initCampusList() {
         mAdapterCampus.clear();
-        mAdapterCampus.add("Any");
+        mAdapterCampus.add(ValueConstants.ITEM_ANY);
         mAdapterCampus.add("Doon");
         mAdapterCampus.add("Cambridge");
         mAdapterCampus.add("Waterloo");
@@ -449,7 +360,7 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
 
     private void initShopList() {
         mAdapterShop.clear();
-        mAdapterShop.add("Any");
+        mAdapterShop.add(ValueConstants.ITEM_ANY);
         mAdapterShop.add("Wood Working");
         mAdapterShop.add("ShopB");
         mAdapterShop.add("ShopC");
@@ -457,7 +368,7 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
 
     private void initProgressList() {
         mAdapterProgress.clear();
-        mAdapterProgress.add("Any");
+        mAdapterProgress.add(ValueConstants.ITEM_ANY);
         mAdapterProgress.add("Open");
         mAdapterProgress.add("Working");
         mAdapterProgress.add("Closed");
@@ -465,7 +376,7 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
 
     private void initStatusList() {
         mAdapterStatus.clear();
-        mAdapterStatus.add("Any");
+        mAdapterStatus.add(ValueConstants.ITEM_ANY);
         mAdapterStatus.add("Safety issue");
         mAdapterStatus.add("Safety level lock-out");
         mAdapterStatus.add("Appears normal repair");
@@ -473,7 +384,7 @@ public class SearchRequestActivity extends AppCompatActivity  implements LoaderM
 
     private void initPriorityList() {
         mAdapterPriority.clear();
-        mAdapterPriority.add("Any");
+        mAdapterPriority.add(ValueConstants.ITEM_ANY);
         mAdapterPriority.add("High");
         mAdapterPriority.add("Medium");
         mAdapterPriority.add("Low");

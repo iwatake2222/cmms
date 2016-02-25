@@ -1,10 +1,9 @@
 package ca.on.conestogac.cmms;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-public class MaintenanceLogListActivity extends AppCompatActivity {
+public class MaintenanceLogListActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,5 +12,12 @@ public class MaintenanceLogListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
+
+
+    @Override
+    void onAPIResponse(String jsonString) {
+
+    }
+
 
 }

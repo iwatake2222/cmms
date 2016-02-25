@@ -1,15 +1,19 @@
 <resources>
     <string name="app_name">CMMS</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="title_activity_search_machine">SearchMachineActivity</string>
-    <string name="title_activity_search_request">SearchRequest</string>
-    <string name="title_activity_business_report">BusinessReportActivity</string>
-    <string name="title_activity_search_machine_qr">SearchMachineQRActivity</string>
-    <string name="title_activity_search_machine_list">SearchMachineListActivity</string>
-    <string name="title_activity_machine_information">MachineInformationActivity</string>
-    <string name="title_activity_search_request_list">SearchRequestListActivity</string>
-    <string name="title_activity_display_request">DisplayRequestActivity</string>
-    <string name="title_activity_display_maintenance_log">DisplayMaintenanceLogActivity</string>
-    <string name="title_activity_maintenance_log_list">MaintenanceLogListActivity</string>
+    <string name="action_home">Home</string>
+    <string name="action_logout">logout</string>
+    <string name="action_about">About</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_search_machine">Search Machine</string>
+    <string name="title_activity_search_request">Search Request</string>
+    <string name="title_activity_business_report">Business Report</string>
+    <string name="title_activity_search_machine_qr">Machine QR Code</string>
+    <string name="title_activity_search_machine_list">Machine List</string>
+    <string name="title_activity_machine_information">Machine Information</string>
+    <string name="title_activity_search_request_list">Work Request List</string>
+    <string name="title_activity_display_request">Work Request</string>
+    <string name="title_activity_display_maintenance_log">Maintenance Log</string>
+    <string name="title_activity_maintenance_log_list">Maintenance Log List</string>
+    <string name="text_about">This is a CMMS application</string>
 </resources>

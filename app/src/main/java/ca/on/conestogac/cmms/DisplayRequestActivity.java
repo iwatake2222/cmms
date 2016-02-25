@@ -2,14 +2,13 @@ package ca.on.conestogac.cmms;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DisplayRequestActivity extends AppCompatActivity {
+public class DisplayRequestActivity extends BaseActivity {
     public static final String EXTRA_REQUEST = "ca.on.conestogac.cmms.EXTRA_REQUEST";
 
     @Override
@@ -33,6 +32,11 @@ public class DisplayRequestActivity extends AppCompatActivity {
                 Utility.logError(e.getMessage());
             }
         }
+    }
+
+    @Override
+    void onAPIResponse(String jsonString) {
+
     }
 
     public void onClickCreateMaintenanceLog(View view) {

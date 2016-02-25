@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name"
+            android:label= "@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,11 +24,7 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ca.on.conestogac.cmms.LoginActivity" />
         </activity>
         <activity
             android:name=".SearchMachineActivity"

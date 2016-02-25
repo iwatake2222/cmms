@@ -2,11 +2,10 @@ package ca.on.conestogac.cmms;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
     public static final String EXTRA_USER_LEVEL = "ca.on.conestogac.cmms.EXTRA_USER_LEVEL";
 
     @Override
@@ -15,7 +14,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         String userLevel = getIntent().getStringExtra(EXTRA_USER_LEVEL);
@@ -46,4 +44,11 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
+
+    @Override
+    void onAPIResponse(String jsonString) {
+
+    }
+
 }

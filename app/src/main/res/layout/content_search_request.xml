@@ -177,7 +177,6 @@
             android:layout_gravity="left"/>
     </LinearLayout>
     <Button
-        android:background="#ff8f38"
         android:id="@+id/buttonSearchRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

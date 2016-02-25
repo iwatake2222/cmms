@@ -1,7 +1,10 @@
 package ca.on.conestogac.cmms;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Handler;
 import android.support.v4.content.AsyncTaskLoader;
+import android.support.v7.app.AlertDialog;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +21,8 @@ public class HttpAsyncLoader  extends AsyncTaskLoader<String> {
     private String url = null;
     private String method = null;
     private String param = null;
+    private Context context = null;
+    Handler threadHandler;
 
 
     public HttpAsyncLoader(Context context, String url, String method, String param) {
@@ -25,6 +30,8 @@ public class HttpAsyncLoader  extends AsyncTaskLoader<String> {
         this.url = url;
         this.method = method;
         this.param = param;
+        this.context = context;
+        threadHandler = new Handler();
     }
 
     @Override
@@ -49,6 +56,7 @@ public class HttpAsyncLoader  extends AsyncTaskLoader<String> {
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
                 conn.setUseCaches(false);
+                conn.setConnectTimeout(ValueConstants.SERVER_TIMEOUT);
                 //conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestProperty("charset", "utf-8");
@@ -70,7 +78,22 @@ public class HttpAsyncLoader  extends AsyncTaskLoader<String> {
                 return response.toString();
             }
         } catch (IOException e) {
-            Utility.logError(e.getMessage());
+            final String errorMsg = e.getMessage();
+            Utility.logError(errorMsg);
+            threadHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Server Connection Error");
+                    builder.setMessage(errorMsg);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    });
+                    builder.show();
+                }
+            });
+
         } finally {
             if( conn != null ){
                 conn.disconnect();

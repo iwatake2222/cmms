@@ -2,7 +2,6 @@ package ca.on.conestogac.cmms;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,7 +13,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class SearchRequestListActivity extends AppCompatActivity {
+public class SearchRequestListActivity extends BaseActivity {
     public static final String EXTRA_REQUEST_LIST = "ca.on.conestogac.cmms.EXTRA_REQUEST_LIST";
     private RequestAdapter mRequestAdapter;
 
@@ -38,8 +37,6 @@ public class SearchRequestListActivity extends AppCompatActivity {
     }
 
     private void initListView() {
-        // set adapter fo
-        // r list view
         ListView listViewItems = (ListView)findViewById(R.id.listViewRequestList);
         ArrayList<WorkRequest> list = new ArrayList<WorkRequest>();
         mRequestAdapter = new RequestAdapter(this, R.layout.item_search_request, list);
@@ -83,6 +80,13 @@ public class SearchRequestListActivity extends AppCompatActivity {
         ListView listViewItems = (ListView)findViewById(R.id.listViewRequestList);
         listViewItems.setAdapter(mRequestAdapter);
     }
+
+    @Override
+    void onAPIResponse(String jsonString) {
+
+    }
+
+
 }
 
 class ComparatorDate implements Comparator<WorkRequest> {

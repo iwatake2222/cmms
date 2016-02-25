@@ -2,11 +2,10 @@ package ca.on.conestogac.cmms;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class DisplayMaintenanceLogActivity extends AppCompatActivity {
+public class DisplayMaintenanceLogActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +13,11 @@ public class DisplayMaintenanceLogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_maintenance_log);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    @Override
+    void onAPIResponse(String jsonString) {
+
     }
 
     public void onClickBack(View view) {

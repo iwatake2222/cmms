@@ -24,8 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity  implements LoaderM
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -37,6 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity  implements LoaderM
                 startActivity(intent);
                 return true;
             case R.id.action_logout:
+                // todo: confirm
                 // todo: call logout -> no. do this in login activity
                 Intent intent2 = new Intent(this, LoginActivity.class);
                 startActivity(intent2);

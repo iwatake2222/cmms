@@ -3,6 +3,8 @@ package ca.on.conestogac.cmms;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -10,8 +12,15 @@ import android.widget.ListView;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.FileNotFoundException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 
 public class SearchRequestListActivity extends BaseActivity {
     public static final String EXTRA_REQUEST_LIST = "ca.on.conestogac.cmms.EXTRA_REQUEST_LIST";
@@ -34,6 +43,24 @@ public class SearchRequestListActivity extends BaseActivity {
         }
         initListView();
         convertRequestList(requestList);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // todo
+        menu.add(Menu.NONE, 123, Menu.NONE, "Save");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // todo
+            case 123:
+                save();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initListView() {
@@ -67,23 +94,45 @@ public class SearchRequestListActivity extends BaseActivity {
         mRequestAdapter.sort(new ComparatorDate());
         ListView listViewItems = (ListView)findViewById(R.id.listViewRequestList);
         listViewItems.setAdapter(mRequestAdapter);
+        ComparatorDate.inverse = !ComparatorDate.inverse;
+
     }
 
     public void onClickSortByDueDate(View view) {
         mRequestAdapter.sort(new ComparatorDueDate());
         ListView listViewItems = (ListView)findViewById(R.id.listViewRequestList);
         listViewItems.setAdapter(mRequestAdapter);
+        ComparatorDueDate.inverse = !ComparatorDueDate.inverse;
     }
 
     public void onClickSortByProgress(View view) {
         mRequestAdapter.sort(new ComparatorProgress());
         ListView listViewItems = (ListView)findViewById(R.id.listViewRequestList);
         listViewItems.setAdapter(mRequestAdapter);
+        ComparatorProgress.inverse = !ComparatorProgress.inverse;
+    }
+
+    // todo
+    private void save() {
+        final SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        final Date date = new Date(System.currentTimeMillis());
+        String fileName = "WorkRequest_" + df.format(date) + ".txt";
+        Utility.logDebug(fileName);
+        String str="abc";
+        try {
+            OutputStream out = openFileOutput(fileName, MODE_PRIVATE);
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(out,"UTF-8"));
+            writer.append(str);
+            writer.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     void onAPIResponse(String jsonString) {
-
     }
 
 
@@ -96,11 +145,9 @@ class ComparatorDate implements Comparator<WorkRequest> {
         int left = Integer.parseInt(lhs.getDateCreated());
         int right = Integer.parseInt(rhs.getDateCreated());
         if(inverse) {
-            inverse = false;
             if (left > right) return 1;
             if (left < right) return -1;
         } else {
-            inverse = true;
             if (left > right) return -1;
             if (left < right) return 1;
         }
@@ -115,11 +162,9 @@ class ComparatorDueDate implements Comparator<WorkRequest> {
         int left = Integer.parseInt(lhs.getDueDate());
         int right = Integer.parseInt(rhs.getDueDate());
         if(inverse) {
-            inverse = false;
             if (left > right) return 1;
             if (left < right) return -1;
         } else {
-            inverse = true;
             if (left > right) return -1;
             if (left < right) return 1;
         }
@@ -134,14 +179,38 @@ class ComparatorProgress implements Comparator<WorkRequest> {
         String left = lhs.getProgress();
         String right = rhs.getProgress();
         if(inverse) {
-            inverse = false;
-            if(left.compareTo("Closed")==0)return 1;
-            return -1;
+            if(left.compareTo("Open")==0) {
+                if (right.compareTo("Open") == 0) return 0;
+                if (right.compareTo("Working") == 0) return 1;
+                if (right.compareTo("Closed") == 0) return 1;
+            } else if(left.compareTo("Working")==0) {
+                if (right.compareTo("Open") == 0) return -1;
+                if (right.compareTo("Working") == 0) return 0;
+                if (right.compareTo("Closed") == 0) return 1;
+            } else {
+                if(left.compareTo("Closed")==0) {
+                    if (right.compareTo("Open") == 0) return -1;
+                    if (right.compareTo("Working") == 0) return -1;
+                    if (right.compareTo("Closed") == 0) return 0;
+                }
+            }
         } else {
-            inverse = true;
-            if(left.compareTo("Open")==0)return 1;
-            return -1;
+            if(left.compareTo("Open")==0) {
+                if (right.compareTo("Open") == 0) return 0;
+                if (right.compareTo("Working") == 0) return -1;
+                if (right.compareTo("Closed") == 0) return -1;
+            } else if(left.compareTo("Working")==0) {
+                if (right.compareTo("Open") == 0) return 1;
+                if (right.compareTo("Working") == 0) return 0;
+                if (right.compareTo("Closed") == 0) return -1;
+            } else {
+                if(left.compareTo("Closed")==0) {
+                    if (right.compareTo("Open") == 0) return 1;
+                    if (right.compareTo("Working") == 0) return 1;
+                    if (right.compareTo("Closed") == 0) return 0;
+                }
+            }
         }
-        //return 0;
+        return 0;
     }
 }

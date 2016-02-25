@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClickSortByCreationDate"
-            android:text="Creation Date"/>
+            android:text="Date Requested"/>
         <Button
             android:id="@+id/buttonRequestListDueDate"
             android:layout_width="wrap_content"

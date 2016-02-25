@@ -79,7 +79,7 @@ public class SearchRequestActivity extends BaseActivity  {
 
         //todo: for test
         Intent intent = new Intent(this, SearchRequestListActivity.class);
-        intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST, "[{\"requestID\":\"req123\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160201\", \"createdBy\":\"Alice\", \"progress\":\"Open\", \"title\":\"Shaft broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"hoge hoge hoge\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req456\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160101\", \"createdBy\":\"Alice\", \"progress\":\"Closed\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]}]");
+        intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST, "[{\"requestID\":\"req123\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160201\", \"createdBy\":\"Alice\", \"progress\":\"Open\", \"title\":\"Shaft broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"hoge hoge hoge\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req456\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160501\", \"createdBy\":\"Alice\", \"progress\":\"Closed\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req123\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160101\", \"createdBy\":\"Alice\", \"progress\":\"Open\", \"title\":\"Shaft broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"hoge hoge hoge\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req456\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160301\", \"createdBy\":\"Alice\", \"progress\":\"Working\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]}]");
         startActivity(intent);
     }
 
@@ -109,9 +109,9 @@ public class SearchRequestActivity extends BaseActivity  {
     public void onClickFrom(View view) {
         final DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                mFrom = Utility.convertDateToStringRaw(year, monthOfYear, dayOfMonth);
+                mFrom = Utility.convertDateToStringRaw(year, monthOfYear + 1, dayOfMonth);
                 EditText editText = (EditText)findViewById(R.id.editTextSearchRequestFrom);
-                editText.setText(Utility.convertDateToString(year, monthOfYear, dayOfMonth));
+                editText.setText(Utility.convertDateToString(year, monthOfYear + 1, dayOfMonth));
             }
         }, Integer.parseInt(mFrom.substring(0, 4)), Integer.parseInt(mFrom.substring(4, 6)) - 1, Integer.parseInt(mFrom.substring(6, 8)));
         datePickerDialog.show();
@@ -120,9 +120,9 @@ public class SearchRequestActivity extends BaseActivity  {
     public void onClickTo(View view) {
         final DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                mTo = Utility.convertDateToStringRaw(year, monthOfYear, dayOfMonth);
+                mTo = Utility.convertDateToStringRaw(year, monthOfYear + 1, dayOfMonth);
                 EditText editText = (EditText)findViewById(R.id.editTextSearchRequestTo);
-                editText.setText(Utility.convertDateToString(year, monthOfYear, dayOfMonth));
+                editText.setText(Utility.convertDateToString(year, monthOfYear + 1, dayOfMonth));
             }
         }, Integer.parseInt(mTo.substring(0, 4)), Integer.parseInt(mTo.substring(4, 6)) - 1, Integer.parseInt(mTo.substring(6, 8)));
         datePickerDialog.show();

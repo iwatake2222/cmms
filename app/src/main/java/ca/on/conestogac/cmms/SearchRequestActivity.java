@@ -27,6 +27,8 @@ public class SearchRequestActivity extends BaseActivity  {
         PRIORITY,
     }
 
+    // test
+
     private String mCampus;
     private String mShop;
     private String mProgress;

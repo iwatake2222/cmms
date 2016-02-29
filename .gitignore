@@ -4,4 +4,19 @@
 /.idea/libraries
 .DS_Store
 /build
+/*/build/
 /captures
+.signing/
+.idea/libraries/
+.idea/*.xml
+!.idea/gradle.xml
+*.iml
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

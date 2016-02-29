@@ -24,8 +24,8 @@ public class RequestAdapter extends ArrayAdapter<WorkRequest> {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(R.layout.item_search_request, parent, false);
         ((TextView)convertView.findViewById(R.id.textViewItemSearchRequestTitle)).setText(getItem(position).getTitle());
-        ((TextView)convertView.findViewById(R.id.textViewItemSearchRequestCreationDate)).setText("Creation: " + Utility.convertDateYYYYMMDDToShow(getItem(position).getDateCreated()));
-        ((TextView)convertView.findViewById(R.id.textViewItemSearchRequestDueDate)).setText("Due: " + Utility.convertDateYYYYMMDDToShow(getItem(position).getDueDate()));
+        ((TextView)convertView.findViewById(R.id.textViewItemSearchRequestCreationDate)).setText("Date requested: " + Utility.convertDateYYYYMMDDToShow(getItem(position).getDateRequested()));
+        ((TextView)convertView.findViewById(R.id.textViewItemSearchRequestDueDate)).setText("Due date: " + Utility.convertDateYYYYMMDDToShow(getItem(position).getDateDue()));
         ((TextView)convertView.findViewById(R.id.textViewItemSearchRequestProgress)).setText(getItem(position).getProgress());
         ((TextView)convertView.findViewById(R.id.textViewItemSearchRequestCampus)).setText(getItem(position).getCampus());
         ((TextView)convertView.findViewById(R.id.textViewItemSearchRequestShop)).setText(getItem(position).getShop());

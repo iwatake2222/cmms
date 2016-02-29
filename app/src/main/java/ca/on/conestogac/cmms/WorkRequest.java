@@ -14,14 +14,16 @@ public class WorkRequest {
     private String machineID;
     private String campus;
     private String shop;
-    private String dateCreated;
     private String createdBy;
+    private String completedBy;
+    private String dateRequested;
+    private String dateDue;
+    private String dateResolved;
     private String progress;
     private String title;
     private String requestFor;
     private String status;
     private String priority;
-    private String dueDate;
     private String description;
     private ArrayList<String> relatedMaintenanceLogList;
 
@@ -32,14 +34,16 @@ public class WorkRequest {
             this.machineID = jsonObject.getString("machineID");
             this.campus = jsonObject.getString("campus");
             this.shop = jsonObject.getString("shop");
-            this.dateCreated = jsonObject.getString("dateCreated");
             this.createdBy = jsonObject.getString("createdBy");
+            this.completedBy = jsonObject.getString("completedBy");
+            this.dateRequested = jsonObject.getString("dateRequested");
+            this.dateDue = jsonObject.getString("dateDue");
+            this.dateResolved = jsonObject.getString("dateResolved");
             this.progress = jsonObject.getString("progress");
             this.title = jsonObject.getString("title");
             this.requestFor = jsonObject.getString("requestFor");
             this.status = jsonObject.getString("status");
             this.priority = jsonObject.getString("priority");
-            this.dueDate = jsonObject.getString("dueDate");
             this.description = jsonObject.getString("description");
             JSONArray jsonArray = jsonObject.getJSONArray("relatedMaintenanceLogList");
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -57,14 +61,16 @@ public class WorkRequest {
             jsonParam.put("machineID", machineID);
             jsonParam.put("campus", campus);
             jsonParam.put("shop", shop);
-            jsonParam.put("dateCreated",dateCreated );
             jsonParam.put("createdBy", createdBy);
+            jsonParam.put("completedBy", completedBy);
+            jsonParam.put("dateRequested",dateRequested );
+            jsonParam.put("dateDue",dateDue );
+            jsonParam.put("dateResolved",dateResolved );
             jsonParam.put("progress", progress);
             jsonParam.put("title", title);
             jsonParam.put("requestFor", requestFor);
             jsonParam.put("status", status);
             jsonParam.put("priority", priority);
-            jsonParam.put("dueDate", dueDate);
             jsonParam.put("description", description);
             JSONArray jsonArray = new JSONArray();
             for(int i = 0; i < relatedMaintenanceLogList.size(); i++){
@@ -74,24 +80,72 @@ public class WorkRequest {
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }
-       return jsonParam.toString();
+        return jsonParam.toString();
+    }
+
+    public String generateReport() {
+        // todo: get machine name
+        String str;
+        str = title + "\n";
+        str += "Request ID: " + requestID + "\n";
+        str += "Machine ID: " + machineID + "\n";
+        str += "Location: " + campus + " (" + shop + ")" + "\n";
+        str += "Date requested: " + dateRequested + "\n";
+        str += "Date resolved: " + dateResolved + "\n";
+        str += "Completed by: " + completedBy + "\n";
+        str += "Description: " + description + "\n";
+        return str;
+    }
+
+    static public String generateReportCSVTitle() {
+        // todo: get machine name
+        String str;
+        str  = "Request ID, ";
+        str += "Title, ";
+        str += "Machine ID,";
+        str += "Campups,";
+        str += "Shop,";
+        str += "Date requested,";
+        str += "Date resolved,";
+        str += "Completed by,";
+        str += "Description,";
+        str += "\n";
+        return str;
+    }
+
+    public String generateReportCSV() {
+        // todo: get machine name
+        String str;
+        str  = requestID + ", ";
+        str += title + ", ";
+        str += machineID + ", ";
+        str += campus + ", ";
+        str += shop + ", ";
+        str += dateRequested + ", ";
+        str += dateResolved + ", ";
+        str += completedBy + ", ";
+        str += description + ", ";
+        str += "\n";
+        return str;
     }
 
     @Override
     public String toString() {
         return "WorkRequest{" +
-                "requestID='" + requestID + '\'' +
+                "campus='" + campus + '\'' +
+                ", requestID='" + requestID + '\'' +
                 ", machineID='" + machineID + '\'' +
-                ", campus='" + campus + '\'' +
                 ", shop='" + shop + '\'' +
-                ", dateCreated='" + dateCreated + '\'' +
                 ", createdBy='" + createdBy + '\'' +
+                ", completedBy='" + completedBy + '\'' +
+                ", dateRequested='" + dateRequested + '\'' +
+                ", dateDue='" + dateDue + '\'' +
+                ", dateResolved='" + dateResolved + '\'' +
                 ", progress='" + progress + '\'' +
                 ", title='" + title + '\'' +
                 ", requestFor='" + requestFor + '\'' +
                 ", status='" + status + '\'' +
                 ", priority='" + priority + '\'' +
-                ", dueDate='" + dueDate + '\'' +
                 ", description='" + description + '\'' +
                 ", relatedMaintenanceLogList=" + relatedMaintenanceLogList +
                 '}';
@@ -129,16 +183,40 @@ public class WorkRequest {
         this.campus = campus;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
     public String getCreatedBy() {
         return createdBy;
+    }
+
+    public String getCompletedBy() {
+        return completedBy;
+    }
+
+    public void setCompletedBy(String completedBy) {
+        this.completedBy = completedBy;
+    }
+
+    public String getDateDue() {
+        return dateDue;
+    }
+
+    public void setDateDue(String dateDue) {
+        this.dateDue = dateDue;
+    }
+
+    public String getDateRequested() {
+        return dateRequested;
+    }
+
+    public void setDateRequested(String dateRequested) {
+        this.dateRequested = dateRequested;
+    }
+
+    public String getDateResolved() {
+        return dateResolved;
+    }
+
+    public void setDateResolved(String dateResolved) {
+        this.dateResolved = dateResolved;
     }
 
     public void setCreatedBy(String createdBy) {
@@ -185,13 +263,6 @@ public class WorkRequest {
         this.priority = priority;
     }
 
-    public String getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
-    }
 
     public String getDescription() {
         return description;

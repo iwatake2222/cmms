@@ -12,18 +12,12 @@ import android.widget.ListView;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.FileNotFoundException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 
 public class SearchRequestListActivity extends BaseActivity {
     public static final String EXTRA_REQUEST_LIST = "ca.on.conestogac.cmms.EXTRA_REQUEST_LIST";
+    private static final int MENU_ID_SAVE = 1234;
     private RequestAdapter mRequestAdapter;
 
 
@@ -47,16 +41,14 @@ public class SearchRequestListActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // todo
-        menu.add(Menu.NONE, 123, Menu.NONE, "Save");
+        menu.add(Menu.NONE, MENU_ID_SAVE, Menu.NONE, "Save");
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // todo
-            case 123:
+            case MENU_ID_SAVE:
                 save();
                 return true;
         }
@@ -112,22 +104,26 @@ public class SearchRequestListActivity extends BaseActivity {
         ComparatorProgress.inverse = !ComparatorProgress.inverse;
     }
 
-    // todo
     private void save() {
-        final SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-        final Date date = new Date(System.currentTimeMillis());
-        String fileName = "WorkRequest_" + df.format(date) + ".txt";
-        Utility.logDebug(fileName);
-        String str="abc";
-        try {
-            OutputStream out = openFileOutput(fileName, MODE_PRIVATE);
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(out,"UTF-8"));
-            writer.append(str);
-            writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        boolean ret = false;
+        String report = "";
+        for(int i = 0; i < mRequestAdapter.getCount(); i++) {
+            WorkRequest wr = mRequestAdapter.getItem(i);
+            report += wr.generateReport() + "\n" + "===========" + "\n";
+        }
+        ret = Utility.saveTextFile("Request", "txt", report);
+        if (ret == true) {
+            report = WorkRequest.generateReportCSVTitle();
+            for(int i = 0; i < mRequestAdapter.getCount(); i++) {
+                WorkRequest wr = mRequestAdapter.getItem(i);
+                report += wr.generateReportCSV();
+            }
+            ret = Utility.saveTextFile("Request", "csv", report);
+        }
+        if(ret == true) {
+            Utility.showToast(this, "Saved report");
+        } else{
+            Utility.showToast(this, "Failed to save report");
         }
     }
 
@@ -137,15 +133,14 @@ public class SearchRequestListActivity extends BaseActivity {
     }
 
 
-
 }
 
 class ComparatorDate implements Comparator<WorkRequest> {
     static Boolean inverse = false;
     @Override
     public int compare(WorkRequest lhs, WorkRequest rhs) {
-        int left = Integer.parseInt(lhs.getDateCreated());
-        int right = Integer.parseInt(rhs.getDateCreated());
+        int left = Integer.parseInt(lhs.getDateRequested());
+        int right = Integer.parseInt(rhs.getDateRequested());
         if(inverse) {
             if (left > right) return 1;
             if (left < right) return -1;
@@ -161,8 +156,8 @@ class ComparatorDueDate implements Comparator<WorkRequest> {
     static Boolean inverse = false;
     @Override
     public int compare(WorkRequest lhs, WorkRequest rhs) {
-        int left = Integer.parseInt(lhs.getDueDate());
-        int right = Integer.parseInt(rhs.getDueDate());
+        int left = Integer.parseInt(lhs.getDateDue());
+        int right = Integer.parseInt(rhs.getDateDue());
         if(inverse) {
             if (left > right) return 1;
             if (left < right) return -1;

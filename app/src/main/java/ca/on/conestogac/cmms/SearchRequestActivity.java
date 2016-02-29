@@ -71,8 +71,8 @@ public class SearchRequestActivity extends BaseActivity  {
             jsonParam.put("shop", mShop);
             jsonParam.put("progress",mProgress );
             jsonParam.put("status", mStatus);
-            jsonParam.put("creationDateFrom", mFrom);
-            jsonParam.put("creationDateTo", mTo);
+            jsonParam.put("dateRequestedFrom", mFrom);
+            jsonParam.put("dateRequestedTo", mTo);
             jsonParam.put("keywords", editTextKeywords.getText().toString().trim());
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
@@ -81,7 +81,7 @@ public class SearchRequestActivity extends BaseActivity  {
 
         //todo: for test
         Intent intent = new Intent(this, SearchRequestListActivity.class);
-        intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST, "[{\"requestID\":\"req123\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160201\", \"createdBy\":\"Alice\", \"progress\":\"Open\", \"title\":\"Shaft broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"hoge hoge hoge\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req456\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160501\", \"createdBy\":\"Alice\", \"progress\":\"Closed\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req123\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160101\", \"createdBy\":\"Alice\", \"progress\":\"Open\", \"title\":\"Shaft broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"hoge hoge hoge\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req456\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"dateCreated\":\"20160301\", \"createdBy\":\"Alice\", \"progress\":\"Working\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"dueDate\":\"20160401\", \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]}]");
+        intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST, "[{\"requestID\":\"req123\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"createdBy\":\"Alice\",\"completedBy\":\"Bob\", \"dateRequested\":\"20160224\",\"dateDue\":\"20160424\",\"dateResolved\":\"\",\"progress\":\"Open\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"description\":\"hoge hoge hoge\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req934\",\"machineID\":\"435\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"createdBy\":\"Alice\",\"completedBy\":\"Edward\",\"dateRequested\":\"20160104\",\"dateDue\":\"20160120\",\"dateResolved\":\"\", \"progress\":\"Working\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\",  \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req456\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"createdBy\":\"Alice\",\"completedBy\":\"Fred\",\"dateRequested\":\"20160104\",\"dateDue\":\"20160120\",\"dateResolved\":\"20160118\", \"progress\":\"Closed\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\",  \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]}]");
         startActivity(intent);
     }
 

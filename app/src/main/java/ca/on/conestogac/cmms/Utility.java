@@ -1,8 +1,14 @@
 package ca.on.conestogac.cmms;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by user on 2016-02-19.
@@ -80,5 +86,31 @@ public class Utility {
     public static String convertDateYYYYMMDDToShow (String orgDate) {
         String str = orgDate.substring(0, 4) + "/" + orgDate.substring(4, 6) + "/" + orgDate.substring(6, 8);
         return str;
+    }
+
+    public static boolean saveTextFile (String title, String fileType, String text) {
+        String saveDir = Environment.getExternalStorageDirectory().getPath() + "/" + "CMMS";
+        File file = new File(saveDir);
+        if (!file.exists()) {
+            if (!file.mkdir()) {
+                Utility.logError(saveDir.toString());
+                return false;
+            }
+        }
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String filename = saveDir + "/" + title + sf.format(cal.getTime()) + "." + fileType;
+
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(filename, true);
+            fos.write(text.getBytes());
+            fos.close();
+        } catch (Exception e) {
+            Utility.logError(e.getMessage());
+            return false;
+        }
+        fos = null;
+        return true;
     }
 }

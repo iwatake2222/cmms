@@ -8,6 +8,7 @@
 /captures
 .signing/
 .idea/libraries/
+.idea/.name
 .idea/*.xml
 !.idea/gradle.xml
 *.iml

@@ -35,12 +35,14 @@ public abstract class BaseActivity extends AppCompatActivity  implements LoaderM
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 return true;
+            /*
             case R.id.action_logout:
                 // todo: confirm
                 // todo: call logout -> no. do this in login activity
                 Intent intent2 = new Intent(this, LoginActivity.class);
                 startActivity(intent2);
                 return true;
+            */
             case R.id.action_about:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(getString(R.string.text_about)).setPositiveButton("OK", new DialogInterface.OnClickListener() {

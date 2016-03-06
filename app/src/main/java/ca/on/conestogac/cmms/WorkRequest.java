@@ -100,8 +100,8 @@ public class WorkRequest {
     static public String generateReportCSVTitle() {
         // todo: get machine name
         String str;
-        str  = "Request ID, ";
-        str += "Title, ";
+        str  = "Request ID,";
+        str += "Title,";
         str += "Machine ID,";
         str += "Campups,";
         str += "Shop,";
@@ -116,15 +116,15 @@ public class WorkRequest {
     public String generateReportCSV() {
         // todo: get machine name
         String str;
-        str  = requestID + ", ";
-        str += title + ", ";
-        str += machineID + ", ";
-        str += campus + ", ";
-        str += shop + ", ";
-        str += dateRequested + ", ";
-        str += dateResolved + ", ";
-        str += completedBy + ", ";
-        str += description + ", ";
+        str  = Utility.escapeForCSV(requestID) + ",";
+        str += Utility.escapeForCSV(title) + ",";
+        str += Utility.escapeForCSV(machineID) + ",";
+        str += Utility.escapeForCSV(campus) + ",";
+        str += Utility.escapeForCSV(shop) + ",";
+        str += Utility.escapeForCSV(dateRequested) + ",";
+        str += Utility.escapeForCSV(dateResolved) + ",";
+        str += Utility.escapeForCSV(completedBy) + ",";
+        str += Utility.escapeForCSV(description) + ",";
         str += "\n";
         return str;
     }

@@ -79,10 +79,12 @@ public class SearchRequestActivity extends BaseActivity  {
         }
         callAPI("SearchWorkRequest", jsonParam);
 
-        //todo: for test
+        // for test without server
+        /*
         Intent intent = new Intent(this, SearchRequestListActivity.class);
         intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST, "[{\"requestID\":\"req123\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"createdBy\":\"Alice\",\"completedBy\":\"Bob\", \"dateRequested\":\"20160224\",\"dateDue\":\"20160424\",\"dateResolved\":\"\",\"progress\":\"Open\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\", \"description\":\"hoge hoge hoge\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req934\",\"machineID\":\"435\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"createdBy\":\"Alice\",\"completedBy\":\"Edward\",\"dateRequested\":\"20160104\",\"dateDue\":\"20160120\",\"dateResolved\":\"\", \"progress\":\"Working\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\",  \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]},{\"requestID\":\"req456\",\"machineID\":\"1234\", \"campus\":\"Doon\",\"shop\":\"WoodWorking\",\"createdBy\":\"Alice\",\"completedBy\":\"Fred\",\"dateRequested\":\"20160104\",\"dateDue\":\"20160120\",\"dateResolved\":\"20160118\", \"progress\":\"Closed\", \"title\":\"motor broken\", \"requestFor\":\"Maintenance\", \"status\":\"Safety issue\", \"priority\":\"High\",  \"description\":\"fuga fuga fuga\", \"relatedMaintenanceLogList\":[\"log1234\", \"log5677\"]}]");
         startActivity(intent);
+        */
     }
 
     private void retrieveRequestList(JSONArray jsonArray) {
@@ -229,17 +231,19 @@ public class SearchRequestActivity extends BaseActivity  {
             }
         });
 
-        // todo: delete
-        initCampusList();
-        initShopList();
+        // for test without server
+        //initCampusList();
+        //initShopList();
         initProgressList();
-        initStatusList();
-        initPriorityList();
+        //initStatusList();
+        //initPriorityList();
+
 
         // need to call by serial
         // call GetCampusList at the last to avoid double call
         // GetProgressList -> GetStatusList -> GetPriorityList -> GetCampusList -> GetShopList
-        callAPIwoParam("GetProgressList");
+        //callAPIwoParam("GetProgressList");
+        callAPIwoParam("GetStatusList");
     }
 
 

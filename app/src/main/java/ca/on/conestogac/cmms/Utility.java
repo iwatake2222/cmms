@@ -1,7 +1,12 @@
 package ca.on.conestogac.cmms;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,6 +14,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by user on 2016-02-19.
@@ -88,7 +95,21 @@ public class Utility {
         return str;
     }
 
-    public static boolean saveTextFile (String title, String fileType, String text) {
+    public static boolean saveTextFile (Activity activity, String title, String fileType, String text) {
+        // for Android 6 and later. need to get permission in addition to manifest
+        if (ContextCompat.checkSelfPermission(
+                activity,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            String[] permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions(
+                    activity,
+                    permissions,
+                    0);
+            showToast(activity, "Sorry, please save it again.");
+            return false;
+        }
+
         String saveDir = Environment.getExternalStorageDirectory().getPath() + "/" + "CMMS";
         File file = new File(saveDir);
         if (!file.exists()) {
@@ -113,4 +134,15 @@ public class Utility {
         fos = null;
         return true;
     }
+
+    public static String escapeForCSV (String str) {
+        if(str.contains(",")){
+            String regex = "\"";
+            Pattern p = Pattern.compile(regex);
+            Matcher m = p.matcher(str);
+            return "\"" + m.replaceAll("\"\"") + "\"";
+        }
+        return str;
+    }
+
 }

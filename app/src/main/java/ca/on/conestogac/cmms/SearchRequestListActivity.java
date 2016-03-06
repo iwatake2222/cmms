@@ -111,14 +111,14 @@ public class SearchRequestListActivity extends BaseActivity {
             WorkRequest wr = mRequestAdapter.getItem(i);
             report += wr.generateReport() + "\n" + "===========" + "\n";
         }
-        ret = Utility.saveTextFile("Request", "txt", report);
+        ret = Utility.saveTextFile(this, "Request", "txt", report);
         if (ret == true) {
             report = WorkRequest.generateReportCSVTitle();
             for(int i = 0; i < mRequestAdapter.getCount(); i++) {
                 WorkRequest wr = mRequestAdapter.getItem(i);
                 report += wr.generateReportCSV();
             }
-            ret = Utility.saveTextFile("Request", "csv", report);
+            ret = Utility.saveTextFile(this, "Request", "csv", report);
         }
         if(ret == true) {
             Utility.showToast(this, "Saved report");

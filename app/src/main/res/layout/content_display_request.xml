@@ -228,12 +228,12 @@
                             android:layout_weight="1"
                             android:padding="3dp"
                             android:text="Request For" />
-
-                        <EditText
-                            android:id="@+id/editTextRequestFor"
-                            android:layout_width="wrap_content"
+                        <Spinner
+                            android:id="@+id/spinnerDisplayRequestRequestFor"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2" />
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="2"/>
                     </LinearLayout>
 
                     <LinearLayout

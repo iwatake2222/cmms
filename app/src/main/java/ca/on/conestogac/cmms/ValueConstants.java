@@ -11,6 +11,7 @@ public class ValueConstants {
     public static final int SERVER_TIMEOUT = 1000;
 
     public static final String ITEM_ANY = "Any";
+    public static final String ITEM_NOTSELECTED = "---";
 
     public static final String RET_OK = "ok";
     public static final String ERROR_FORMAT = "error_format";

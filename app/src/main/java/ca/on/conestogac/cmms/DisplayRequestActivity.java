@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -13,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -33,6 +38,7 @@ public class DisplayRequestActivity extends BaseActivity {
     private String mPriority;
     private String mMachineIsRequired;
     private String mDescription;
+    private ArrayAdapter<String> mAdapterRequestFor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +87,12 @@ public class DisplayRequestActivity extends BaseActivity {
                 TextView textViewTest = (TextView) findViewById(R.id.textViewTest);
                 textViewTest.setText("Create Work-Request");
 
-                Calendar now = new GregorianCalendar();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                Calendar calendar = Calendar.getInstance();
 
                 EditText editTextDateCreated = (EditText) findViewById(R.id.editTextDateCreated);
-                editTextDateCreated.setText(sdf.format(now.getTime()));
+                editTextDateCreated.setText(Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR),
+                                                                            calendar.get(Calendar.MONTH),
+                                                                            calendar.get(Calendar.DAY_OF_MONTH)));
                 // TODO: hide create maintenance log button
             }
             else {
@@ -96,6 +103,8 @@ public class DisplayRequestActivity extends BaseActivity {
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
+
+        initListElements();
     }
 
     private void fillWorkRequestFields(WorkRequest workRequest) {
@@ -114,8 +123,8 @@ public class DisplayRequestActivity extends BaseActivity {
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         editTextTitle.setText(workRequest.getTitle());
 
-        EditText editTextRequestFor = (EditText) findViewById(R.id.editTextRequestFor);
-        editTextRequestFor.setText(workRequest.getRequestFor());
+        Spinner spinnerDisplayRequestRequestFor = (Spinner)findViewById(R.id.spinnerDisplayRequestRequestFor);
+        spinnerDisplayRequestRequestFor.setSelection(mAdapterRequestFor.getPosition(workRequest.getRequestFor()));
 
         EditText editTextStatus = (EditText) findViewById(R.id.editTextStatus);
         editTextStatus.setText(workRequest.getStatus());
@@ -147,8 +156,8 @@ public class DisplayRequestActivity extends BaseActivity {
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         mTitle = editTextTitle.getText().toString().trim();
 
-        EditText editTextRequestFor = (EditText) findViewById(R.id.editTextRequestFor);
-        mRequestFor = editTextRequestFor.getText().toString().trim();
+//        EditText editTextRequestFor = (EditText) findViewById(R.id.editTextRequestFor);
+//        mRequestFor = editTextRequestFor.getText().toString().trim();
 
         EditText editTextStatus = (EditText) findViewById(R.id.editTextStatus);
         mStatus = editTextStatus.getText().toString().trim();
@@ -163,6 +172,29 @@ public class DisplayRequestActivity extends BaseActivity {
         mDescription = editTextDescriptionOfRequest.getText().toString().trim();
     }
 
+    private void initListElements() {
+        mAdapterRequestFor = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        mAdapterRequestFor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner spinnerRequestFor = (Spinner)findViewById(R.id.spinnerDisplayRequestRequestFor);
+        spinnerRequestFor.setAdapter(mAdapterRequestFor);
+        spinnerRequestFor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                Spinner spinner = (Spinner) parent;
+                String item = (String) spinner.getSelectedItem();
+                mRequestFor = item;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        callAPIwoParam("GetRequestForList");
+    }
+
     @Override
     void onAPIResponse(String jsonString) {
         try {
@@ -171,13 +203,37 @@ public class DisplayRequestActivity extends BaseActivity {
             if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
                 // do something if needed when error happens
             }
-            if(jsonObject.has("createdRequestID")){
+            if(jsonObject.has("createdRequestID")) {
                 String createdRequestID = jsonObject.getString("createdRequestID");
                 Utility.showToast(this, "Request mock created with ID: " + createdRequestID);
                 // TODO: redirect to machine information?
             }
+
+            if(jsonObject.has("requestForList")) {
+                fillRequestForSpinner(jsonObject);
+            }
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
+        }
+    }
+
+    private void fillRequestForSpinner(JSONObject jsonObject) throws JSONException {
+        JSONArray jsonArray = jsonObject.getJSONArray("requestForList");
+        ArrayList<String> items = new ArrayList<>();
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                items.add(jsonArray.getString(i));
+            }
+        } catch (JSONException e) {
+            Utility.logError(e.getMessage());
+        }
+
+        // Fill requestFor list
+        mAdapterRequestFor.clear();
+        mAdapterRequestFor.add(ValueConstants.ITEM_NOTSELECTED);
+
+        for (int i = 0; i < items.size(); i++) {
+            mAdapterRequestFor.add(items.get(i));
         }
     }
 

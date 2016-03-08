@@ -66,6 +66,7 @@ public class SearchRequestListActivity extends BaseActivity {
                 String selectedRequest = mRequestAdapter.getItem(position).createJson();
                 Intent intent = new Intent(SearchRequestListActivity.this, DisplayRequestActivity.class);
                 intent.putExtra(DisplayRequestActivity.EXTRA_REQUEST, selectedRequest);
+                intent.putExtra(DisplayRequestActivity.WORK_REQUEST_MODE, DisplayRequestActivity.MODE_VIEW);
                 startActivity(intent);
             }
         });
@@ -82,12 +83,18 @@ public class SearchRequestListActivity extends BaseActivity {
         }
     }
 
+    public void onClickSortByTitle(View view) {
+        mRequestAdapter.sort(new ComparatorTitle());
+        ListView listViewItems = (ListView)findViewById(R.id.listViewRequestList);
+        listViewItems.setAdapter(mRequestAdapter);
+        ComparatorTitle.inverse = !ComparatorTitle.inverse;
+    }
+
     public void onClickSortByCreationDate(View view) {
         mRequestAdapter.sort(new ComparatorDate());
         ListView listViewItems = (ListView)findViewById(R.id.listViewRequestList);
         listViewItems.setAdapter(mRequestAdapter);
         ComparatorDate.inverse = !ComparatorDate.inverse;
-
     }
 
     public void onClickSortByDueDate(View view) {
@@ -133,6 +140,19 @@ public class SearchRequestListActivity extends BaseActivity {
     }
 
 
+
+}
+
+class ComparatorTitle implements Comparator<WorkRequest> {
+    static Boolean inverse = false;
+    @Override
+    public int compare(WorkRequest lhs, WorkRequest rhs) {
+        if(inverse) {
+            return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
+        } else {
+            return rhs.getTitle().compareToIgnoreCase(lhs.getTitle());
+        }
+    }
 }
 
 class ComparatorDate implements Comparator<WorkRequest> {

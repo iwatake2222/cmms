@@ -9,12 +9,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".LoginActivity"
             android:label= "@string/app_name"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,56 +25,67 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".SearchMachineActivity"
             android:label="@string/title_activity_search_machine"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".SearchRequestActivity"
             android:label="@string/title_activity_search_request"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".BusinessReportActivity"
             android:label="@string/title_activity_business_report"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".SearchMachineQRActivity"
             android:label="@string/title_activity_search_machine_qr"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".SearchMachineListActivity"
             android:label="@string/title_activity_search_machine_list"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".MachineInformationActivity"
             android:label="@string/title_activity_machine_information"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".SearchRequestListActivity"
             android:label="@string/title_activity_search_request_list"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".DisplayRequestActivity"
             android:label="@string/title_activity_display_request"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".DisplayMaintenanceLogActivity"
             android:label="@string/title_activity_display_maintenance_log"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".MaintenanceLogListActivity"
             android:label="@string/title_activity_maintenance_log_list"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

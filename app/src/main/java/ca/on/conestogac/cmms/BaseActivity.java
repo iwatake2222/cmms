@@ -31,6 +31,9 @@ public abstract class BaseActivity extends AppCompatActivity  implements LoaderM
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_back:
+                finish();
+                return true;
             case R.id.action_home:
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);

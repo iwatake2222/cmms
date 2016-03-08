@@ -224,8 +224,8 @@ public class DisplayRequestActivity extends BaseActivity {
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         mTitle = editTextTitle.getText().toString().trim();
 
-//        EditText editTextRequestFor = (EditText) findViewById(R.id.editTextRequestFor);
-//        mRequestFor = editTextRequestFor.getText().toString().trim();
+        Spinner spinnerDisplayRequestRequestFor = (Spinner) findViewById(R.id.spinnerDisplayRequestRequestFor);
+        mRequestFor = spinnerDisplayRequestRequestFor.getSelectedItem().toString().trim();
 
         EditText editTextStatus = (EditText) findViewById(R.id.editTextStatus);
         mStatus = editTextStatus.getText().toString().trim();
@@ -285,6 +285,13 @@ public class DisplayRequestActivity extends BaseActivity {
                     fillWorkRequestFields(workRequest);
                 }
             }
+
+            if (jsonObject.has("modifiedRequestID")) {
+                String modifiedRequestID = jsonObject.getString("modifiedRequestID");
+                Utility.showToast(this, "Request mock modified for ID: " + modifiedRequestID);
+                // TODO: redirect to machine information?
+            }
+
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
@@ -343,10 +350,36 @@ public class DisplayRequestActivity extends BaseActivity {
     }
 
     public void onClickCreateRequestActivitySaveEditedRequest(View view) {
+        getWorkRequestFields();
+        JSONObject jsonParam = new JSONObject();
 
+        try {
+            jsonParam.put("requestID", workRequest.getRequestID());
+            jsonParam.put("userID", User.getInstance().userID);
+            // TODO fill machine ID
+            jsonParam.put("machineID", "123");
+            jsonParam.put("createdBy", mCreatedBy);
+            jsonParam.put("dateRequested", mDateCreated);
+            jsonParam.put("dateDue", mRequestFor);
+            // TODO: leave it blank?
+            jsonParam.put("dateResolved", "");
+            jsonParam.put("progress", mProgress);
+            jsonParam.put("title", mTitle);
+            jsonParam.put("requestFor", mMachineIsRequired);
+            jsonParam.put("status", mStatus);
+            jsonParam.put("priority", mPriority);
+            jsonParam.put("description", mDescription);
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+
+        callAPI("ModifyWorkRequest", jsonParam);
     }
 
     public void onClickCreateRequestActivityBeginEditRequest(View view) {
-
+        Intent intent = new Intent(DisplayRequestActivity.this, DisplayRequestActivity.class);
+        intent.putExtra(DisplayRequestActivity.EXTRA_REQUEST, receivedRequest);
+        intent.putExtra(DisplayRequestActivity.WORK_REQUEST_MODE, DisplayRequestActivity.MODE_EDIT);
+        startActivity(intent);
     }
 }

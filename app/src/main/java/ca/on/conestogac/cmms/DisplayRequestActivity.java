@@ -67,6 +67,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 // edit mode
                 TextView textViewTest = (TextView) findViewById(R.id.textViewTest);
                 setTitle("Edit Work-Request");
+                currentMode = MODE_EDIT;
 
                 WorkRequest workRequest = new WorkRequest(new JSONObject(request));
 
@@ -79,6 +80,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 // view-mode
                 TextView textViewTest = (TextView) findViewById(R.id.textViewTest);
                 setTitle("Work - Request Details");
+                currentMode = MODE_VIEW;
 
                 // TODO: setup screen to view mode
                 workRequest = new WorkRequest(new JSONObject(request));
@@ -89,6 +91,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 // TODO: create JSON for machine ID and use this to create the work request
                 TextView textViewTest = (TextView) findViewById(R.id.textViewTest);
                 setTitle("Create Work-Request");
+                currentMode = MODE_CREATE;
 
                 Calendar calendar = Calendar.getInstance();
 
@@ -217,7 +220,10 @@ public class DisplayRequestActivity extends BaseActivity {
 
             if(jsonObject.has("requestForList")) {
                 fillRequestForSpinner(jsonObject);
-                fillWorkRequestFields(workRequest);
+
+                if (currentMode != MODE_CREATE) {
+                    fillWorkRequestFields(workRequest);
+                }
             }
         } catch (JSONException e) {
             Utility.logError(e.getMessage());

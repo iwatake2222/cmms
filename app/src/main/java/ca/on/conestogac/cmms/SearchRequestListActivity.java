@@ -42,6 +42,9 @@ public class SearchRequestListActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE, MENU_ID_SAVE, Menu.NONE, "Save");
+        MenuItem item = menu.findItem(MENU_ID_SAVE);
+        item.setIcon(android.R.drawable.ic_menu_save);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class DisplayRequestActivity extends BaseActivity {
     private String mMachineIsRequired;
     private String mDescription;
     private ArrayAdapter<String> mAdapterRequestFor;
+    private WorkRequest workRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class DisplayRequestActivity extends BaseActivity {
         String request = getIntent().getStringExtra(EXTRA_REQUEST);
         String workRequestMode = getIntent().getStringExtra(WORK_REQUEST_MODE);
 
+        initListElements();
+
         // TODO: refactor into specific methods
         try {
             if (request == null || workRequestMode == null)
@@ -62,11 +66,11 @@ public class DisplayRequestActivity extends BaseActivity {
             {
                 // edit mode
                 TextView textViewTest = (TextView) findViewById(R.id.textViewTest);
-                textViewTest.setText("Edit Work-Request");
+                setTitle("Edit Work-Request");
 
                 WorkRequest workRequest = new WorkRequest(new JSONObject(request));
 
-                fillWorkRequestFields(workRequest);
+                //fillWorkRequestFields(workRequest);
 
                 Utility.logDebug(workRequest.toString());
             }
@@ -74,18 +78,17 @@ public class DisplayRequestActivity extends BaseActivity {
             {
                 // view-mode
                 TextView textViewTest = (TextView) findViewById(R.id.textViewTest);
-                textViewTest.setText("Work-Request Details");
+                setTitle("Work - Request Details");
 
                 // TODO: setup screen to view mode
-                WorkRequest workRequest = new WorkRequest(new JSONObject(request));
-                fillWorkRequestFields(workRequest);
+                workRequest = new WorkRequest(new JSONObject(request));
             }
             else if (workRequestMode.equals(MODE_CREATE))
             {
                 // create
                 // TODO: create JSON for machine ID and use this to create the work request
                 TextView textViewTest = (TextView) findViewById(R.id.textViewTest);
-                textViewTest.setText("Create Work-Request");
+                setTitle("Create Work-Request");
 
                 Calendar calendar = Calendar.getInstance();
 
@@ -94,6 +97,8 @@ public class DisplayRequestActivity extends BaseActivity {
                                                                             calendar.get(Calendar.MONTH),
                                                                             calendar.get(Calendar.DAY_OF_MONTH)));
                 // TODO: hide create maintenance log button
+                LinearLayout linearLayoutRequestID = (LinearLayout)findViewById(R.id.linearLayoutDisplayRequestRequestID);
+                linearLayoutRequestID.setVisibility(View.GONE);
             }
             else {
                 // unrecognized mode
@@ -103,8 +108,6 @@ public class DisplayRequestActivity extends BaseActivity {
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
-
-        initListElements();
     }
 
     private void fillWorkRequestFields(WorkRequest workRequest) {
@@ -123,8 +126,11 @@ public class DisplayRequestActivity extends BaseActivity {
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         editTextTitle.setText(workRequest.getTitle());
 
-        Spinner spinnerDisplayRequestRequestFor = (Spinner)findViewById(R.id.spinnerDisplayRequestRequestFor);
-        spinnerDisplayRequestRequestFor.setSelection(mAdapterRequestFor.getPosition(workRequest.getRequestFor()));
+        int requestForPosition = mAdapterRequestFor.getPosition(workRequest.getRequestFor());
+        if (requestForPosition != -1) {
+            Spinner spinnerDisplayRequestRequestFor = (Spinner) findViewById(R.id.spinnerDisplayRequestRequestFor);
+            spinnerDisplayRequestRequestFor.setSelection(requestForPosition);
+        }
 
         EditText editTextStatus = (EditText) findViewById(R.id.editTextStatus);
         editTextStatus.setText(workRequest.getStatus());
@@ -211,6 +217,7 @@ public class DisplayRequestActivity extends BaseActivity {
 
             if(jsonObject.has("requestForList")) {
                 fillRequestForSpinner(jsonObject);
+                fillWorkRequestFields(workRequest);
             }
         } catch (JSONException e) {
             Utility.logError(e.getMessage());

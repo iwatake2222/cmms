@@ -137,12 +137,30 @@
                             android:layout_weight="1"
                             android:width="0dp" />
 
-                        <EditText
-                            android:id="@+id/editTextDateCreated"
+
+                        <ViewSwitcher
+                            android:id="@+id/viewSwitcherDateCreated"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:measureAllChildren="false"
                             android:layout_weight="1"
-                            android:width="0dp" />
+                            android:padding="0dp">
+                            <EditText
+                                android:layout_gravity="right"
+                                android:id="@+id/editTextDateCreated"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:width="0dp" />
+                            <TextView
+                                android:id="@+id/textViewDateCreated"
+                                android:layout_height="wrap_content"
+                                android:padding="3dp"
+                                android:text="DateCreated"
+                                android:layout_weight="2"
+                                android:layout_gravity="right"
+                                android:layout_width="match_parent"/>
+                        </ViewSwitcher>
                     </LinearLayout>
 
                     <LinearLayout
@@ -164,11 +182,28 @@
                             android:text="Created By"
                             android:layout_weight="1" />
 
-                        <EditText
-                            android:id="@+id/editTextCreatedBy"
+                        <ViewSwitcher
+                            android:id="@+id/viewSwitcherCreatedBy"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:measureAllChildren="false"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+                            <EditText
+                                android:layout_gravity="right"
+                                android:id="@+id/editTextCreatedBy"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:layout_width="match_parent"/>
+                            <TextView
+                                android:id="@+id/textViewCreatedBy"
+                                android:layout_height="wrap_content"
+                                android:padding="3dp"
+                                android:text="Request ID"
+                                android:layout_weight="2"
+                                android:layout_gravity="right"
+                                android:layout_width="match_parent"/>
+                        </ViewSwitcher>
                     </LinearLayout>
 
                     <LinearLayout
@@ -190,11 +225,29 @@
                             android:text="Progress"
                             android:layout_weight="1" />
 
-                        <EditText
-                            android:id="@+id/editTextProgress"
+                        <ViewSwitcher
+                            android:id="@+id/viewSwitcherProgress"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:measureAllChildren="false"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+                            <EditText
+                                android:layout_gravity="right"
+                                android:id="@+id/editTextProgress"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:layout_width="match_parent"/>
+                            <TextView
+                                android:id="@+id/textViewProgress"
+                                android:layout_height="wrap_content"
+                                android:padding="3dp"
+                                android:text="Request ID"
+                                android:layout_weight="2"
+                                android:layout_gravity="right"
+                                android:layout_width="match_parent"/>
+                        </ViewSwitcher>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -215,12 +268,29 @@
                             android:padding="3dp"
                             android:text="Title"
                             android:layout_weight="1" />
-
-                        <EditText
-                            android:id="@+id/editTextTitle"
+                        <ViewSwitcher
+                            android:id="@+id/viewSwitcherTitle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:measureAllChildren="false"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+                            <EditText
+                                android:layout_gravity="right"
+                                android:id="@+id/editTextTitle"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:layout_width="match_parent"/>
+                            <TextView
+                                android:id="@+id/textViewTitle"
+                                android:layout_height="wrap_content"
+                                android:padding="3dp"
+                                android:text="Request ID"
+                                android:layout_weight="2"
+                                android:layout_gravity="right"
+                                android:layout_width="match_parent"/>
+                        </ViewSwitcher>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -241,12 +311,31 @@
                             android:layout_weight="1"
                             android:padding="3dp"
                             android:text="Request For" />
-                        <Spinner
-                            android:id="@+id/spinnerDisplayRequestRequestFor"
+
+                        <ViewSwitcher
+                            android:id="@+id/viewSwitcherRequestFor"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="1"/>
+                            android:measureAllChildren="false"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+                            <Spinner
+                                android:id="@+id/spinnerDisplayRequestRequestFor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="2"/>
+                            <TextView
+                                android:id="@+id/textViewRequestFor"
+                                android:layout_height="wrap_content"
+                                android:padding="3dp"
+                                android:text="Request ID"
+                                android:layout_weight="2"
+                                android:layout_gravity="right"
+                                android:layout_width="match_parent"/>
+                        </ViewSwitcher>
+
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -268,11 +357,30 @@
                             android:padding="3dp"
                             android:text="Status" />
 
-                        <EditText
-                            android:id="@+id/editTextStatus"
+                        <ViewSwitcher
+                            android:id="@+id/viewSwitcherStatus"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:measureAllChildren="false"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+                            <EditText
+                                android:layout_gravity="right"
+                                android:id="@+id/editTextStatus"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:layout_width="match_parent"/>
+                            <TextView
+                                android:id="@+id/textViewStatus"
+                                android:layout_height="wrap_content"
+                                android:padding="3dp"
+                                android:text="Request ID"
+                                android:layout_weight="2"
+                                android:layout_gravity="right"
+                                android:layout_width="match_parent"/>
+                        </ViewSwitcher>
+
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -294,11 +402,29 @@
                             android:padding="3dp"
                             android:text="Priority" />
 
-                        <EditText
-                            android:id="@+id/editTextPriority"
+                        <ViewSwitcher
+                            android:id="@+id/viewSwitcherPriority"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:measureAllChildren="false"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+                            <EditText
+                                android:layout_gravity="right"
+                                android:id="@+id/editTextPriority"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:layout_width="match_parent"/>
+                            <TextView
+                                android:id="@+id/textViewPriority"
+                                android:layout_height="wrap_content"
+                                android:padding="3dp"
+                                android:text="Request ID"
+                                android:layout_weight="2"
+                                android:layout_gravity="right"
+                                android:layout_width="match_parent"/>
+                        </ViewSwitcher>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -324,12 +450,30 @@
                             android:maxLines="5"
                             android:scrollHorizontally="false"/>
 
-                        <EditText
-                            android:id="@+id/editTextMachineIsRequired"
+                        <ViewSwitcher
+                            android:id="@+id/viewSwitcherMachineIsRequired"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:measureAllChildren="false"
                             android:layout_weight="1"
-                            android:layout_gravity="right"/>
+                            android:padding="0dp">
+                            <EditText
+                                android:layout_gravity="right"
+                                android:id="@+id/editTextMachineIsRequired"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:layout_width="match_parent"/>
+                            <TextView
+                                android:id="@+id/textViewMachineIsRequired"
+                                android:layout_height="wrap_content"
+                                android:padding="3dp"
+                                android:text="Request ID"
+                                android:layout_weight="2"
+                                android:layout_gravity="right"
+                                android:layout_width="match_parent"/>
+                        </ViewSwitcher>
+
+
                     </LinearLayout>
                 </LinearLayout>
 
@@ -362,13 +506,6 @@
                     android:ems="10"
                     android:inputType="textMultiLine" />
 
-                <TextView
-                    android:id="@+id/textViewTest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="Medium Text"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
         </LinearLayout>
 
@@ -383,13 +520,8 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:weightSum="3">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Buttons" />
-
             <Button
-                android:id="@+id/buttonDisplayRequestBack"
+                android:id="@+id/buttonDisplayRequestCreateMaintenanceLog"
                 android:layout_width="218dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -401,7 +533,22 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:onClick="onClickCreateRequestActivityCreateRequest"
-                android:text="Create Work Request" />
+                android:text="Save (New)" />
+            <Button
+                android:id="@+id/buttonDisplayRequestSaveEditedRequest"
+                android:layout_width="218dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickCreateRequestActivitySaveEditedRequest"
+                android:text="Save (Edit)" />
+
+            <Button
+                android:id="@+id/buttonDisplayRequestEditRequest"
+                android:layout_width="218dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickCreateRequestActivityBeginEditRequest"
+                android:text="Edit" />
         </LinearLayout>
 
 

@@ -17,6 +17,9 @@ public class MachineInformationActivity extends BaseActivity {
 
     public void onClickCreateRequest(View view) {
         Intent intent = new Intent(this, DisplayRequestActivity.class);
+        // TODO: get actual machine information JSON and sent to activity
+        intent.putExtra(DisplayRequestActivity.EXTRA_REQUEST, "machine information");
+        intent.putExtra(DisplayRequestActivity.WORK_REQUEST_MODE, DisplayRequestActivity.MODE_CREATE);
         startActivity(intent);
     }
 

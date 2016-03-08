@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -83,12 +84,31 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Request ID" />
+                            android:text="Request ID"
+                            android:layout_weight="1" />
 
-                        <EditText
-                            android:id="@+id/editTextRequestID"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" />
+                        <ViewSwitcher
+                            android:id="@+id/viewSwitcherRequestID"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:measureAllChildren="false">
+                            <EditText
+                                android:layout_gravity="right"
+                                android:id="@+id/editTextRequestID"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:layout_width="wrap_content"/>
+                            <TextView
+                                android:id="@+id/textViewRequestID"
+                                android:layout_height="wrap_content"
+                                android:padding="3dp"
+                                android:text="Request ID"
+                                android:layout_weight="2"
+                                android:layout_gravity="right"
+                                android:layout_width="wrap_content"/>
+                        </ViewSwitcher>
+
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -106,12 +126,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Date Created" />
+                            android:text="Date Created"
+                            android:layout_weight="1" />
 
                         <EditText
                             android:id="@+id/editTextDateCreated"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -129,12 +151,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Created By" />
+                            android:text="Created By"
+                            android:layout_weight="1" />
 
                         <EditText
                             android:id="@+id/editTextCreatedBy"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -152,12 +176,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Progress" />
+                            android:text="Progress"
+                            android:layout_weight="1" />
 
                         <EditText
                             android:id="@+id/editTextProgress"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -175,12 +201,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Title" />
+                            android:text="Title"
+                            android:layout_weight="1" />
 
                         <EditText
-                            android:id="@+id/editTextDateTitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:id="@+id/editTextTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -202,7 +230,7 @@
                             android:text="Request For" />
 
                         <EditText
-                            android:id="@+id/editTextDateRequestFor"
+                            android:id="@+id/editTextRequestFor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="2" />
@@ -227,7 +255,7 @@
                             android:text="Status" />
 
                         <EditText
-                            android:id="@+id/editTextDateStatus"
+                            android:id="@+id/editTextStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="2" />
@@ -252,7 +280,7 @@
                             android:text="Priority" />
 
                         <EditText
-                            android:id="@+id/editTextDatePriority"
+                            android:id="@+id/editTextPriority"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="2" />
@@ -277,7 +305,7 @@
                             android:text="Date Machine is Required" />
 
                         <EditText
-                            android:id="@+id/editTextDateMachineIsRequired"
+                            android:id="@+id/editTextMachineIsRequired"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="2" />
@@ -313,7 +341,7 @@
                     android:inputType="textMultiLine" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/textViewTest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -344,6 +372,13 @@
                 android:layout_gravity="center_horizontal"
                 android:onClick="onClickCreateMaintenanceLog"
                 android:text="Create Maintenance Log" />
+            <Button
+                android:id="@+id/buttonDisplayRequestCreateRequest"
+                android:layout_width="218dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickCreateRequestActivityCreateRequest"
+                android:text="Create Work Request" />
         </LinearLayout>
 
 

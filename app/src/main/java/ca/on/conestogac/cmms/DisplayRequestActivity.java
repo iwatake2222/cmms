@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,6 +85,8 @@ public class DisplayRequestActivity extends BaseActivity {
 
                 // TODO: setup screen to view mode
                 workRequest = new WorkRequest(new JSONObject(request));
+                ViewSwitcher viewSwitcherRequestID = (ViewSwitcher)findViewById(R.id.viewSwitcherRequestID);
+                viewSwitcherRequestID.setDisplayedChild(1);
             }
             else if (workRequestMode.equals(MODE_CREATE))
             {
@@ -114,8 +117,10 @@ public class DisplayRequestActivity extends BaseActivity {
     }
 
     private void fillWorkRequestFields(WorkRequest workRequest) {
-        EditText requestIdTextView = (EditText) findViewById(R.id.editTextRequestID);
-        requestIdTextView.setText(workRequest.getRequestID());
+        // Fill information regardless if it is a TextView or EditText
+        ViewSwitcher viewSwitcherRequestID = (ViewSwitcher)findViewById(R.id.viewSwitcherRequestID);
+        TextView viewRequestID = (TextView)viewSwitcherRequestID.getCurrentView();
+        viewRequestID.setText(workRequest.getRequestID());
 
         EditText editTextDateCreated = (EditText) findViewById(R.id.editTextDateCreated);
         editTextDateCreated.setText(workRequest.getDateRequested());

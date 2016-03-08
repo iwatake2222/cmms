@@ -54,7 +54,6 @@ public class DisplayRequestActivity extends BaseActivity {
 
         initListElements();
 
-        // TODO: refactor into specific methods
         try {
             if (receivedRequest == null || workRequestMode == null) {
                 Utility.logError("Unexpected call");
@@ -62,70 +61,13 @@ public class DisplayRequestActivity extends BaseActivity {
             } else if (workRequestMode.equals(MODE_EDIT)) {
                 workRequest = new WorkRequest(new JSONObject(receivedRequest));
                 Utility.logDebug(workRequest.toString());
-
-                // edit mode
-                setTitle("Edit Work-Request");
-
-                // Switch do Edits and Spinner
-                SwitchViewsMode(0);
-
-                // Configure buttons visibility
-                Button buttonDisplayRequestCreateMaintenanceLog = (Button) findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog);
-                buttonDisplayRequestCreateMaintenanceLog.setVisibility(View.GONE);
-                Button buttonDisplayRequestEditRequest = (Button) findViewById(R.id.buttonDisplayRequestEditRequest);
-                buttonDisplayRequestEditRequest.setVisibility(View.GONE);
-                Button buttonDisplayRequestCreateRequest = (Button) findViewById(R.id.buttonDisplayRequestCreateRequest);
-                buttonDisplayRequestCreateRequest.setVisibility(View.GONE);
-                Button buttonDisplayRequestSaveEditedRequest = (Button) findViewById(R.id.buttonDisplayRequestSaveEditedRequest);
-                buttonDisplayRequestSaveEditedRequest.setVisibility(View.VISIBLE);
+                configureActivityEditMode();
             } else if (workRequestMode.equals(MODE_VIEW)) {
-                // TODO: setup screen to view mode
                 workRequest = new WorkRequest(new JSONObject(receivedRequest));
-
-                // view-mode
-                setTitle("Work - Request Details");
-
-                // Switch do ViewText
-                SwitchViewsMode(1);
-
-                // Configure buttons visibility
-                Button buttonDisplayRequestCreateMaintenanceLog = (Button) findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog);
-                buttonDisplayRequestCreateMaintenanceLog.setVisibility(View.VISIBLE);
-                Button buttonDisplayRequestEditRequest = (Button) findViewById(R.id.buttonDisplayRequestEditRequest);
-                buttonDisplayRequestEditRequest.setVisibility(View.VISIBLE);
-                Button buttonDisplayRequestCreateRequest = (Button) findViewById(R.id.buttonDisplayRequestCreateRequest);
-                buttonDisplayRequestCreateRequest.setVisibility(View.GONE);
-                Button buttonDisplayRequestSaveEditedRequest = (Button) findViewById(R.id.buttonDisplayRequestSaveEditedRequest);
-                buttonDisplayRequestSaveEditedRequest.setVisibility(View.GONE);
+                Utility.logDebug(workRequest.toString());
+                configureActivityViewMode();
             } else if (workRequestMode.equals(MODE_CREATE)) {
-                // create
-                // TODO: create JSON for machine ID and use this to create the work request
-
-                // Auto-fill date text
-                Calendar calendar = Calendar.getInstance();
-                EditText editTextDateCreated = (EditText) findViewById(R.id.editTextDateCreated);
-                editTextDateCreated.setText(Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)));
-
-                setTitle("Create Work-Request");
-
-                // Switch do Edits and Spinner
-                SwitchViewsMode(0);
-
-                // Hide RequestID field since it's a new work request
-                LinearLayout linearLayoutRequestID = (LinearLayout) findViewById(R.id.linearLayoutDisplayRequestRequestID);
-                linearLayoutRequestID.setVisibility(View.GONE);
-
-                // Configure buttons visibility: show button for Save (NEW)
-                Button buttonDisplayRequestCreateMaintenanceLog = (Button) findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog);
-                buttonDisplayRequestCreateMaintenanceLog.setVisibility(View.GONE);
-                Button buttonDisplayRequestEditRequest = (Button) findViewById(R.id.buttonDisplayRequestEditRequest);
-                buttonDisplayRequestEditRequest.setVisibility(View.GONE);
-                Button buttonDisplayRequestCreateRequest = (Button) findViewById(R.id.buttonDisplayRequestCreateRequest);
-                buttonDisplayRequestCreateRequest.setVisibility(View.VISIBLE);
-                Button buttonDisplayRequestSaveEditedRequest = (Button) findViewById(R.id.buttonDisplayRequestSaveEditedRequest);
-                buttonDisplayRequestSaveEditedRequest.setVisibility(View.GONE);
+                configureActivityCreateMode();
             } else {
                 // unrecognized mode
                 Utility.logError("unexpected call");
@@ -134,6 +76,76 @@ public class DisplayRequestActivity extends BaseActivity {
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
+    }
+
+    private void configureActivityEditMode() {
+        // edit mode
+        setTitle("Edit Work-Request");
+
+        // Switch do Edits and Spinner
+        SwitchViewsMode(0);
+
+        // Configure buttons visibility
+        Button buttonDisplayRequestCreateMaintenanceLog = (Button) findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog);
+        buttonDisplayRequestCreateMaintenanceLog.setVisibility(View.GONE);
+        Button buttonDisplayRequestEditRequest = (Button) findViewById(R.id.buttonDisplayRequestEditRequest);
+        buttonDisplayRequestEditRequest.setVisibility(View.GONE);
+        Button buttonDisplayRequestCreateRequest = (Button) findViewById(R.id.buttonDisplayRequestCreateRequest);
+        buttonDisplayRequestCreateRequest.setVisibility(View.GONE);
+        Button buttonDisplayRequestSaveEditedRequest = (Button) findViewById(R.id.buttonDisplayRequestSaveEditedRequest);
+        buttonDisplayRequestSaveEditedRequest.setVisibility(View.VISIBLE);
+    }
+
+    private void configureActivityViewMode() {
+        // view-mode
+        setTitle("Work - Request Details");
+
+        // Switch do ViewText
+        SwitchViewsMode(1);
+
+        // Configure buttons visibility
+        Button buttonDisplayRequestCreateMaintenanceLog = (Button) findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog);
+        buttonDisplayRequestCreateMaintenanceLog.setVisibility(View.VISIBLE);
+        Button buttonDisplayRequestEditRequest = (Button) findViewById(R.id.buttonDisplayRequestEditRequest);
+        buttonDisplayRequestEditRequest.setVisibility(View.VISIBLE);
+        Button buttonDisplayRequestCreateRequest = (Button) findViewById(R.id.buttonDisplayRequestCreateRequest);
+        buttonDisplayRequestCreateRequest.setVisibility(View.GONE);
+        Button buttonDisplayRequestSaveEditedRequest = (Button) findViewById(R.id.buttonDisplayRequestSaveEditedRequest);
+        buttonDisplayRequestSaveEditedRequest.setVisibility(View.GONE);
+    }
+
+    private void configureActivityCreateMode() {
+        // TODO: create JSON for machine ID and use it to create the work request
+        setTitle("Create Work-Request");
+
+        // Auto-fill date text
+        Calendar calendar = Calendar.getInstance();
+        EditText editTextDateCreated = (EditText) findViewById(R.id.editTextDateCreated);
+        editTextDateCreated.setText(Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)));
+
+        // Auto-fill created by text
+        EditText editTextCreatedBy = (EditText) findViewById(R.id.editTextCreatedBy);
+        editTextCreatedBy.setEnabled(false);
+        editTextCreatedBy.setText(User.getInstance().userID);
+
+        // Switch do Edits and Spinner
+        SwitchViewsMode(0);
+
+        // Hide RequestID field since it's a new work request
+        LinearLayout linearLayoutRequestID = (LinearLayout) findViewById(R.id.linearLayoutDisplayRequestRequestID);
+        linearLayoutRequestID.setVisibility(View.GONE);
+
+        // Configure buttons visibility: show button for Save (NEW)
+        Button buttonDisplayRequestCreateMaintenanceLog = (Button) findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog);
+        buttonDisplayRequestCreateMaintenanceLog.setVisibility(View.GONE);
+        Button buttonDisplayRequestEditRequest = (Button) findViewById(R.id.buttonDisplayRequestEditRequest);
+        buttonDisplayRequestEditRequest.setVisibility(View.GONE);
+        Button buttonDisplayRequestCreateRequest = (Button) findViewById(R.id.buttonDisplayRequestCreateRequest);
+        buttonDisplayRequestCreateRequest.setVisibility(View.VISIBLE);
+        Button buttonDisplayRequestSaveEditedRequest = (Button) findViewById(R.id.buttonDisplayRequestSaveEditedRequest);
+        buttonDisplayRequestSaveEditedRequest.setVisibility(View.GONE);
     }
 
     private void SwitchViewsMode(int viewIndex) {

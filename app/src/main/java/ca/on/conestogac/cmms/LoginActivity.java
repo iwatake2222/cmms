@@ -6,8 +6,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class LoginActivity extends BaseActivity {
+
+    Button buttonLoginLogin;
+    EditText etUsername, etPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +21,11 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        etUsername= (EditText) findViewById(R.id.etUsername);
+        etPassword= (EditText) findViewById(R.id.etPassword);
+        buttonLoginLogin= (Button) findViewById(R.id.buttonLoginLogin);
+
     }
 
     @Override
@@ -42,5 +53,4 @@ public class LoginActivity extends BaseActivity {
     void onAPIResponse(String jsonString) {
 
     }
-
 }

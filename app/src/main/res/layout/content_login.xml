@@ -25,31 +25,31 @@
         android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:layout_width="400dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/etUsername"
         android:layout_weight="0.02"
         android:hint="User Name" />
 
     <EditText
-        android:layout_width="400dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/etPassword"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.02"
         android:hint="Password" />
 
     <Button
         android:id="@+id/buttonLoginLogin"
-        android:layout_width="220dp"
-        android:layout_height="90dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:onClick="onClickLogin"
         android:text="Login"
-        android:layout_weight="0.03"
+        android:layout_weight="0.05"
         android:layout_gravity="center_horizontal"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 </LinearLayout>

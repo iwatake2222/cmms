@@ -27,6 +27,13 @@ public class DisplayRequestActivity extends BaseActivity {
     public static final String MODE_VIEW = "ViewRequestActivityMODE";
     public static final String MODE_EDIT = "EditRequestActivityMODE";
 
+    private enum LIST_TYPE {
+        PROGRESS,
+        STATUS,
+        PRIORITY,
+        REQUESTFOR
+    }
+
     private String mDateCreated;
     private String mCreatedBy;
     private String mProgress;
@@ -37,6 +44,9 @@ public class DisplayRequestActivity extends BaseActivity {
     private String mMachineIsRequired;
     private String mDescription;
     private ArrayAdapter<String> mAdapterRequestFor;
+    private ArrayAdapter<String> mAdapterStatus;
+    private ArrayAdapter<String> mAdapterPriority;
+    private ArrayAdapter<String> mAdapterProgress;
     private WorkRequest workRequest;
     private String receivedRequest;
     private String workRequestMode;
@@ -107,6 +117,10 @@ public class DisplayRequestActivity extends BaseActivity {
         // Switch do ViewText
         SwitchViewsMode(1);
 
+        // Cannot edit description
+        EditText editTextDescriptionOfRequest = (EditText) findViewById(R.id.editTextDescriptionOfRequest);
+        editTextDescriptionOfRequest.setEnabled(false);
+
         // Configure buttons visibility
         Button buttonDisplayRequestCreateMaintenanceLog = (Button) findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog);
         buttonDisplayRequestCreateMaintenanceLog.setVisibility(View.VISIBLE);
@@ -162,6 +176,7 @@ public class DisplayRequestActivity extends BaseActivity {
         ViewSwitcher viewSwitcherStatus = (ViewSwitcher) findViewById(R.id.viewSwitcherStatus);
         ViewSwitcher viewSwitcherPriority = (ViewSwitcher) findViewById(R.id.viewSwitcherPriority);
         ViewSwitcher viewSwitcherMachineIsRequired = (ViewSwitcher) findViewById(R.id.viewSwitcherMachineIsRequired);
+        ViewSwitcher viewSwitcherCompletedBy = (ViewSwitcher) findViewById(R.id.viewSwitcherCompletedBy);
         viewSwitcherRequestID.setDisplayedChild(viewIndex);
         viewSwitcherDateCreated.setDisplayedChild(viewIndex);
         viewSwitcherCreatedBy.setDisplayedChild(viewIndex);
@@ -171,6 +186,7 @@ public class DisplayRequestActivity extends BaseActivity {
         viewSwitcherStatus.setDisplayedChild(viewIndex);
         viewSwitcherPriority.setDisplayedChild(viewIndex);
         viewSwitcherMachineIsRequired.setDisplayedChild(viewIndex);
+        viewSwitcherCompletedBy.setDisplayedChild(viewIndex);
     }
 
     private void fillWorkRequestFields(WorkRequest workRequest) {
@@ -187,9 +203,21 @@ public class DisplayRequestActivity extends BaseActivity {
         TextView viewCreatedBy = (TextView) viewSwitcherCreatedBy.getCurrentView();
         viewCreatedBy.setText(workRequest.getCreatedBy());
 
-        ViewSwitcher viewSwitcherProgress = (ViewSwitcher) findViewById(R.id.viewSwitcherProgress);
-        TextView viewProgress = (TextView) viewSwitcherProgress.getCurrentView();
-        viewProgress.setText(workRequest.getProgress());
+        ViewSwitcher viewSwitcherCompletedBy = (ViewSwitcher) findViewById(R.id.viewSwitcherCompletedBy);
+        TextView viewCompletedBy = (TextView) viewSwitcherCompletedBy.getCurrentView();
+        viewCompletedBy.setText(workRequest.getCompletedBy());
+
+//        ViewSwitcher viewSwitcherProgress = (ViewSwitcher) findViewById(R.id.viewSwitcherProgress);
+//        TextView viewProgress = (TextView) viewSwitcherProgress.getCurrentView();
+//        viewProgress.setText(workRequest.getProgress());
+
+//        ViewSwitcher viewSwitcherStatus = (ViewSwitcher) findViewById(R.id.viewSwitcherStatus);
+//        TextView viewStatus = (TextView) viewSwitcherStatus.getCurrentView();
+//        viewStatus.setText(workRequest.getStatus());
+
+//        ViewSwitcher viewSwitcherPriority = (ViewSwitcher) findViewById(R.id.viewSwitcherPriority);
+//        TextView viewPriority = (TextView) viewSwitcherPriority.getCurrentView();
+//        viewPriority.setText(workRequest.getPriority());
 
         ViewSwitcher viewSwitcherTitle = (ViewSwitcher) findViewById(R.id.viewSwitcherTitle);
         TextView viewTitle = (TextView) viewSwitcherTitle.getCurrentView();
@@ -201,19 +229,38 @@ public class DisplayRequestActivity extends BaseActivity {
                 Spinner spinnerDisplayRequestRequestFor = (Spinner) findViewById(R.id.spinnerDisplayRequestRequestFor);
                 spinnerDisplayRequestRequestFor.setSelection(requestForPosition);
             }
+
+            int progressPosition = mAdapterProgress.getPosition(workRequest.getProgress());
+            if (progressPosition != -1) {
+                Spinner spinnerDisplayRequestProgress = (Spinner) findViewById(R.id.spinnerDisplayRequestProgress);
+                spinnerDisplayRequestProgress.setSelection(progressPosition);
+            }
+
+            int statusPosition = mAdapterStatus.getPosition(workRequest.getStatus());
+            if (statusPosition != -1) {
+                Spinner spinnerDisplayRequestStatus = (Spinner) findViewById(R.id.spinnerDisplayRequestStatus);
+                spinnerDisplayRequestStatus.setSelection(statusPosition);
+            }
+
+            int priorityPosition = mAdapterPriority.getPosition(workRequest.getPriority());
+            if (priorityPosition != -1) {
+                Spinner spinnerDisplayRequestPriority = (Spinner) findViewById(R.id.spinnerDisplayRequestPriority);
+                spinnerDisplayRequestPriority.setSelection(priorityPosition);
+            }
         }
         else {
             TextView textViewRequestFor = (TextView) findViewById(R.id.textViewRequestFor);
             textViewRequestFor.setText(workRequest.getRequestFor());
+
+            TextView textViewProgress = (TextView) findViewById(R.id.textViewProgress);
+            textViewProgress.setText(workRequest.getProgress());
+
+            TextView textViewStatus = (TextView) findViewById(R.id.textViewStatus);
+            textViewStatus.setText(workRequest.getStatus());
+
+            TextView textViewPriority = (TextView) findViewById(R.id.textViewPriority);
+            textViewPriority.setText(workRequest.getPriority());
         }
-
-        ViewSwitcher viewSwitcherStatus = (ViewSwitcher) findViewById(R.id.viewSwitcherStatus);
-        TextView viewStatus = (TextView) viewSwitcherStatus.getCurrentView();
-        viewStatus.setText(workRequest.getStatus());
-
-        ViewSwitcher viewSwitcherPriority = (ViewSwitcher) findViewById(R.id.viewSwitcherPriority);
-        TextView viewPriority = (TextView) viewSwitcherPriority.getCurrentView();
-        viewPriority.setText(workRequest.getPriority());
 
         ViewSwitcher viewSwitcherMachineIsRequired = (ViewSwitcher) findViewById(R.id.viewSwitcherMachineIsRequired);
         TextView viewMachineIsRequired = (TextView) viewSwitcherMachineIsRequired.getCurrentView();
@@ -234,20 +281,20 @@ public class DisplayRequestActivity extends BaseActivity {
         EditText editTextCreatedBy = (EditText) findViewById(R.id.editTextCreatedBy);
         mCreatedBy = editTextCreatedBy.getText().toString().trim();
 
-        EditText editTextProgress = (EditText) findViewById(R.id.editTextProgress);
-        mProgress = editTextProgress.getText().toString().trim();
-
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         mTitle = editTextTitle.getText().toString().trim();
+
+        Spinner spinnerDisplayRequestProgress = (Spinner) findViewById(R.id.spinnerDisplayRequestProgress);
+        mProgress = spinnerDisplayRequestProgress.getSelectedItem().toString().trim();
 
         Spinner spinnerDisplayRequestRequestFor = (Spinner) findViewById(R.id.spinnerDisplayRequestRequestFor);
         mRequestFor = spinnerDisplayRequestRequestFor.getSelectedItem().toString().trim();
 
-        EditText editTextStatus = (EditText) findViewById(R.id.editTextStatus);
-        mStatus = editTextStatus.getText().toString().trim();
+        Spinner spinnerDisplayRequestStatus = (Spinner) findViewById(R.id.spinnerDisplayRequestStatus);
+        mStatus = spinnerDisplayRequestStatus.getSelectedItem().toString().trim();
 
-        EditText editTextPriority = (EditText) findViewById(R.id.editTextPriority);
-        mPriority = editTextPriority.getText().toString().trim();
+        Spinner spinnerDisplayRequestPriority = (Spinner) findViewById(R.id.spinnerDisplayRequestPriority);
+        mPriority = spinnerDisplayRequestPriority.getSelectedItem().toString().trim();
 
         EditText editTextMachineIsRequired = (EditText) findViewById(R.id.editTextMachineIsRequired);
         mMachineIsRequired = editTextMachineIsRequired.getText().toString().trim();
@@ -260,22 +307,40 @@ public class DisplayRequestActivity extends BaseActivity {
         mAdapterRequestFor = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         mAdapterRequestFor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        mAdapterProgress = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        mAdapterProgress.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mAdapterStatus = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        mAdapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mAdapterPriority = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        mAdapterPriority.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         Spinner spinnerRequestFor = (Spinner) findViewById(R.id.spinnerDisplayRequestRequestFor);
         spinnerRequestFor.setAdapter(mAdapterRequestFor);
 
-        spinnerRequestFor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                Spinner spinner = (Spinner) parent;
-                String item = (String) spinner.getSelectedItem();
-                mRequestFor = item;
-            }
+        Spinner spinnerProgress = (Spinner) findViewById(R.id.spinnerDisplayRequestProgress);
+        spinnerProgress.setAdapter(mAdapterProgress);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        Spinner spinnerStatus = (Spinner) findViewById(R.id.spinnerDisplayRequestStatus);
+        spinnerStatus.setAdapter(mAdapterStatus);
+
+        Spinner spinnerPriority = (Spinner) findViewById(R.id.spinnerDisplayRequestPriority);
+        spinnerPriority.setAdapter(mAdapterPriority);
+
+//        spinnerRequestFor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view,
+//                                       int position, long id) {
+//                Spinner spinner = (Spinner) parent;
+//                String item = (String) spinner.getSelectedItem();
+//                mRequestFor = item;
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
 
         callAPIwoParam("GetRequestForList");
     }
@@ -295,9 +360,30 @@ public class DisplayRequestActivity extends BaseActivity {
             }
 
             if (jsonObject.has("requestForList")) {
-                fillRequestForSpinner(jsonObject);
+                JSONArray jsonArray = jsonObject.getJSONArray("requestForList");
+                fillSpinner(jsonArray, LIST_TYPE.REQUESTFOR);
+                callAPIwoParam("GetStatusList");
+            }
 
+            if (jsonObject.has("status")) {
+                JSONArray jsonArray = jsonObject.getJSONArray("status");
+                fillSpinner(jsonArray, LIST_TYPE.STATUS);
+                callAPIwoParam("GetPriorityList");
+            }
+
+            if (jsonObject.has("priority")) {
+                JSONArray jsonArray = jsonObject.getJSONArray("priority");
+                fillSpinner(jsonArray, LIST_TYPE.PRIORITY);
+                callAPIwoParam("GetProgressList");
+            }
+
+            if (jsonObject.has("progress")) {
+                JSONArray jsonArray = jsonObject.getJSONArray("progress");
+                fillSpinner(jsonArray, LIST_TYPE.PROGRESS);
+
+                // This is the last callback called to fill spinners. At this moment all have been populated to we can populate all fields
                 if (!workRequestMode.equals(MODE_CREATE)) {
+                    // TODO: populate other fields (edits) independently of spinners and then populate each spinner in its own callback
                     fillWorkRequestFields(workRequest);
                 }
             }
@@ -313,8 +399,7 @@ public class DisplayRequestActivity extends BaseActivity {
         }
     }
 
-    private void fillRequestForSpinner(JSONObject jsonObject) throws JSONException {
-        JSONArray jsonArray = jsonObject.getJSONArray("requestForList");
+    private void fillSpinner(JSONArray jsonArray, LIST_TYPE listType) {
         ArrayList<String> items = new ArrayList<>();
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -324,12 +409,37 @@ public class DisplayRequestActivity extends BaseActivity {
             Utility.logError(e.getMessage());
         }
 
-        // Fill requestFor list
-        mAdapterRequestFor.clear();
-        mAdapterRequestFor.add(ValueConstants.ITEM_NOTSELECTED);
-
-        for (int i = 0; i < items.size(); i++) {
-            mAdapterRequestFor.add(items.get(i));
+        switch(listType){
+            case PROGRESS:
+                mAdapterProgress.clear();
+                mAdapterProgress.add(ValueConstants.ITEM_NOTSELECTED);
+                for (int i = 0; i < items.size(); i++) {
+                    mAdapterProgress.add(items.get(i));
+                }
+                break;
+            case STATUS:
+                mAdapterStatus.clear();
+                mAdapterStatus.add(ValueConstants.ITEM_NOTSELECTED);
+                for (int i = 0; i < items.size(); i++) {
+                    mAdapterStatus.add(items.get(i));
+                }
+                break;
+            case PRIORITY:
+                mAdapterPriority.clear();
+                mAdapterPriority.add(ValueConstants.ITEM_NOTSELECTED);
+                for (int i = 0; i < items.size(); i++) {
+                    mAdapterPriority.add(items.get(i));
+                }
+                break;
+            case REQUESTFOR:
+                mAdapterRequestFor.clear();
+                mAdapterRequestFor.add(ValueConstants.ITEM_NOTSELECTED);
+                for (int i = 0; i < items.size(); i++) {
+                    mAdapterRequestFor.add(items.get(i));
+                }
+                break;
+            default:
+                Utility.logError("Implementation error");
         }
     }
 

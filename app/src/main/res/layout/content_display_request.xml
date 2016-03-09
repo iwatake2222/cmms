@@ -205,7 +205,6 @@
                                 android:layout_width="match_parent"/>
                         </ViewSwitcher>
                     </LinearLayout>
-
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -222,11 +221,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Progress"
+                            android:text="Completed By"
                             android:layout_weight="1" />
 
                         <ViewSwitcher
-                            android:id="@+id/viewSwitcherProgress"
+                            android:id="@+id/viewSwitcherCompletedBy"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:measureAllChildren="false"
@@ -234,22 +233,20 @@
                             android:padding="0dp">
                             <EditText
                                 android:layout_gravity="right"
-                                android:id="@+id/editTextProgress"
+                                android:id="@+id/editTextCompletedBy"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:layout_width="match_parent"/>
                             <TextView
-                                android:id="@+id/textViewProgress"
+                                android:id="@+id/textViewCompletedBy"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Request ID"
+                                android:text="Completed By"
                                 android:layout_weight="2"
                                 android:layout_gravity="right"
                                 android:layout_width="match_parent"/>
                         </ViewSwitcher>
-
                     </LinearLayout>
-
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -292,7 +289,49 @@
                         </ViewSwitcher>
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:orientation="horizontal"
+                        android:padding="3dp"
+                        android:paddingBottom="@dimen/activity_vertical_margin"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:paddingTop="@dimen/activity_vertical_margin"
+                        android:weightSum="2">
 
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text="Progress"
+                            android:layout_weight="1" />
+
+                        <ViewSwitcher
+                            android:id="@+id/viewSwitcherProgress"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:measureAllChildren="false"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+                            <Spinner
+                                android:id="@+id/spinnerDisplayRequestProgress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="2"/>
+                            <TextView
+                                android:id="@+id/textViewProgress"
+                                android:layout_height="wrap_content"
+                                android:padding="3dp"
+                                android:text="Request ID"
+                                android:layout_weight="2"
+                                android:layout_gravity="right"
+                                android:layout_width="match_parent"/>
+                        </ViewSwitcher>
+
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -364,12 +403,12 @@
                             android:measureAllChildren="false"
                             android:layout_weight="1"
                             android:padding="0dp">
-                            <EditText
-                                android:layout_gravity="right"
-                                android:id="@+id/editTextStatus"
+                            <Spinner
+                                android:id="@+id/spinnerDisplayRequestStatus"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:layout_width="match_parent"/>
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="2"/>
                             <TextView
                                 android:id="@+id/textViewStatus"
                                 android:layout_height="wrap_content"
@@ -409,12 +448,13 @@
                             android:measureAllChildren="false"
                             android:layout_weight="1"
                             android:padding="0dp">
-                            <EditText
-                                android:layout_gravity="right"
-                                android:id="@+id/editTextPriority"
+                            <Spinner
+                                android:id="@+id/spinnerDisplayRequestPriority"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:layout_width="match_parent"/>
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="2"/>
+
                             <TextView
                                 android:id="@+id/textViewPriority"
                                 android:layout_height="wrap_content"

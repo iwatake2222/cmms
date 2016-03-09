@@ -95,6 +95,10 @@ public class Utility {
         return str;
     }
 
+    public static String convertFormattedDateToRaw (String formattedDate) {
+        return formattedDate.substring(0, 4) + formattedDate.substring(4, 6) + formattedDate.substring(6, 8);
+    }
+
     public static boolean saveTextFile (Activity activity, String title, String fileType, String text) {
         // for Android 6 and later. need to get permission in addition to manifest
         if (ContextCompat.checkSelfPermission(

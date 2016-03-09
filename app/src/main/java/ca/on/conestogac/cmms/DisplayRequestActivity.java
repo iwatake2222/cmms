@@ -1,5 +1,6 @@
 package ca.on.conestogac.cmms;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -95,9 +97,12 @@ public class DisplayRequestActivity extends BaseActivity {
         // Switch do Edits and Spinner
         SwitchViewsMode(0);
 
-        // Cannot edit request id
+        // Cannot edit request id and date created
         EditText linearLayoutDisplayRequestRequestID = (EditText) findViewById(R.id.editTextRequestID);
         linearLayoutDisplayRequestRequestID.setEnabled(false);
+
+        EditText linearLayoutDisplayDateCreated = (EditText) findViewById(R.id.editTextDateCreated);
+        linearLayoutDisplayDateCreated.setEnabled(false);
 
         // Configure buttons visibility
         Button buttonDisplayRequestCreateMaintenanceLog = (Button) findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog);
@@ -139,14 +144,15 @@ public class DisplayRequestActivity extends BaseActivity {
         // Auto-fill date text
         Calendar calendar = Calendar.getInstance();
         EditText editTextDateCreated = (EditText) findViewById(R.id.editTextDateCreated);
-        editTextDateCreated.setText(Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR),
+        editTextDateCreated.setEnabled(false);
+        editTextDateCreated.setText(Utility.convertDateYYYYMMDDToShow(Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)));
+                calendar.get(Calendar.DAY_OF_MONTH))));
 
         // Auto-fill created by text
         EditText editTextCreatedBy = (EditText) findViewById(R.id.editTextCreatedBy);
-        editTextCreatedBy.setEnabled(false);
         editTextCreatedBy.setText(User.getInstance().userID);
+        editTextCreatedBy.setEnabled(false);
 
         // Switch do Edits and Spinner
         SwitchViewsMode(0);
@@ -197,7 +203,7 @@ public class DisplayRequestActivity extends BaseActivity {
 
         ViewSwitcher viewSwitcherDateCreated = (ViewSwitcher) findViewById(R.id.viewSwitcherDateCreated);
         TextView viewDateCreated = (TextView) viewSwitcherDateCreated.getCurrentView();
-        viewDateCreated.setText(workRequest.getDateRequested());
+        viewDateCreated.setText(Utility.convertDateYYYYMMDDToShow(workRequest.getDateRequested()));
 
         ViewSwitcher viewSwitcherCreatedBy = (ViewSwitcher) findViewById(R.id.viewSwitcherCreatedBy);
         TextView viewCreatedBy = (TextView) viewSwitcherCreatedBy.getCurrentView();
@@ -264,7 +270,7 @@ public class DisplayRequestActivity extends BaseActivity {
 
         ViewSwitcher viewSwitcherMachineIsRequired = (ViewSwitcher) findViewById(R.id.viewSwitcherMachineIsRequired);
         TextView viewMachineIsRequired = (TextView) viewSwitcherMachineIsRequired.getCurrentView();
-        viewMachineIsRequired.setText(workRequest.getDateDue());
+        viewMachineIsRequired.setText(Utility.convertDateYYYYMMDDToShow(workRequest.getDateDue()));
 
         EditText editTextDescriptionOfRequest = (EditText) findViewById(R.id.editTextDescriptionOfRequest);
         editTextDescriptionOfRequest.setText(workRequest.getDescription());
@@ -276,7 +282,7 @@ public class DisplayRequestActivity extends BaseActivity {
 //        requestIdTextView.getText();
 
         EditText editTextDateCreated = (EditText) findViewById(R.id.editTextDateCreated);
-        mDateCreated = editTextDateCreated.getText().toString().trim();
+        mDateCreated = Utility.convertFormattedDateToRaw(editTextDateCreated.getText().toString());
 
         EditText editTextCreatedBy = (EditText) findViewById(R.id.editTextCreatedBy);
         mCreatedBy = editTextCreatedBy.getText().toString().trim();
@@ -297,7 +303,7 @@ public class DisplayRequestActivity extends BaseActivity {
         mPriority = spinnerDisplayRequestPriority.getSelectedItem().toString().trim();
 
         EditText editTextMachineIsRequired = (EditText) findViewById(R.id.editTextMachineIsRequired);
-        mMachineIsRequired = editTextMachineIsRequired.getText().toString().trim();
+        mMachineIsRequired = Utility.convertFormattedDateToRaw(editTextMachineIsRequired.getText().toString());
 
         EditText editTextDescriptionOfRequest = (EditText) findViewById(R.id.editTextDescriptionOfRequest);
         mDescription = editTextDescriptionOfRequest.getText().toString().trim();
@@ -327,20 +333,6 @@ public class DisplayRequestActivity extends BaseActivity {
 
         Spinner spinnerPriority = (Spinner) findViewById(R.id.spinnerDisplayRequestPriority);
         spinnerPriority.setAdapter(mAdapterPriority);
-
-//        spinnerRequestFor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view,
-//                                       int position, long id) {
-//                Spinner spinner = (Spinner) parent;
-//                String item = (String) spinner.getSelectedItem();
-//                mRequestFor = item;
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
 
         callAPIwoParam("GetRequestForList");
     }
@@ -507,5 +499,17 @@ public class DisplayRequestActivity extends BaseActivity {
         intent.putExtra(DisplayRequestActivity.EXTRA_REQUEST, receivedRequest);
         intent.putExtra(DisplayRequestActivity.WORK_REQUEST_MODE, DisplayRequestActivity.MODE_EDIT);
         startActivity(intent);
+    }
+
+    public void onClickDateMachineIsRequired(View view) {
+        Calendar calendar = Calendar.getInstance();
+
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                EditText editText = (EditText)findViewById(R.id.editTextMachineIsRequired);
+                editText.setText(Utility.convertDateToString(year, monthOfYear + 1, dayOfMonth));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
     }
 }

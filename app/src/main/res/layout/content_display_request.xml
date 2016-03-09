@@ -151,6 +151,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
+                                android:inputType="date"
                                 android:width="0dp" />
                             <TextView
                                 android:id="@+id/textViewDateCreated"
@@ -502,7 +503,11 @@
                                 android:id="@+id/editTextMachineIsRequired"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
-                                android:layout_width="match_parent"/>
+                                android:layout_width="match_parent"
+                                android:inputType="date"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:onClick="onClickDateMachineIsRequired"/>
                             <TextView
                                 android:id="@+id/textViewMachineIsRequired"
                                 android:layout_height="wrap_content"

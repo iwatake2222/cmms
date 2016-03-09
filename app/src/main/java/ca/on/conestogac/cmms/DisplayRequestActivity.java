@@ -85,6 +85,10 @@ public class DisplayRequestActivity extends BaseActivity {
         // Switch do Edits and Spinner
         SwitchViewsMode(0);
 
+        // Cannot edit request id
+        EditText linearLayoutDisplayRequestRequestID = (EditText) findViewById(R.id.editTextRequestID);
+        linearLayoutDisplayRequestRequestID.setEnabled(false);
+
         // Configure buttons visibility
         Button buttonDisplayRequestCreateMaintenanceLog = (Button) findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog);
         buttonDisplayRequestCreateMaintenanceLog.setVisibility(View.GONE);

@@ -6,6 +6,7 @@ package ca.on.conestogac.cmms;
 public class User {
     private static User instance = null;
     public String userID;
+    public String password;
 
     private User() {
     }

@@ -9,10 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LoginActivity extends BaseActivity {
 
     Button buttonLoginLogin;
-    EditText etUsername, etPassword;
+    EditText userID, password;
+    boolean canSearchForMachine=false, canSearchForRepairRequest=false, canAccessHome=false, canAccessMachineInformation=false;
+    boolean canCreateWorkRequest=false, canDisplayWorkRequest=false, canAccessMaintenanceLogList=false, canSearchForWorkRequest=false, canViewBusinessReport=false ;
 
 
     @Override
@@ -21,10 +27,6 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        etUsername= (EditText) findViewById(R.id.etUsername);
-        etPassword= (EditText) findViewById(R.id.etPassword);
-        buttonLoginLogin= (Button) findViewById(R.id.buttonLoginLogin);
 
     }
 
@@ -41,16 +43,92 @@ public class LoginActivity extends BaseActivity {
 
 
     public void onClickLogin(View view) {
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-        intent.putExtra(HomeActivity.EXTRA_USER_LEVEL, "technician");
-        startActivity(intent);
+        userID= (EditText) findViewById(R.id.userID);
+        password= (EditText) findViewById(R.id.password);
+        buttonLoginLogin= (Button) findViewById(R.id.buttonLoginLogin);
 
-        User.getInstance().userID = "7292030";
+        JSONObject jsonParam = new JSONObject();
+        try{
+            jsonParam.put("userID", User.getInstance().userID);
+            jsonParam.put("password", User.getInstance().password);
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+        callAPI("login", jsonParam);
     }
+   /* public void onApiResponse() {
+        if (userID = login.userID && password = login.password) {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.putExtra(HomeActivity.EXTRA_USER_LEVEL, "technician");
+            startActivity(intent);
+            User.getInstance().userID;
+        }
+        else{
 
-
+        }
+    }*/
     @Override
     void onAPIResponse(String jsonString) {
-
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            String result = jsonObject.getString("result");
+            if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
+                // do something if needed when error happens
+            }
+            if(jsonObject.has("ok") && jsonObject.has("accessLevel")){
+               try {
+                   int integerAccessLevel = jsonObject.getInt("accessLevel");
+                   if(integerAccessLevel==1){
+                       canSearchForMachine=true;
+                       canSearchForRepairRequest=false;
+                       canAccessHome=true;
+                       canAccessMachineInformation=true;
+                       canCreateWorkRequest=false;
+                       canDisplayWorkRequest=false;
+                       canAccessMaintenanceLogList=false;
+                       canSearchForWorkRequest=false;
+                       canViewBusinessReport=false ;
+                   }
+                   if(integerAccessLevel==2){
+                       canSearchForMachine=true;
+                       canSearchForRepairRequest=true;
+                       canAccessHome=true;
+                       canAccessMachineInformation=true;
+                       canCreateWorkRequest=true;
+                       canDisplayWorkRequest=true;
+                       canAccessMaintenanceLogList=false;
+                       canSearchForWorkRequest=true;
+                       canViewBusinessReport=false ;
+                   }
+                   if(integerAccessLevel==3){
+                       canSearchForMachine=true;
+                       canSearchForRepairRequest=true;
+                       canAccessHome=true;
+                       canAccessMachineInformation=true;
+                       canCreateWorkRequest=true;
+                       canDisplayWorkRequest=true;
+                       canAccessMaintenanceLogList=true;
+                       canSearchForWorkRequest=true;
+                       canViewBusinessReport=true ;
+                   }
+                   if(integerAccessLevel==4){
+                       canSearchForMachine=true;
+                       canSearchForRepairRequest=true;
+                       canAccessHome=true;
+                       canAccessMachineInformation=true;
+                       canCreateWorkRequest=true;
+                       canDisplayWorkRequest=true;
+                       canAccessMaintenanceLogList=true;
+                       canSearchForWorkRequest=true;
+                       canViewBusinessReport=true ;
+                   }
+               }
+               catch(JSONException e){
+                    Utility.logError(e.getMessage());
+                }
+            }
+        } catch (JSONException e) {
+            Utility.logError(e.getMessage());
+        }
     }
 }

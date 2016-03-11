@@ -351,8 +351,25 @@ public class DisplayRequestActivity extends BaseActivity {
             if (jsonObject.has("createdRequestID")) {
                 String createdRequestID = jsonObject.getString("createdRequestID");
                 Utility.showToast(this, "Request mock created with ID: " + createdRequestID);
-                // TODO: redirect to machine information?
+
+                SearchWorkRequest(createdRequestID);
             }
+
+            if (jsonObject.has("modifiedRequestID")) {
+                String modifiedRequestID = jsonObject.getString("modifiedRequestID");
+                Utility.showToast(this, "Request mock modified for ID: " + modifiedRequestID);
+
+                SearchWorkRequest(modifiedRequestID);
+            }
+
+            if (jsonObject.has("requestID")) {
+                WorkRequest wr = new WorkRequest(jsonObject);
+                Intent intent = new Intent(DisplayRequestActivity.this, DisplayRequestActivity.class);
+                intent.putExtra(DisplayRequestActivity.EXTRA_REQUEST, wr.createJson());
+                intent.putExtra(DisplayRequestActivity.WORK_REQUEST_MODE, DisplayRequestActivity.MODE_VIEW);
+                startActivity(intent);
+            }
+
 
             if (jsonObject.has("requestForList")) {
                 JSONArray jsonArray = jsonObject.getJSONArray("requestForList");
@@ -382,16 +399,22 @@ public class DisplayRequestActivity extends BaseActivity {
                     fillWorkRequestFields(workRequest);
                 }
             }
-
-            if (jsonObject.has("modifiedRequestID")) {
-                String modifiedRequestID = jsonObject.getString("modifiedRequestID");
-                Utility.showToast(this, "Request mock modified for ID: " + modifiedRequestID);
-                // TODO: redirect to machine information?
-            }
-
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
+    }
+
+    private void SearchWorkRequest(String workRequestID) {
+        JSONObject jsonSearchRequest = new JSONObject();
+
+        try {
+            jsonSearchRequest.put("userID", User.getInstance().userID);
+            jsonSearchRequest.put("requestID", workRequestID);
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+
+        callAPI("SearchWorkRequest", jsonSearchRequest);
     }
 
     private void fillSpinner(JSONArray jsonArray, LIST_TYPE listType) {

@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,6 +46,9 @@ public class LoginActivity extends BaseActivity {
         password= (EditText) findViewById(R.id.password);
         buttonLoginLogin= (Button) findViewById(R.id.buttonLoginLogin);
 
+        User.getInstance().userID = userID.getText().toString();
+        User.getInstance().password = password.getText().toString();
+
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("userID", User.getInstance().userID);
@@ -74,8 +76,7 @@ public class LoginActivity extends BaseActivity {
             String result = jsonObject.getString("result");
             if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
                 // do something if needed when error happens
-            }
-            if(jsonObject.has("ok") && jsonObject.has("accessLevel")){
+            } else if(jsonObject.has("accessLevel")){
                try {
                    int integerAccessLevel = jsonObject.getInt("accessLevel");
                    if(integerAccessLevel==1){
@@ -122,6 +123,9 @@ public class LoginActivity extends BaseActivity {
                        canSearchForWorkRequest=true;
                        canViewBusinessReport=true ;
                    }
+
+                   Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                   startActivity(intent);
                }
                catch(JSONException e){
                     Utility.logError(e.getMessage());

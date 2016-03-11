@@ -77,7 +77,7 @@ public class SearchRequestActivity extends BaseActivity  {
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }
-        callAPI("SearchWorkRequest", jsonParam);
+        callAPI("SearchWorkRequestList", jsonParam);
 
         // for test without server
         /*
@@ -234,7 +234,7 @@ public class SearchRequestActivity extends BaseActivity  {
         // for test without server
         //initCampusList();
         //initShopList();
-        initProgressList();
+        //initProgressList();
         //initStatusList();
         //initPriorityList();
 
@@ -242,8 +242,7 @@ public class SearchRequestActivity extends BaseActivity  {
         // need to call by serial
         // call GetCampusList at the last to avoid double call
         // GetProgressList -> GetStatusList -> GetPriorityList -> GetCampusList -> GetShopList
-        //callAPIwoParam("GetProgressList");
-        callAPIwoParam("GetStatusList");
+        callAPIwoParam("GetProgressList");
     }
 
 

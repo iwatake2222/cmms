@@ -453,12 +453,12 @@ public class DisplayRequestActivity extends BaseActivity {
             jsonParam.put("machineID", "123");
             jsonParam.put("createdBy", mCreatedBy);
             jsonParam.put("dateRequested", mDateCreated);
-            jsonParam.put("dateDue", mRequestFor);
+            jsonParam.put("dateDue", mMachineIsRequired);
             // TODO: leave it blank?
             jsonParam.put("dateResolved", "");
             jsonParam.put("progress", mProgress);
             jsonParam.put("title", mTitle);
-            jsonParam.put("requestFor", mMachineIsRequired);
+            jsonParam.put("requestFor", mRequestFor);
             jsonParam.put("status", mStatus);
             jsonParam.put("priority", mPriority);
             jsonParam.put("description", mDescription);
@@ -480,12 +480,12 @@ public class DisplayRequestActivity extends BaseActivity {
             jsonParam.put("machineID", "123");
             jsonParam.put("createdBy", mCreatedBy);
             jsonParam.put("dateRequested", mDateCreated);
-            jsonParam.put("dateDue", mRequestFor);
+            jsonParam.put("dateDue", mMachineIsRequired);
             // TODO: leave it blank?
             jsonParam.put("dateResolved", "");
             jsonParam.put("progress", mProgress);
             jsonParam.put("title", mTitle);
-            jsonParam.put("requestFor", mMachineIsRequired);
+            jsonParam.put("requestFor", mRequestFor);
             jsonParam.put("status", mStatus);
             jsonParam.put("priority", mPriority);
             jsonParam.put("description", mDescription);

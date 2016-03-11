@@ -448,20 +448,7 @@ public class DisplayRequestActivity extends BaseActivity {
         JSONObject jsonParam = new JSONObject();
 
         try {
-            jsonParam.put("userID", User.getInstance().userID);
-            // TODO fill machine ID
-            jsonParam.put("machineID", "123");
-            jsonParam.put("createdBy", mCreatedBy);
-            jsonParam.put("dateRequested", mDateCreated);
-            jsonParam.put("dateDue", mMachineIsRequired);
-            // TODO: leave it blank?
-            jsonParam.put("dateResolved", "");
-            jsonParam.put("progress", mProgress);
-            jsonParam.put("title", mTitle);
-            jsonParam.put("requestFor", mRequestFor);
-            jsonParam.put("status", mStatus);
-            jsonParam.put("priority", mPriority);
-            jsonParam.put("description", mDescription);
+            FillJsonObject(jsonParam);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }
@@ -474,26 +461,47 @@ public class DisplayRequestActivity extends BaseActivity {
         JSONObject jsonParam = new JSONObject();
 
         try {
+            FillJsonObject(jsonParam);
+
             jsonParam.put("requestID", workRequest.getRequestID());
-            jsonParam.put("userID", User.getInstance().userID);
-            // TODO fill machine ID
-            jsonParam.put("machineID", "123");
-            jsonParam.put("createdBy", mCreatedBy);
-            jsonParam.put("dateRequested", mDateCreated);
-            jsonParam.put("dateDue", mMachineIsRequired);
-            // TODO: leave it blank?
-            jsonParam.put("dateResolved", "");
-            jsonParam.put("progress", mProgress);
-            jsonParam.put("title", mTitle);
-            jsonParam.put("requestFor", mRequestFor);
-            jsonParam.put("status", mStatus);
-            jsonParam.put("priority", mPriority);
-            jsonParam.put("description", mDescription);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }
 
         callAPI("ModifyWorkRequest", jsonParam);
+    }
+
+    private void FillJsonObject(JSONObject jsonParam) throws JSONException {
+        jsonParam.put("userID", User.getInstance().userID);
+        // TODO fill machine ID
+        jsonParam.put("machineID", "123");
+        jsonParam.put("createdBy", mCreatedBy);
+        jsonParam.put("dateRequested", mDateCreated);
+        jsonParam.put("dateDue", mMachineIsRequired);
+        // TODO: leave it blank?
+        jsonParam.put("dateResolved", "");
+        jsonParam.put("title", mTitle);
+        jsonParam.put("description", mDescription);
+
+        if (mProgress.equals(ValueConstants.ITEM_NOTSELECTED))
+            jsonParam.put("progress", "");
+        else
+            jsonParam.put("progress", mProgress);
+
+        if (mPriority.equals(ValueConstants.ITEM_NOTSELECTED))
+            jsonParam.put("priority", "");
+        else
+            jsonParam.put("priority", mPriority);
+
+        if (mStatus.equals(ValueConstants.ITEM_NOTSELECTED))
+            jsonParam.put("status", "");
+        else
+            jsonParam.put("status", mStatus);
+
+        if (mRequestFor.equals(ValueConstants.ITEM_NOTSELECTED))
+            jsonParam.put("requestFor", "");
+        else
+            jsonParam.put("requestFor", mRequestFor);
     }
 
     public void onClickCreateRequestActivityBeginEditRequest(View view) {

@@ -3,6 +3,7 @@ package ca.on.conestogac.cmms;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -482,26 +483,10 @@ public class DisplayRequestActivity extends BaseActivity {
         jsonParam.put("dateResolved", "");
         jsonParam.put("title", mTitle);
         jsonParam.put("description", mDescription);
-
-        if (mProgress.equals(ValueConstants.ITEM_NOTSELECTED))
-            jsonParam.put("progress", "");
-        else
-            jsonParam.put("progress", mProgress);
-
-        if (mPriority.equals(ValueConstants.ITEM_NOTSELECTED))
-            jsonParam.put("priority", "");
-        else
-            jsonParam.put("priority", mPriority);
-
-        if (mStatus.equals(ValueConstants.ITEM_NOTSELECTED))
-            jsonParam.put("status", "");
-        else
-            jsonParam.put("status", mStatus);
-
-        if (mRequestFor.equals(ValueConstants.ITEM_NOTSELECTED))
-            jsonParam.put("requestFor", "");
-        else
-            jsonParam.put("requestFor", mRequestFor);
+        jsonParam.put("progress", mProgress.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mProgress);
+        jsonParam.put("priority", mPriority.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mPriority);
+        jsonParam.put("status", mStatus.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mStatus);
+        jsonParam.put("requestFor", mRequestFor.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mRequestFor);
     }
 
     public void onClickCreateRequestActivityBeginEditRequest(View view) {

@@ -33,7 +33,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Machine Information" />
+                android:textStyle="bold"
+                android:text="--Machine Information goes here--" />
         </LinearLayout>
 
         <LinearLayout
@@ -89,7 +90,8 @@
                             android:layout_height="wrap_content"
                             android:padding="3dp"
                             android:text="Request ID"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:textStyle="bold"/>
 
                         <ViewSwitcher
                             android:id="@+id/viewSwitcherRequestID"
@@ -108,7 +110,7 @@
                                 android:id="@+id/textViewRequestID"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Request ID"
+                                android:text=""
                                 android:layout_weight="2"
                                 android:layout_gravity="right"
                                 android:layout_width="match_parent"/>
@@ -135,6 +137,7 @@
                             android:padding="3dp"
                             android:text="Date Created"
                             android:layout_weight="1"
+                            android:textStyle="bold"
                             android:width="0dp" />
 
 
@@ -181,6 +184,7 @@
                             android:layout_height="wrap_content"
                             android:padding="3dp"
                             android:text="Created By"
+                            android:textStyle="bold"
                             android:layout_weight="1" />
 
                         <ViewSwitcher
@@ -200,7 +204,7 @@
                                 android:id="@+id/textViewCreatedBy"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Request ID"
+                                android:text=""
                                 android:layout_weight="2"
                                 android:layout_gravity="right"
                                 android:layout_width="match_parent"/>
@@ -223,6 +227,7 @@
                             android:layout_height="wrap_content"
                             android:padding="3dp"
                             android:text="Completed By"
+                            android:textStyle="bold"
                             android:layout_weight="1" />
 
                         <ViewSwitcher
@@ -242,7 +247,7 @@
                                 android:id="@+id/textViewCompletedBy"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Completed By"
+                                android:text=""
                                 android:layout_weight="2"
                                 android:layout_gravity="right"
                                 android:layout_width="match_parent"/>
@@ -264,6 +269,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
+                            android:textStyle="bold"
                             android:text="Title"
                             android:layout_weight="1" />
                         <ViewSwitcher
@@ -283,7 +289,7 @@
                                 android:id="@+id/textViewTitle"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Request ID"
+                                android:text=""
                                 android:layout_weight="2"
                                 android:layout_gravity="right"
                                 android:layout_width="match_parent"/>
@@ -306,6 +312,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
+                            android:textStyle="bold"
                             android:text="Progress"
                             android:layout_weight="1" />
 
@@ -326,7 +333,7 @@
                                 android:id="@+id/textViewProgress"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Request ID"
+                                android:text=""
                                 android:layout_weight="2"
                                 android:layout_gravity="right"
                                 android:layout_width="match_parent"/>
@@ -350,6 +357,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:padding="3dp"
+                            android:textStyle="bold"
                             android:text="Request For" />
 
                         <ViewSwitcher
@@ -369,7 +377,7 @@
                                 android:id="@+id/textViewRequestFor"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Request ID"
+                                android:text=""
                                 android:layout_weight="2"
                                 android:layout_gravity="right"
                                 android:layout_width="match_parent"/>
@@ -395,6 +403,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:padding="3dp"
+                            android:textStyle="bold"
                             android:text="Status" />
 
                         <ViewSwitcher
@@ -414,7 +423,7 @@
                                 android:id="@+id/textViewStatus"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Request ID"
+                                android:text=""
                                 android:layout_weight="2"
                                 android:layout_gravity="right"
                                 android:layout_width="match_parent"/>
@@ -440,6 +449,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:padding="3dp"
+                            android:textStyle="bold"
                             android:text="Priority" />
 
                         <ViewSwitcher
@@ -460,7 +470,7 @@
                                 android:id="@+id/textViewPriority"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Request ID"
+                                android:text=""
                                 android:layout_weight="2"
                                 android:layout_gravity="right"
                                 android:layout_width="match_parent"/>
@@ -487,6 +497,7 @@
                             android:padding="3dp"
                             android:text="Date Machine is Required"
                             android:layout_gravity="left"
+                            android:textStyle="bold"
                             android:ellipsize="none"
                             android:maxLines="5"
                             android:scrollHorizontally="false"/>
@@ -512,7 +523,7 @@
                                 android:id="@+id/textViewMachineIsRequired"
                                 android:layout_height="wrap_content"
                                 android:padding="3dp"
-                                android:text="Request ID"
+                                android:text=""
                                 android:layout_weight="2"
                                 android:layout_gravity="right"
                                 android:layout_width="match_parent"/>
@@ -542,6 +553,7 @@
                     android:layout_height="0dp"
                     android:padding="3dp"
                     android:text="Description of Request:"
+                    android:textStyle="bold"
                     android:layout_weight="0.2" />
 
                 <EditText
@@ -601,6 +613,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:padding="3dp"
             android:text="Maintenance logs: " />
 

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -503,13 +505,23 @@ public class DisplayRequestActivity extends BaseActivity {
 
     public void onClickDateMachineIsRequired(View view) {
         Calendar calendar = Calendar.getInstance();
+        int year = 0, month = 0, day = 0;
+
+        EditText editText = (EditText)findViewById(R.id.editTextMachineIsRequired);
+        String dateInTextView = Utility.convertFormattedDateToRaw(editText.getText().toString());
+
+        if (dateInTextView.equals("")){
+            dateInTextView = Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH) + 1,
+                    calendar.get(Calendar.DAY_OF_MONTH));
+        }
 
         final DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 EditText editText = (EditText)findViewById(R.id.editTextMachineIsRequired);
                 editText.setText(Utility.convertDateToString(year, monthOfYear + 1, dayOfMonth));
             }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+        }, Integer.parseInt(dateInTextView.substring(0, 4)), Integer.parseInt(dateInTextView.substring(4, 6)) - 1, Integer.parseInt(dateInTextView.substring(6, 8)));
         datePickerDialog.show();
     }
 }

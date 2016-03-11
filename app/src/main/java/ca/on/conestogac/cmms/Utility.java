@@ -12,8 +12,10 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,6 +35,28 @@ public class Utility {
         } else {
             Log.d(TAG, msg);
         }
+    }
+
+    public static boolean isThisDateValid(String dateToValidate, String dateFromat){
+
+        if(dateToValidate == null){
+            return false;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
+        sdf.setLenient(false);
+
+        try {
+            Date date = sdf.parse(dateToValidate);
+            System.out.println(date);
+
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 
     public static void logInfo(String msg){
@@ -96,7 +120,7 @@ public class Utility {
     }
 
     public static String convertFormattedDateToRaw (String formattedDate) {
-        return formattedDate.substring(0, 4) + formattedDate.substring(4, 6) + formattedDate.substring(6, 8);
+        return formattedDate.replace("/", "");
     }
 
     public static boolean saveTextFile (Activity activity, String title, String fileType, String text) {

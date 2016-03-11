@@ -15,4 +15,6 @@ public class ValueConstants {
 
     public static final String RET_OK = "ok";
     public static final String ERROR_FORMAT = "error_format";
+    public static final String DATE_FORMAT = "yyyyMMdd";
+    public static final String DATE_FORMAT_FORMATTED = "yyyy/MM/dd";
 }

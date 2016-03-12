@@ -24,9 +24,9 @@ public class User {
         switch (accessLevel) {
             default:
             case 0:
-                return false;
+                return true;
             case 1:
-                return false;
+                return true;
             case 2:
                 return true;
             case 3:
@@ -39,7 +39,7 @@ public class User {
             case 0:
                 return false;
             case 1:
-                return false;
+                return true;
             case 2:
                 return true;
             case 3:
@@ -50,9 +50,9 @@ public class User {
         switch (accessLevel) {
             default:
             case 0:
-                return false;
+                return true;
             case 1:
-                return false;
+                return true;
             case 2:
                 return true;
             case 3:
@@ -63,9 +63,9 @@ public class User {
         switch (accessLevel) {
             default:
             case 0:
-                return false;
+                return true;
             case 1:
-                return false;
+                return true;
             case 2:
                 return true;
             case 3:
@@ -78,7 +78,7 @@ public class User {
             case 0:
                 return false;
             case 1:
-                return false;
+                return true;
             case 2:
                 return true;
             case 3:
@@ -91,7 +91,7 @@ public class User {
             case 0:
                 return false;
             case 1:
-                return false;
+                return true;
             case 2:
                 return true;
             case 3:
@@ -104,9 +104,9 @@ public class User {
             case 0:
                 return false;
             case 1:
-                return false;
-            case 2:
                 return true;
+            case 2:
+                return false;
             case 3:
                 return true;
         }
@@ -117,7 +117,7 @@ public class User {
             case 0:
                 return false;
             case 1:
-                return false;
+                return true;
             case 2:
                 return true;
             case 3:
@@ -132,7 +132,7 @@ public class User {
             case 1:
                 return false;
             case 2:
-                return true;
+                return false;
             case 3:
                 return true;
         }

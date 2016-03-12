@@ -57,17 +57,7 @@ public class LoginActivity extends BaseActivity {
         }
         callAPI("login", jsonParam);
     }
-   /* public void onApiResponse() {
-        if (userID = login.userID && password = login.password) {
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            intent.putExtra(HomeActivity.EXTRA_USER_LEVEL, "technician");
-            startActivity(intent);
-            User.getInstance().userID;
-        }
-        else{
 
-        }
-    }*/
     @Override
     void onAPIResponse(String jsonString) {
         try {
@@ -75,33 +65,14 @@ public class LoginActivity extends BaseActivity {
             String result = jsonObject.getString("result");
             if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
                 // do something if needed when error happens
-            } else if(jsonObject.has("accessLevel")){
+            }
+            else if(jsonObject.has("accessLevel")){
                try {
                     integerAccessLevel = jsonObject.getInt("accessLevel");
+                    User.accessLevel = integerAccessLevel;
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
 
-                   if(integerAccessLevel==0){
-                       User.accessLevel = integerAccessLevel;
-                       Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                       startActivity(intent);
-                   }
-                   if(integerAccessLevel==1){
-                       User.accessLevel = integerAccessLevel;
-                       Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                       startActivity(intent);
-                   }
-                   if(integerAccessLevel==2){
-                       User.accessLevel = integerAccessLevel;
-                       Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                       startActivity(intent);
-                   }
-                   if(integerAccessLevel==3){
-                       User.accessLevel = integerAccessLevel;
-                       Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                       startActivity(intent);
-                   }
-
-                   Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                   startActivity(intent);
                }
                catch(JSONException e){
                     Utility.logError(e.getMessage());

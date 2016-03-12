@@ -78,55 +78,24 @@ public class LoginActivity extends BaseActivity {
             } else if(jsonObject.has("accessLevel")){
                try {
                     integerAccessLevel = jsonObject.getInt("accessLevel");
+
+                   if(integerAccessLevel==0){
+                       User.accessLevel = integerAccessLevel;
+                       Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                       startActivity(intent);
+                   }
                    if(integerAccessLevel==1){
-                       User.getInstance().canSearchForMachine=true;
-                       User.getInstance().canSearchForRepairRequest=false;
-                       User.getInstance().canAccessHome=true;
-                       User.getInstance().canAccessMachineInformation=true;
-                       User.getInstance().canCreateWorkRequest=false;
-                       User.getInstance().canDisplayWorkRequest=false;
-                       User.getInstance().canAccessMaintenanceLogList=false;
-                       User.getInstance().canSearchForWorkRequest=false;
-                       User.getInstance().canViewBusinessReport=false ;
+                       User.accessLevel = integerAccessLevel;
                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                        startActivity(intent);
                    }
                    if(integerAccessLevel==2){
-                       User.getInstance().canSearchForMachine=true;
-                       User.getInstance().canSearchForRepairRequest=true;
-                       User.getInstance().canAccessHome=true;
-                       User.getInstance().canAccessMachineInformation=true;
-                       User.getInstance().canCreateWorkRequest=true;
-                       User.getInstance().canDisplayWorkRequest=true;
-                       User.getInstance().canAccessMaintenanceLogList=false;
-                       User.getInstance().canSearchForWorkRequest=true;
-                       User.getInstance().canViewBusinessReport=false ;
+                       User.accessLevel = integerAccessLevel;
                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                        startActivity(intent);
                    }
                    if(integerAccessLevel==3){
-                       User.getInstance().canSearchForMachine=true;
-                       User.getInstance().canSearchForRepairRequest=true;
-                       User.getInstance().canAccessHome=true;
-                       User.getInstance().canAccessMachineInformation=true;
-                       User.getInstance().canCreateWorkRequest=true;
-                       User.getInstance().canDisplayWorkRequest=true;
-                       User.getInstance().canAccessMaintenanceLogList=true;
-                       User.getInstance().canSearchForWorkRequest=true;
-                       User.getInstance().canViewBusinessReport=true ;
-                       Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                       startActivity(intent);
-                   }
-                   if(integerAccessLevel==4){
-                       User.getInstance().canSearchForMachine=true;
-                       User.getInstance().canSearchForRepairRequest=true;
-                       User.getInstance().canAccessHome=true;
-                       User.getInstance().canAccessMachineInformation=true;
-                       User.getInstance().canCreateWorkRequest=true;
-                       User.getInstance().canDisplayWorkRequest=true;
-                       User.getInstance().canAccessMaintenanceLogList=true;
-                       User.getInstance().canSearchForWorkRequest=true;
-                       User.getInstance().canViewBusinessReport=true ;
+                       User.accessLevel = integerAccessLevel;
                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                        startActivity(intent);
                    }

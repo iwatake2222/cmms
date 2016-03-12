@@ -35,11 +35,11 @@ public class HomeActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    public void onClickBusinessReport(View view) {
+    /*public void onClickBusinessReport(View view) {
         Intent intent = new Intent(this, BusinessReportActivity.class);
         startActivity(intent);
     }
-
+*/
     public void onClickLogout(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);

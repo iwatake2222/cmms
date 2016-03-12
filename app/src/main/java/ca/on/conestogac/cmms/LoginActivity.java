@@ -16,8 +16,7 @@ public class LoginActivity extends BaseActivity {
 
     Button buttonLoginLogin;
     EditText userID, password;
-    boolean canSearchForMachine=false, canSearchForRepairRequest=false, canAccessHome=false, canAccessMachineInformation=false;
-    boolean canCreateWorkRequest=false, canDisplayWorkRequest=false, canAccessMaintenanceLogList=false, canSearchForWorkRequest=false, canViewBusinessReport=false ;
+    public int integerAccessLevel;
 
 
     @Override
@@ -78,50 +77,58 @@ public class LoginActivity extends BaseActivity {
                 // do something if needed when error happens
             } else if(jsonObject.has("accessLevel")){
                try {
-                   int integerAccessLevel = jsonObject.getInt("accessLevel");
+                    integerAccessLevel = jsonObject.getInt("accessLevel");
                    if(integerAccessLevel==1){
-                       canSearchForMachine=true;
-                       canSearchForRepairRequest=false;
-                       canAccessHome=true;
-                       canAccessMachineInformation=true;
-                       canCreateWorkRequest=false;
-                       canDisplayWorkRequest=false;
-                       canAccessMaintenanceLogList=false;
-                       canSearchForWorkRequest=false;
-                       canViewBusinessReport=false ;
+                       User.getInstance().canSearchForMachine=true;
+                       User.getInstance().canSearchForRepairRequest=false;
+                       User.getInstance().canAccessHome=true;
+                       User.getInstance().canAccessMachineInformation=true;
+                       User.getInstance().canCreateWorkRequest=false;
+                       User.getInstance().canDisplayWorkRequest=false;
+                       User.getInstance().canAccessMaintenanceLogList=false;
+                       User.getInstance().canSearchForWorkRequest=false;
+                       User.getInstance().canViewBusinessReport=false ;
+                       Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                       startActivity(intent);
                    }
                    if(integerAccessLevel==2){
-                       canSearchForMachine=true;
-                       canSearchForRepairRequest=true;
-                       canAccessHome=true;
-                       canAccessMachineInformation=true;
-                       canCreateWorkRequest=true;
-                       canDisplayWorkRequest=true;
-                       canAccessMaintenanceLogList=false;
-                       canSearchForWorkRequest=true;
-                       canViewBusinessReport=false ;
+                       User.getInstance().canSearchForMachine=true;
+                       User.getInstance().canSearchForRepairRequest=true;
+                       User.getInstance().canAccessHome=true;
+                       User.getInstance().canAccessMachineInformation=true;
+                       User.getInstance().canCreateWorkRequest=true;
+                       User.getInstance().canDisplayWorkRequest=true;
+                       User.getInstance().canAccessMaintenanceLogList=false;
+                       User.getInstance().canSearchForWorkRequest=true;
+                       User.getInstance().canViewBusinessReport=false ;
+                       Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                       startActivity(intent);
                    }
                    if(integerAccessLevel==3){
-                       canSearchForMachine=true;
-                       canSearchForRepairRequest=true;
-                       canAccessHome=true;
-                       canAccessMachineInformation=true;
-                       canCreateWorkRequest=true;
-                       canDisplayWorkRequest=true;
-                       canAccessMaintenanceLogList=true;
-                       canSearchForWorkRequest=true;
-                       canViewBusinessReport=true ;
+                       User.getInstance().canSearchForMachine=true;
+                       User.getInstance().canSearchForRepairRequest=true;
+                       User.getInstance().canAccessHome=true;
+                       User.getInstance().canAccessMachineInformation=true;
+                       User.getInstance().canCreateWorkRequest=true;
+                       User.getInstance().canDisplayWorkRequest=true;
+                       User.getInstance().canAccessMaintenanceLogList=true;
+                       User.getInstance().canSearchForWorkRequest=true;
+                       User.getInstance().canViewBusinessReport=true ;
+                       Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                       startActivity(intent);
                    }
                    if(integerAccessLevel==4){
-                       canSearchForMachine=true;
-                       canSearchForRepairRequest=true;
-                       canAccessHome=true;
-                       canAccessMachineInformation=true;
-                       canCreateWorkRequest=true;
-                       canDisplayWorkRequest=true;
-                       canAccessMaintenanceLogList=true;
-                       canSearchForWorkRequest=true;
-                       canViewBusinessReport=true ;
+                       User.getInstance().canSearchForMachine=true;
+                       User.getInstance().canSearchForRepairRequest=true;
+                       User.getInstance().canAccessHome=true;
+                       User.getInstance().canAccessMachineInformation=true;
+                       User.getInstance().canCreateWorkRequest=true;
+                       User.getInstance().canDisplayWorkRequest=true;
+                       User.getInstance().canAccessMaintenanceLogList=true;
+                       User.getInstance().canSearchForWorkRequest=true;
+                       User.getInstance().canViewBusinessReport=true ;
+                       Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                       startActivity(intent);
                    }
 
                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);

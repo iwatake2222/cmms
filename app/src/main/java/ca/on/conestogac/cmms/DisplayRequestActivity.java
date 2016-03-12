@@ -353,6 +353,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 Utility.showToast(this, "Request mock created with ID: " + createdRequestID);
 
                 SearchWorkRequest(createdRequestID);
+                return;
             }
 
             if (jsonObject.has("modifiedRequestID")) {
@@ -360,6 +361,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 Utility.showToast(this, "Request mock modified for ID: " + modifiedRequestID);
 
                 SearchWorkRequest(modifiedRequestID);
+                return;
             }
 
             if (jsonObject.has("requestID")) {
@@ -368,8 +370,8 @@ public class DisplayRequestActivity extends BaseActivity {
                 intent.putExtra(DisplayRequestActivity.EXTRA_REQUEST, wr.createJson());
                 intent.putExtra(DisplayRequestActivity.WORK_REQUEST_MODE, DisplayRequestActivity.MODE_VIEW);
                 startActivity(intent);
+                return;
             }
-
 
             if (jsonObject.has("requestForList")) {
                 JSONArray jsonArray = jsonObject.getJSONArray("requestForList");

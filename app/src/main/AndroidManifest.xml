@@ -74,6 +74,7 @@
             android:name=".DisplayRequestActivity"
             android:label="@string/title_activity_display_request"
             android:screenOrientation="landscape"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity

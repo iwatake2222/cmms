@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -25,16 +26,31 @@ public class HomeActivity extends BaseActivity {
 
     public void onClickLogout(View view) {
         JSONObject jsonParam = new JSONObject();
-        callAPI("logout", jsonParam);
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        try{
+            jsonParam.put("userID", User.getInstance().userID);
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+        callAPI("Logout", jsonParam);
+
     }
-
-
     @Override
     void onAPIResponse(String jsonString) {
-
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            String result = jsonObject.getString("result");
+            if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
+                // do something if needed when error happens
+            }
+            else {
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+            }
+        } catch (JSONException e) {
+            Utility.logError(e.getMessage());
+        }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -44,5 +60,12 @@ public class HomeActivity extends BaseActivity {
         item = menu.findItem(R.id.action_home);
         item.setVisible(false);
         return true;
+    }
+    @Override
+        protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 }

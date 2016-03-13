@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity {
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }
-        callAPI("login", jsonParam);
+        callAPI("Login", jsonParam);
     }
 
     @Override

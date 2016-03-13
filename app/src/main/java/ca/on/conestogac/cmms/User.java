@@ -4,11 +4,12 @@ package ca.on.conestogac.cmms;
  */
 public class User {
     private static User instance = null;
-    public static int accessLevel;
+    public  int accessLevel;
     public String userID;
     public String password;
-    public boolean canSearchForMachine = false, canSearchForRepairRequest = false, canAccessHome = false, canAccessMachineInformation = false;
-    public boolean canCreateWorkRequest = false, canDisplayWorkRequest = false, canAccessMaintenanceLogList = false, canSearchForWorkRequest = false, canViewBusinessReport = false;
+    private static final int ACCESS_LEVEL_STUDENT=0, ACCESS_LEVEL_TECHNICIAN=1, ACCESS_LEVEL_INSTRUCTOR=2, ACCESS_LEVEL_ADMINISTRATOR=3;
+    public boolean searchRepairRequest = false, createRepairRequest = false, displayModifyRepairRequest = false, displayListOfRepairRequest = false;
+    public boolean createMaintenanceLog = false, displayModifyMaintenanceLog = false, displayListOfMaintenanceLog = false;
 
 
     private User() {
@@ -20,120 +21,108 @@ public class User {
         }
         return instance;
     }
-    public boolean canSearchForMachine() {
+    public boolean searchRepairRequest() {
         switch (accessLevel) {
             default:
-            case 0:
-                return true;
-            case 1:
-                return true;
-            case 2:
-                return true;
-            case 3:
-                return true;
-        }
-    }
-    public boolean canSearchForRepairRequest() {
-        switch (accessLevel) {
-            default:
-            case 0:
+            case ACCESS_LEVEL_STUDENT:
                 return false;
-            case 1:
+            case ACCESS_LEVEL_TECHNICIAN:
                 return true;
-            case 2:
+            case ACCESS_LEVEL_INSTRUCTOR:
                 return true;
-            case 3:
-                return true;
-        }
-    }
-    public boolean canAccessHome() {
-        switch (accessLevel) {
-            default:
-            case 0:
-                return true;
-            case 1:
-                return true;
-            case 2:
-                return true;
-            case 3:
+            case ACCESS_LEVEL_ADMINISTRATOR:
                 return true;
         }
     }
-    public boolean canAccessMachineInformation() {
+    public boolean createRepairRequest() {
         switch (accessLevel) {
             default:
-            case 0:
-                return true;
-            case 1:
-                return true;
-            case 2:
-                return true;
-            case 3:
-                return true;
-        }
-    }
-    public boolean canCreateWorkRequest() {
-        switch (accessLevel) {
-            default:
-            case 0:
+            case ACCESS_LEVEL_STUDENT:
                 return false;
-            case 1:
+            case ACCESS_LEVEL_TECHNICIAN:
                 return true;
-            case 2:
+            case ACCESS_LEVEL_INSTRUCTOR:
                 return true;
-            case 3:
+            case ACCESS_LEVEL_ADMINISTRATOR:
                 return true;
         }
     }
-    public boolean canDisplayWorkRequest() {
+    public boolean displayModifyRepairRequest() {
         switch (accessLevel) {
             default:
-            case 0:
+            case ACCESS_LEVEL_STUDENT:
                 return false;
-            case 1:
+            case ACCESS_LEVEL_TECHNICIAN:
                 return true;
-            case 2:
+            case ACCESS_LEVEL_INSTRUCTOR:
                 return true;
-            case 3:
+            case ACCESS_LEVEL_ADMINISTRATOR:
                 return true;
         }
     }
-    public boolean canAccessMaintenanceLogList() {
+    public boolean displayListOfRepairRequest() {
         switch (accessLevel) {
             default:
-            case 0:
+            case ACCESS_LEVEL_STUDENT:
                 return false;
-            case 1:
+            case ACCESS_LEVEL_TECHNICIAN:
                 return true;
-            case 2:
-                return false;
-            case 3:
+            case ACCESS_LEVEL_INSTRUCTOR:
+                return true;
+            case ACCESS_LEVEL_ADMINISTRATOR:
                 return true;
         }
     }
-    public boolean canSearchForWorkRequest() {
+    public boolean createMaintenanceLog() {
         switch (accessLevel) {
             default:
-            case 0:
+            case ACCESS_LEVEL_STUDENT:
                 return false;
-            case 1:
+            case ACCESS_LEVEL_TECHNICIAN:
                 return true;
-            case 2:
-                return true;
-            case 3:
+            case ACCESS_LEVEL_INSTRUCTOR:
+                return false;
+            case ACCESS_LEVEL_ADMINISTRATOR:
                 return true;
         }
     }
+    public boolean displayModifyMaintenanceLog() {
+        switch (accessLevel) {
+            default:
+            case ACCESS_LEVEL_STUDENT:
+                return false;
+            case ACCESS_LEVEL_TECHNICIAN:
+                return true;
+            case ACCESS_LEVEL_INSTRUCTOR:
+                return false;
+            case ACCESS_LEVEL_ADMINISTRATOR:
+                return true;
+        }
+    }
+    public boolean displayListOfMaintenanceLog() {
+        switch (accessLevel) {
+            default:
+            case ACCESS_LEVEL_STUDENT:
+                return false;
+            case ACCESS_LEVEL_TECHNICIAN:
+                return true;
+            case ACCESS_LEVEL_INSTRUCTOR:
+                return false;
+            case ACCESS_LEVEL_ADMINISTRATOR:
+                return true;
+        }
+    }
+    // left this businees stuff in maybe we can hide the button from other users so they can save a bunch  of files that the admin has to go through later
     public boolean canViewBusinessReport() {
         switch (accessLevel) {
             default:
-            case 0:
+            case ACCESS_LEVEL_STUDENT:
                 return false;
-            case 1:
+            case ACCESS_LEVEL_TECHNICIAN:
                 return false;
-            case 2:
+            case ACCESS_LEVEL_INSTRUCTOR:
                 return false;
-            case 3:
+            case ACCESS_LEVEL_ADMINISTRATOR:
                 return true;
         }
     }

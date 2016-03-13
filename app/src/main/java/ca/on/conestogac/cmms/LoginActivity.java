@@ -69,10 +69,9 @@ public class LoginActivity extends BaseActivity {
             else if(jsonObject.has("accessLevel")){
                try {
                     integerAccessLevel = jsonObject.getInt("accessLevel");
-                    User.accessLevel = integerAccessLevel;
+                    User.getInstance().accessLevel = integerAccessLevel;
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
-
                }
                catch(JSONException e){
                     Utility.logError(e.getMessage());

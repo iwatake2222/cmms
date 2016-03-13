@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import org.json.JSONObject;
+
+
 public class HomeActivity extends BaseActivity {
     public static final String EXTRA_USER_LEVEL = "ca.on.conestogac.cmms.EXTRA_USER_LEVEL";
 
@@ -18,7 +21,7 @@ public class HomeActivity extends BaseActivity {
 
         String userLevel = getIntent().getStringExtra(EXTRA_USER_LEVEL);
         if (userLevel == null) {
-            Utility.logError("unexpedted call");
+            Utility.logError("unexpected call");
             //throw new IllegalArgumentException();
         } else {
             Utility.showToast(this.getApplicationContext(), "Login as  " + userLevel);
@@ -35,12 +38,10 @@ public class HomeActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    /*public void onClickBusinessReport(View view) {
-        Intent intent = new Intent(this, BusinessReportActivity.class);
-        startActivity(intent);
-    }
-*/
+
     public void onClickLogout(View view) {
+        JSONObject jsonParam = new JSONObject();
+        callAPI("logout", jsonParam);
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

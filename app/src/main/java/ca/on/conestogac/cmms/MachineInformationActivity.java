@@ -1,5 +1,6 @@
 package ca.on.conestogac.cmms;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -27,8 +28,18 @@ public class MachineInformationActivity extends BaseActivity {
         } else {
             Utility.logDebug(mMachineJsonString);
         }
+
+        /* Common Machine Information */
+        Fragment fragment = MachineFragment.newInstance(mMachineJsonString);
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragmentContainer, fragment)
+                .commit();
+        /* !Common Machine Information */
+
         convertMachine(mMachineJsonString);
         setValues();
+
+
     }
 
     public void onClickCreateRequest(View view) {

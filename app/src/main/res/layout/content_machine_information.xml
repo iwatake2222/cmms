@@ -15,6 +15,12 @@
     tools:context=".MachineInformationActivity"
     tools:showIn="@layout/activity_machine_information">
 
+    <!-- Common Machine Information -->
+    <RelativeLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <!-- !Common Machine Information -->
     <TextView
         android:id="@+id/textViewMachineMachineID"
         android:layout_width="wrap_content"

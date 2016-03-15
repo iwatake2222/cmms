@@ -31,12 +31,12 @@ public class SearchRequestListActivity extends BaseActivity {
         String requestList = getIntent().getStringExtra(EXTRA_REQUEST_LIST);
         if (requestList == null) {
             Utility.logError("unexpedted call");
-            throw new IllegalArgumentException();
         } else {
             Utility.logDebug(requestList);
+            initListView();
+            convertRequestList(requestList);
         }
-        initListView();
-        convertRequestList(requestList);
+
     }
 
     @Override

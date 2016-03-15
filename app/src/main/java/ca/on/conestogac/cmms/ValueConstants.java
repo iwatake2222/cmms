@@ -15,6 +15,12 @@ public class ValueConstants {
 
     public static final String RET_OK = "ok";
     public static final String ERROR_FORMAT = "error_format";
+    public static final String ERROR_PARAMETER = "error_parameter";
+    public static final String ERROR_TIMEOUT = "error_timeout";
+    public static final String ERROR_USER_LEVEL = "error_user_level";
+    public static final String ERROR_OTHER = "error";
+
+
     public static final String DATE_FORMAT = "yyyyMMdd";
     public static final String DATE_FORMAT_FORMATTED = "yyyy/MM/dd";
 }

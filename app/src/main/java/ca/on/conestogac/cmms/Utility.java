@@ -173,4 +173,20 @@ public class Utility {
         return str;
     }
 
+    public static boolean getPermissionCamera(Activity activity) {
+        if (ContextCompat.checkSelfPermission(
+                activity,
+                android.Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            String[] permissions = new String[]{Manifest.permission.CAMERA};
+            ActivityCompat.requestPermissions(
+                    activity,
+                    permissions,
+                    0);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

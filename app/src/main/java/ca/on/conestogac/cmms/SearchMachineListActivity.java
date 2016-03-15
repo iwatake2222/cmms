@@ -16,8 +16,13 @@ public class SearchMachineListActivity extends BaseActivity {
     }
 
     public void onClickSearchMachineList(View view) {
-        Intent intent = new Intent(this, MachineInformationActivity.class);
+        // todo: delete
+        Intent intent = new Intent(SearchMachineListActivity.this, MachineInformationActivity.class);
+        intent.putExtra(MachineInformationActivity.EXTRA_MACHINE, "{\"result\":\"ok\", \n" +
+                "\"machineID\":\"1234\", \"campus\":\"Doon\", \"shop\":\"Wood Working\", \"isDisposed\":\"0\", \"make\":\"ABC Inc\", \"model\":\"Model 123\", \"description\":\"Huge machine\", \"linkToPicture\":\"http://aaa\", \"linkToDocument\":[{\"documentName\":\"Operation Manual\", \"link\":\"http://aaa\"}, {\"documentName\":\"Safety Alert\", \"link\":\"http://aaa\"}]\n" +
+                "}");
         startActivity(intent);
+
     }
 
 

@@ -16,9 +16,13 @@
     tools:showIn="@layout/activity_machine_information">
 
     <TextView
+        android:id="@+id/textViewMachineMachineID"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Machine Information"/>
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/textViewMachineDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/buttonMachineInformationCreateRequest"
         android:layout_width="wrap_content"

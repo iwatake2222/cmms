@@ -3,11 +3,8 @@ package ca.on.conestogac.cmms;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,12 +18,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class DisplayRequestActivity extends BaseActivity {
     public static final String EXTRA_REQUEST = "ca.on.conestogac.cmms.EXTRA_REQUEST";
+    public static final String EXTRA_MACHINE = "ca.on.conestogac.cmms.EXTRA_MACHINE";
     public static final String WORK_REQUEST_MODE = "ca.on.conestogac.cmms.WORK_REQUEST_MODE";
     public static final String MODE_CREATE = "CreateRequestActivityMODE";
     public static final String MODE_VIEW = "ViewRequestActivityMODE";
@@ -70,7 +67,9 @@ public class DisplayRequestActivity extends BaseActivity {
         initListElements();
 
         try {
-            if (receivedRequest == null || workRequestMode == null) {
+            // memo: receivedRequest can be null for CREATE. (takeshi)
+            //if (receivedRequest == null || workRequestMode == null) {
+            if (workRequestMode == null) {
                 Utility.logError("Unexpected call");
                 throw new IllegalArgumentException();
             } else if (workRequestMode.equals(MODE_EDIT)) {

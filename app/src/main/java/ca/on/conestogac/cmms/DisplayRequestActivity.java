@@ -92,8 +92,6 @@ public class DisplayRequestActivity extends BaseActivity {
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
-
-        initMachineInformation();
     }
 
     private void configureActivityEditMode() {
@@ -403,10 +401,14 @@ public class DisplayRequestActivity extends BaseActivity {
                     // TODO: populate other fields (edits) independently of spinners and then populate each spinner in its own callback
                     fillWorkRequestFields(workRequest);
                 }
+
+                // all callbacks received, now we can populate machine info
+                initMachineInformation();
             }
 
             // note: if response contains linkToDocument, I assume it the response for SearchMachine
             if (jsonObject.has("linkToDocument")) {
+                // this is the very last callback
                 mMachine = jsonString;
                 setMachineInformation();
             }

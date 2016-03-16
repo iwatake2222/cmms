@@ -14,9 +14,11 @@ public class Machine {
     private String campus;
     private String shop;
     private String isDisposed;
-    private String make;
-    private String model;
+    private String manufacturer;
+    private String serialNumber;
+    private String modelNumber;
     private String description;
+    private String linkToPicture;
     private ArrayList<String> namesOfDocument;
     private ArrayList<String> linksToDocument;
 
@@ -25,18 +27,31 @@ public class Machine {
         namesOfDocument = new ArrayList<String>();
         linksToDocument = new ArrayList<String>();
         try {
-            this.machineID = jsonObject.getString("machineID");
-            this.campus = jsonObject.getString("campus");
-            this.shop = jsonObject.getString("shop");
-            this.isDisposed = jsonObject.getString("isDisposed");
-            this.make = jsonObject.getString("make");
-            this.model = jsonObject.getString("model");
-            this.description = jsonObject.getString("description");
-            JSONArray jsonArray = jsonObject.getJSONArray("linkToDocument");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject eachDocument = jsonArray.getJSONObject(i);
-                this.namesOfDocument.add(eachDocument.getString("documentName"));
-                this.linksToDocument.add(eachDocument.getString("link"));
+            if(jsonObject.has("machineID"))
+                this.machineID = jsonObject.getString("machineID");
+            if(jsonObject.has("campus"))
+                this.campus = jsonObject.getString("campus");
+            if(jsonObject.has("shop"))
+                this.shop = jsonObject.getString("shop");
+            if(jsonObject.has("isDisposed"))
+                this.isDisposed = jsonObject.getString("isDisposed");
+            if(jsonObject.has("manufacturer"))
+                this.manufacturer = jsonObject.getString("manufacturer");
+            if(jsonObject.has("serialNumber"))
+                this.serialNumber = jsonObject.getString("serialNumber");
+            if(jsonObject.has("modelNumber"))
+                this.modelNumber = jsonObject.getString("modelNumber");
+            if(jsonObject.has("description"))
+                this.description = jsonObject.getString("description");
+            if(jsonObject.has("linkToPicture"))
+                this.linkToPicture = jsonObject.getString("linkToPicture");
+            if(jsonObject.has("linkToDocument")) {
+                JSONArray jsonArray = jsonObject.getJSONArray("linkToDocument");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject eachDocument = jsonArray.getJSONObject(i);
+                    this.namesOfDocument.add(eachDocument.getString("documentName"));
+                    this.linksToDocument.add(eachDocument.getString("link"));
+                }
             }
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
@@ -50,9 +65,11 @@ public class Machine {
             jsonParam.put("campus", campus);
             jsonParam.put("shop", shop);
             jsonParam.put("isDisposed", isDisposed);
-            jsonParam.put("make", make);
-            jsonParam.put("model",model );
+            jsonParam.put("manufacturer", manufacturer);
+            jsonParam.put("serialNumber",serialNumber );
+            jsonParam.put("modelNumber",modelNumber );
             jsonParam.put("description",description );
+            jsonParam.put("linkToPicture",linkToPicture );
             JSONArray jsonArray = new JSONArray();
             for(int i = 0; i < namesOfDocument.size(); i++){
                 JSONObject eachDocument = new JSONObject();
@@ -72,8 +89,9 @@ public class Machine {
         str  = "Machine ID: " + machineID + "\n";
         str += "Description: " + description + "\n";
         str += "Location: " + campus + " (" + shop + ")" + "\n";
-        str += "Make: " + make + "\n";
-        str += "Model: " + model + "\n";
+        str += "Manufacturer: " + manufacturer + "\n";
+        str += "SerialNumber: " + serialNumber + "\n";
+        str += "ModelNumber: " + modelNumber + "\n";
         str += "Disposed: " + ((isDisposed=="0")?"No":"Yes") + "\n";
         return str;
     }
@@ -85,8 +103,9 @@ public class Machine {
         str += "Description,";
         str += "Campups,";
         str += "Shop,";
-        str += "Make,";
-        str += "Model,";
+        str += "Manufacturer,";
+        str += "SerialNumber,";
+        str += "ModelNumber,";
         str += "Disposed,";
         str += "\n";
         return str;
@@ -99,8 +118,9 @@ public class Machine {
         str += Utility.escapeForCSV(description) + ",";
         str += Utility.escapeForCSV(campus) + ",";
         str += Utility.escapeForCSV(shop) + ",";
-        str += Utility.escapeForCSV(make) + ",";
-        str += Utility.escapeForCSV(model) + ",";
+        str += Utility.escapeForCSV(manufacturer) + ",";
+        str += Utility.escapeForCSV(serialNumber) + ",";
+        str += Utility.escapeForCSV(modelNumber) + ",";
         str += Utility.escapeForCSV(((isDisposed=="0")?"No":"Yes")) + ",";
         str += "\n";
         return str;
@@ -147,20 +167,36 @@ public class Machine {
         this.machineID = machineID;
     }
 
-    public String getMake() {
-        return make;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public void setMake(String make) {
-        this.make = make;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
-    public String getModel() {
-        return model;
+    public String getModelNumber() {
+        return modelNumber;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setModelNumber(String modelNumber) {
+        this.modelNumber = modelNumber;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public String getLinkToPicture() {
+        return linkToPicture;
+    }
+
+    public void setLinkToPicture(String linkToPicture) {
+        this.linkToPicture = linkToPicture;
     }
 
     public ArrayList<String> getNamesOfDocument() {

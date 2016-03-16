@@ -2,10 +2,12 @@ package ca.on.conestogac.cmms;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -16,7 +18,6 @@ public class MachineFragment extends Fragment {
     private static final String ARG_MACHINE_JSON_STRING = "machineJsonString";
     private String mMachineJsonString;
     Machine mMachine;
-
 
     public static MachineFragment newInstance(String machineJsonString) {
         MachineFragment fragment = new MachineFragment();
@@ -43,8 +44,26 @@ public class MachineFragment extends Fragment {
                              Bundle savedInstanceState) {
         convertMachine(mMachineJsonString);
         View v = inflater.inflate(R.layout.fragment_machine, container, false);
+
         ((TextView)v.findViewById(R.id.textViewMachineMachineID)).setText(mMachine.getMachineID());
+        ((TextView)v.findViewById(R.id.textViewMachineLocation)).setText(mMachine.getCampus() + " (" + mMachine.getShop() + ")");
+        ((TextView)v.findViewById(R.id.textViewMachineManufacturer)).setText(mMachine.getManufacturer());
+        ((TextView)v.findViewById(R.id.textViewMachineSerialNumber)).setText(mMachine.getSerialNumber());
+        ((TextView)v.findViewById(R.id.textViewMachineModelNumber)).setText(mMachine.getModelNumber());
+        ((TextView)v.findViewById(R.id.textViewMachineIsDisposed)).setText(mMachine.getIsDisposed().compareTo("0")!=0?"Yes":"No");
         ((TextView)v.findViewById(R.id.textViewMachineDescription)).setText(mMachine.getDescription());
+
+
+        ImageView imageView = (ImageView) v.findViewById(R.id.imageViewMachine);
+        if(mMachine.getLinkToPicture().contains("http")) {
+            Uri uri = Uri.parse(mMachine.getLinkToPicture());
+            Uri.Builder builder = uri.buildUpon();
+            HttpAsyncLoaderBitmap task = new HttpAsyncLoaderBitmap(imageView);
+            task.execute(builder);
+        } else {
+            imageView.setVisibility(View.INVISIBLE);
+        }
+
         return v;
     }
 

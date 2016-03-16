@@ -16,18 +16,21 @@ public class SearchMachineListActivity extends BaseActivity {
     }
 
     public void onClickSearchMachineList(View view) {
-        // todo: delete
+                // todo: delete
         Intent intent = new Intent(SearchMachineListActivity.this, MachineInformationActivity.class);
         intent.putExtra(MachineInformationActivity.EXTRA_MACHINE, "{\"result\":\"ok\", \n" +
-                "\"machineID\":\"1234\", \"campus\":\"Doon\", \"shop\":\"Wood Working\", \"isDisposed\":\"0\", \"make\":\"ABC Inc\", \"model\":\"Model 123\", \"description\":\"Huge machine\", \"linkToPicture\":\"http://aaa\", \"linkToDocument\":[{\"documentName\":\"Operation Manual\", \"link\":\"http://aaa\"}, {\"documentName\":\"Safety Alert\", \"link\":\"http://aaa\"}]\n" +
+                "\"machineID\":\"1234\", \"campus\":\"Doon\", \"shop\":\"Wood Working\", \"isDisposed\":\"0\", \"manufacturer\":\"ABC Inc\", \"serialNumber\":\"Serial 123\", \"modelNumber\":\"Model 123\", \"description\":\"Huge machine Huge machine Huge machine Huge machine Huge machine Huge machine Huge machine Huge machine Huge machine Huge machine Huge machine Huge machine Huge machine Huge machine Huge machine Huge machine \", \"linkToPicture\":\"http://www.wmma.org/images/productguide-01.jpg\", \"linkToDocument\":[{\"documentName\":\"Operation Manual\", \"link\":\"http://www.vieltools.com/instruction/D2796_pdf.pdf\"}, {\"documentName\":\"Safety Alert\", \"link\":\"http://iapa.ca/pdf/machine.pdf\"}]\n" +
                 "}");
         startActivity(intent);
+        startActivity(intent);
+
 
     }
 
 
     @Override
     void onAPIResponse(String jsonString) {
+
 
     }
 

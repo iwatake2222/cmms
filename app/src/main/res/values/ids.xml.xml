@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="ids_document_button0" type="id"/>
+    <item name="ids_document_button1" type="id"/>
+    <item name="ids_document_button2" type="id"/>
+    <item name="ids_document_button3" type="id"/>
+    <item name="ids_document_button4" type="id"/>
+    <item name="ids_document_button5" type="id"/>
+    <item name="ids_document_button6" type="id"/>
+    <item name="ids_document_button7" type="id"/>
+</resources>

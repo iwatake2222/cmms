@@ -1,6 +1,7 @@
 package ca.on.conestogac.cmms;
 
 import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -51,6 +52,7 @@ public class DisplayRequestActivity extends BaseActivity {
     private ArrayAdapter<String> mAdapterProgress;
     private WorkRequest workRequest;
     private String receivedRequest;
+    private String mMachine;
     private String workRequestMode;
 
     @Override
@@ -90,6 +92,8 @@ public class DisplayRequestActivity extends BaseActivity {
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
+
+        initMachineInformation();
     }
 
     private void configureActivityEditMode() {
@@ -400,6 +404,13 @@ public class DisplayRequestActivity extends BaseActivity {
                     fillWorkRequestFields(workRequest);
                 }
             }
+
+            // note: if response contains linkToDocument, I assume it the response for SearchMachine
+            if (jsonObject.has("linkToDocument")) {
+                mMachine = jsonString;
+                setMachineInformation();
+            }
+
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
@@ -540,5 +551,41 @@ public class DisplayRequestActivity extends BaseActivity {
             }
         }, Integer.parseInt(dateInTextView.substring(0, 4)), Integer.parseInt(dateInTextView.substring(4, 6)) - 1, Integer.parseInt(dateInTextView.substring(6, 8)));
         datePickerDialog.show();
+    }
+
+
+    private void initMachineInformation()
+    {
+        if (workRequestMode == null) {
+            return;
+        } else if (workRequestMode.equals(MODE_EDIT) || workRequestMode.equals(MODE_VIEW)) {
+            String machineId = workRequest.getMachineID();
+            if(machineId != "") {
+                JSONObject jsonParam = new JSONObject();
+                try{
+                    jsonParam.put("userID", User.getInstance().userID);
+                    jsonParam.put("machineID", machineId);
+                } catch (JSONException e) {
+                    Utility.logDebug(e.getMessage());
+                }
+                callAPI("SearchMachine", jsonParam);
+            }
+        } else if (workRequestMode.equals(MODE_CREATE)) {
+            mMachine = getIntent().getStringExtra(EXTRA_MACHINE);
+            setMachineInformation();
+        } else {
+            return;
+        }
+    }
+
+    private void setMachineInformation ()
+    {
+        if(mMachine == null) return;
+        /* Common Machine Information */
+        Fragment fragment = MachineFragment.newInstance(mMachine);
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragmentContainer, fragment)
+                .commit();
+        /* !Common Machine Information */
     }
 }

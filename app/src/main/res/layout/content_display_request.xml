@@ -30,11 +30,14 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:weightSum="3">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Common Machine Information -->
+            <FrameLayout
+                android:id="@+id/fragmentContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="--Machine Information goes here--" />
+                android:layout_gravity="top|left"/>
+            <!-- !Common Machine Information -->
+
         </LinearLayout>
 
         <LinearLayout

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -111,18 +112,65 @@ public class MachineInformationActivity extends BaseActivity {
     }
 
     public void onClickDisplayRequest(View view) {
-        Intent intent = new Intent(this, SearchRequestListActivity.class);
-        startActivity(intent);
+        JSONObject jsonParam = new JSONObject();
+        try{
+            jsonParam.put("userID", User.getInstance().userID);
+            jsonParam.put("requestID", "");
+            jsonParam.put("machineID", mMachine.getMachineID());
+            jsonParam.put("campus", "");
+            jsonParam.put("shop", "");
+            jsonParam.put("progress","" );
+            jsonParam.put("status", "");
+            jsonParam.put("dateRequestedFrom", "");
+            jsonParam.put("dateRequestedTo", "");
+            jsonParam.put("keywords", "");
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+        callAPI("SearchWorkRequestList", jsonParam);
     }
 
     public void onClickDisplayLog(View view) {
-        Intent intent = new Intent(this, MaintenanceLogListActivity.class);
-        startActivity(intent);
+        JSONObject jsonParam = new JSONObject();
+        try{
+            jsonParam.put("userID", User.getInstance().userID);
+            jsonParam.put("maintenanceLogID", "");
+            jsonParam.put("machineID", mMachine.getMachineID());
+            jsonParam.put("requestID", "");
+            jsonParam.put("creationDateFrom", "");
+            jsonParam.put("creationDateTo","" );
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+        callAPI("SearchMaintenanceLogList", jsonParam);
     }
 
 
     @Override
     void onAPIResponse(String jsonString) {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            String result = jsonObject.getString("result");
+            if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
+                // do something if needed when error happens
+            } else {
+                if(jsonObject.has("requestList")) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("requestList");
+                    Intent intent = new Intent(this, SearchRequestListActivity.class);
+                    intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST, jsonArray.toString());
+                    startActivity(intent);
+                } else if(jsonObject.has("maintenanceLogList")) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("maintenanceLogList");
+                    Intent intent = new Intent(this, MaintenanceLogListActivity.class);
+                    intent.putExtra(MaintenanceLogListActivity.EXTRA_MAINTENANCELOG_LIST, jsonArray.toString());
+                    startActivity(intent);
+                } else {
+                    Utility.logError("unexpected response");
+                }
+            }
+        } catch (JSONException e) {
+            Utility.logError(e.getMessage());
+        }
 
     }
 

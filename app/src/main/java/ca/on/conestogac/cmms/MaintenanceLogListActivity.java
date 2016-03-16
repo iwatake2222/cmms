@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 public class MaintenanceLogListActivity extends BaseActivity {
+    public static final String EXTRA_MAINTENANCELOG_LIST = "ca.on.conestogac.cmms.EXTRA_MAINTENANCELOG_LIST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

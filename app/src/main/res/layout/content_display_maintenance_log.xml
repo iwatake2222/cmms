@@ -1,29 +1,582 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".DisplayMaintenanceLogActivity"
     tools:showIn="@layout/activity_display_maintenance_log">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Display Maintenance Log"/>
-    <Button
-        android:id="@+id/buttonDisplayMaintenanceLogBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClickBack"
-        android:text="Back to machine information"/>
+        android:gravity="top"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/topLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:weightSum="3">
+
+            <!-- Common Machine Information -->
+            <FrameLayout
+                android:id="@+id/fragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|left"/>
+            <!-- !Common Machine Information -->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/displayMaintenanceLogMiddleLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="vertical"
+            android:padding="3dp">
+
+            <LinearLayout
+                android:id="@+id/middleRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="2"
+                android:gravity="left">
+                <LinearLayout
+                    android:id="@+id/middleRow1Col1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="2"
+                    android:gravity="left">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:text="Log ID"
+                        android:gravity="left" />
+
+
+                    <ViewSwitcher
+                        android:id="@+id/viewSwitcherMaintenanceLogID"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:measureAllChildren="false"
+                        android:layout_weight="1"
+                        android:padding="0dp">
+                        <EditText
+                            android:layout_gravity="right"
+                            android:id="@+id/editTextMaintenanceLogID"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"/>
+                        <TextView
+                            android:id="@+id/textViewMaintenanceLogID"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text=""
+                            android:layout_weight="2"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"/>
+                    </ViewSwitcher>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/middleRow1Col2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:text="Date" />
+
+
+                    <ViewSwitcher
+                        android:id="@+id/viewSwitcherMaintenanceLogDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:measureAllChildren="false"
+                        android:layout_weight="1"
+                        android:padding="0dp">
+                        <EditText
+                            android:layout_gravity="right"
+                            android:id="@+id/editTextMaintenanceLogDate"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"/>
+                        <TextView
+                            android:id="@+id/textViewMaintenanceLogDate"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text=""
+                            android:layout_weight="2"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"/>
+                    </ViewSwitcher>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/middleRow1Col3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:text="Completed By" />
+
+                    <ViewSwitcher
+                        android:id="@+id/viewSwitcherMaintenanceLogCompletedBy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:measureAllChildren="false"
+                        android:layout_weight="1"
+                        android:padding="0dp">
+                        <EditText
+                            android:layout_gravity="right"
+                            android:id="@+id/editTextMaintenanceLogCompletedBy"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"/>
+                        <TextView
+                            android:id="@+id/textViewMaintenanceLogCompletedBy"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text=""
+                            android:layout_weight="2"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"/>
+                    </ViewSwitcher>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/middleRow2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="2"
+                android:gravity="left">
+                <LinearLayout
+                    android:id="@+id/middleRow2Col1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:text="Related Work Request" />
+
+
+                    <ViewSwitcher
+                        android:id="@+id/viewSwitcherMaintenanceLogRelatedWorkRequestID"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:measureAllChildren="false"
+                        android:layout_weight="1"
+                        android:padding="0dp">
+                        <EditText
+                            android:layout_gravity="right"
+                            android:id="@+id/editTextMaintenanceLogRelatedWorkRequestID"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"/>
+                        <TextView
+                            android:id="@+id/textViewMaintenanceLogRelatedWorkRequestID"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text=""
+                            android:layout_weight="2"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"/>
+                    </ViewSwitcher>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/buttonMaintenanceLogShowRelatedWorkRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="onClickModifyMaintenanceLogActivity"
+                    android:text="View" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/middleRow3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="2">
+                <LinearLayout
+                    android:id="@+id/middleRow3Col1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:text="Maintenance Required" />
+
+                    <ViewSwitcher
+                        android:id="@+id/viewSwitcherMaintenanceLogMaintenanceRequired"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:measureAllChildren="false"
+                        android:layout_weight="1"
+                        android:padding="0dp">
+                        <EditText
+                            android:layout_gravity="right"
+                            android:id="@+id/editTextMaintenanceLogMaintenanceRequired"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"/>
+                        <TextView
+                            android:id="@+id/textViewMaintenanceLogMaintenanceRequired"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text=""
+                            android:layout_weight="2"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"/>
+                    </ViewSwitcher>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/middleRow4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="2">
+                <LinearLayout
+                    android:id="@+id/middleRow4Col1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:text="Action Taken / Follow up" />
+
+
+                    <ViewSwitcher
+                        android:id="@+id/viewSwitcherMaintenanceLogActionTaken"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:measureAllChildren="false"
+                        android:layout_weight="1"
+                        android:padding="0dp">
+                        <EditText
+                            android:layout_gravity="right"
+                            android:id="@+id/editTextMaintenanceLogActionTaken"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"/>
+                        <TextView
+                            android:id="@+id/textViewMaintenanceLogActionTaken"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text=""
+                            android:layout_weight="2"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"/>
+                    </ViewSwitcher>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/middleRow5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="2">
+                <LinearLayout
+                    android:id="@+id/middleRow5Col1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:text="Parts required" />
+
+
+                    <ViewSwitcher
+                        android:id="@+id/viewSwitcherMaintenanceLogPartsRequired"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:measureAllChildren="false"
+                        android:layout_weight="1"
+                        android:padding="0dp">
+                        <EditText
+                            android:layout_gravity="right"
+                            android:id="@+id/editTextMaintenanceLogPartsRequired"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"/>
+                        <TextView
+                            android:id="@+id/textViewMaintenanceLogPartsRequired"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text=""
+                            android:layout_weight="2"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"/>
+                    </ViewSwitcher>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/middleRow5Col2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:text="Approximate cost (optional)" />
+
+
+                    <ViewSwitcher
+                        android:id="@+id/viewSwitcherMaintenanceLogApproximateCost"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:measureAllChildren="false"
+                        android:layout_weight="1"
+                        android:padding="0dp">
+                        <EditText
+                            android:layout_gravity="right"
+                            android:id="@+id/editTextMaintenanceLogApproximateCost"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"/>
+                        <TextView
+                            android:id="@+id/textViewMaintenanceLogApproximateCost"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text=""
+                            android:layout_weight="2"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"/>
+                    </ViewSwitcher>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/middleRow5Col3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:text="Requisition # (optional)" />
+
+
+                    <ViewSwitcher
+                        android:id="@+id/viewSwitcherMaintenanceLogRequisitionNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:measureAllChildren="false"
+                        android:layout_weight="1"
+                        android:padding="0dp">
+                        <EditText
+                            android:layout_gravity="right"
+                            android:id="@+id/editTextMaintenanceLogRequisitionNumber"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"/>
+                        <TextView
+                            android:id="@+id/textViewMaintenanceLogRequisitionNumber"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text=""
+                            android:layout_weight="2"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"/>
+                    </ViewSwitcher>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/middleRow6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="2"
+                android:gravity="left">
+                <LinearLayout
+                    android:id="@+id/middleRow6Col1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:text="Contractor (optional)" />
+
+                    <ViewSwitcher
+                        android:id="@+id/viewSwitcherMaintenanceLogContractor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:measureAllChildren="false"
+                        android:layout_weight="1"
+                        android:padding="0dp">
+                        <EditText
+                            android:layout_gravity="right"
+                            android:id="@+id/editTextMaintenanceLogContractor"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"/>
+                        <TextView
+                            android:id="@+id/textViewMaintenanceLogContractor"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text=""
+                            android:layout_weight="2"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"/>
+                    </ViewSwitcher>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/middleRow6Col2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:padding="3dp"
+                        android:text="Contractor company (optional)" />
+
+
+                    <ViewSwitcher
+                        android:id="@+id/viewSwitcherMaintenanceLogContractorCompany"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:measureAllChildren="false"
+                        android:layout_weight="1"
+                        android:padding="0dp">
+                        <EditText
+                            android:layout_gravity="right"
+                            android:id="@+id/editTextMaintenanceLogContractorCompany"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:layout_width="match_parent"/>
+                        <TextView
+                            android:id="@+id/textViewMaintenanceLogContractorCompany"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text=""
+                            android:layout_weight="2"
+                            android:layout_gravity="right"
+                            android:layout_width="match_parent"/>
+                    </ViewSwitcher>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/displayMaintenanceLogBottomLine"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/buttonMaintenanceLogCreateMaintenanceLog"
+                android:layout_width="218dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickCreateRequestActivityCreateRequest"
+                android:text="Save (New)" />
+            <Button
+                android:id="@+id/buttonMaintenanceLogSaveEditMaintenanceLog"
+                android:layout_width="218dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickMaintenanceLogActivitySaveEditedLog"
+                android:text="Save (Edit)" />
+            <Button
+                android:id="@+id/buttonMaintenanceLogEditMaintenanceLog"
+                android:layout_width="218dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickModifyMaintenanceLogActivity"
+                android:text="Modify" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

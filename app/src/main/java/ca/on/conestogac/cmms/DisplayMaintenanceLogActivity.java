@@ -73,6 +73,14 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
         // Switch do Edits and Spinner
         SwitchViewsMode(0);
+
+        // Configure buttons visibility
+        Button buttonMaintenanceLogCreateMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogCreateMaintenanceLog);
+        buttonMaintenanceLogCreateMaintenanceLog.setVisibility(View.GONE);
+        Button buttonMaintenanceLogSaveEditMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogSaveEditMaintenanceLog);
+        buttonMaintenanceLogSaveEditMaintenanceLog.setVisibility(View.VISIBLE);
+        Button buttonMaintenanceLogEditMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogEditMaintenanceLog);
+        buttonMaintenanceLogEditMaintenanceLog.setVisibility(View.GONE);
     }
 
     private void configureActivityViewMode() {
@@ -228,6 +236,18 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
+    }
+
+    public void onClickModifyMaintenanceLogActivity(View view) {
+        // Change to edit mode
+        Intent intent = new Intent(this, DisplayMaintenanceLogActivity.class);
+
+        intent.putExtra(DisplayMaintenanceLogActivity.EXTRA_MACHINE, mMachine);
+        intent.putExtra(DisplayMaintenanceLogActivity.EXTRA_MAINTENANCE_LOG, currentMaintenanceLog.createJson());
+        intent.putExtra(DisplayMaintenanceLogActivity.MAINTENANCE_LOG_MODE, DisplayMaintenanceLogActivity.MODE_EDIT);
+
+
+        startActivity(intent);
     }
 
     public void onClickBack(View view) {

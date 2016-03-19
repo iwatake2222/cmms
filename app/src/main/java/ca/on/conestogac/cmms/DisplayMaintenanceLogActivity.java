@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,6 +63,8 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
+
+        initMachineInformation();
     }
 
     private void configureActivityEditMode() {
@@ -76,6 +81,14 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
         // Switch do ViewText
         SwitchViewsMode(1);
+
+        // Configure buttons visibility
+        Button buttonMaintenanceLogCreateMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogCreateMaintenanceLog);
+        buttonMaintenanceLogCreateMaintenanceLog.setVisibility(View.GONE);
+        Button buttonMaintenanceLogSaveEditMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogSaveEditMaintenanceLog);
+        buttonMaintenanceLogSaveEditMaintenanceLog.setVisibility(View.GONE);
+        Button buttonMaintenanceLogEditMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogEditMaintenanceLog);
+        buttonMaintenanceLogEditMaintenanceLog.setVisibility(View.VISIBLE);
     }
 
     private void configureActivityCreateMode() {
@@ -83,6 +96,53 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
         // Switch do Edits and Spinner
         SwitchViewsMode(0);
+    }
+
+    private void fillMaintenanceLogFields(MaintenanceLog maintenanceLog) {
+        // Fill information regardless if it is a TextView or EditText
+        ViewSwitcher viewSwitcherMaintenanceLogID = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogID);
+        TextView maintenanceLogID = (TextView) viewSwitcherMaintenanceLogID.getCurrentView();
+        maintenanceLogID.setText(maintenanceLog.getMaintenanceLogID());
+
+        ViewSwitcher viewSwitcherMaintenanceLogDate = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogDate);
+        TextView maintenanceLogDate = (TextView) viewSwitcherMaintenanceLogDate.getCurrentView();
+        maintenanceLogDate.setText(maintenanceLog.getDate());
+
+        ViewSwitcher viewSwitcherMaintenanceLogCompletedBy = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogCompletedBy);
+        TextView completedBy = (TextView) viewSwitcherMaintenanceLogCompletedBy.getCurrentView();
+        completedBy.setText(maintenanceLog.getCompletedBy());
+
+        ViewSwitcher viewSwitcherMaintenanceLogRelatedWorkRequestID = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogRelatedWorkRequestID);
+        TextView relatedWorkRequestID = (TextView) viewSwitcherMaintenanceLogRelatedWorkRequestID.getCurrentView();
+        relatedWorkRequestID.setText(maintenanceLog.getRequestID());
+
+        ViewSwitcher viewSwitcherMaintenanceLogMaintenanceRequired = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogMaintenanceRequired);
+        TextView maintenanceRequired = (TextView) viewSwitcherMaintenanceLogMaintenanceRequired.getCurrentView();
+        maintenanceRequired.setText(maintenanceLog.getMaintenanceRequired());
+
+        ViewSwitcher viewSwitcherMaintenanceLogActionTaken = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogActionTaken);
+        TextView actionTaken = (TextView) viewSwitcherMaintenanceLogActionTaken.getCurrentView();
+        actionTaken.setText(maintenanceLog.getActionTaken());
+
+        ViewSwitcher viewSwitcherMaintenanceLogPartsRequired = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogPartsRequired);
+        TextView partsRequired = (TextView) viewSwitcherMaintenanceLogPartsRequired.getCurrentView();
+        partsRequired.setText(maintenanceLog.getPartsRequired());
+
+        ViewSwitcher viewSwitcherMaintenanceLogApproximateCost = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogApproximateCost);
+        TextView approxCost = (TextView) viewSwitcherMaintenanceLogApproximateCost.getCurrentView();
+        approxCost.setText(maintenanceLog.getPartCost());
+
+        ViewSwitcher viewSwitcherMaintenanceLogRequisitionNumber = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogRequisitionNumber);
+        TextView requisitionNumber = (TextView) viewSwitcherMaintenanceLogRequisitionNumber.getCurrentView();
+        requisitionNumber.setText(maintenanceLog.getPartRequisitionNum());
+
+        ViewSwitcher viewSwitcherMaintenanceLogContractor = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogContractor);
+        TextView contractorName = (TextView) viewSwitcherMaintenanceLogContractor.getCurrentView();
+        contractorName.setText(maintenanceLog.getContractor());
+
+        ViewSwitcher viewSwitcherMaintenanceLogContractorCompany = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogContractorCompany);
+        TextView contractorCompany = (TextView) viewSwitcherMaintenanceLogContractorCompany.getCurrentView();
+        contractorCompany.setText(maintenanceLog.getContractorCompany());
     }
 
     private void SwitchViewsMode(int viewIndex) {
@@ -149,7 +209,25 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
     @Override
     void onAPIResponse(String jsonString) {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            String result = jsonObject.getString("result");
 
+            if (result.compareTo(ValueConstants.RET_OK) != 0) {
+                // do something if needed when error happens
+            }
+
+            // note: if response contains linkToDocument, I assume it the response for SearchMachine
+            if (jsonObject.has("linkToDocument")) {
+                // first callback
+                mMachine = jsonString;
+                setMachineInformation();
+                fillMaintenanceLogFields(currentMaintenanceLog);
+            }
+
+        } catch (JSONException e) {
+            Utility.logError(e.getMessage());
+        }
     }
 
     public void onClickBack(View view) {

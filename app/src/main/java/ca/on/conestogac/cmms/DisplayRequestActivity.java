@@ -477,7 +477,9 @@ public class DisplayRequestActivity extends BaseActivity {
 
     public void onClickCreateMaintenanceLog(View view) {
         Intent intent = new Intent(this, DisplayMaintenanceLogActivity.class);
-        // TODO: send work request as putextra
+        intent.putExtra(DisplayMaintenanceLogActivity.EXTRA_MACHINE, mMachine);
+        intent.putExtra(DisplayMaintenanceLogActivity.MAINTENANCE_LOG_MODE, DisplayMaintenanceLogActivity.MODE_CREATE);
+        intent.putExtra(DisplayMaintenanceLogActivity.MAINTENANCE_LOG_RELATED_REQUEST_ID, workRequest.getRequestID());
         startActivity(intent);
     }
 

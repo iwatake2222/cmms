@@ -23,6 +23,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
     public static final String EXTRA_MAINTENANCE_LOG = "ca.on.conestogac.cmms.EXTRA_MAINTENANCE_LOG";
     public static final String EXTRA_MACHINE = "ca.on.conestogac.cmms.EXTRA_MACHINE";
     public static final String MAINTENANCE_LOG_MODE = "ca.on.conestogac.cmms.MAINTENANCE_LOG_MODE";
+    public static final String MAINTENANCE_LOG_RELATED_REQUEST_ID = "ca.on.conestogac.cmms.MAINTENANCE_LOG_RELATED_REQUEST_ID";
     public static final String MODE_CREATE = "CreateMaintenanceLogActivityMODE";
     public static final String MODE_VIEW = "ViewMaintenanceLogActivityMODE";
     public static final String MODE_EDIT = "EditMaintenanceLogActivityMODE";
@@ -30,6 +31,17 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
     private String receivedMaintenanceLog;
     private MaintenanceLog currentMaintenanceLog;
     private String mMachine;
+    private String mMaintenanceLogID;
+    private String mMaintenanceLogDate;
+    private String mMaintenanceLogCompletedBy;
+    private String mMaintenanceLogRelatedRequestID;
+    private String mMaintenanceLogMaintenanceRequired;
+    private String mMaintenanceLogActionTaken;
+    private String mMaintenanceLogPartsRequired;
+    private String mMaintenanceLogApproxCost;
+    private String mMaintenanceLogRequisitionNumber;
+    private String mMaintenanceLogContractorName;
+    private String mMaintenanceLogContractorCompany;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +86,22 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         // Switch do Edits and Spinner
         SwitchViewsMode(0);
 
+        // Disable work request id
+        EditText editTextMaintenanceLogRelatedWorkRequestID = (EditText) findViewById(R.id.editTextMaintenanceLogRelatedWorkRequestID);
+        editTextMaintenanceLogRelatedWorkRequestID.setEnabled(false);
+
+        // Auto-fill date text
+        EditText editTextMaintenanceLogDate = (EditText) findViewById(R.id.editTextMaintenanceLogDate);
+        editTextMaintenanceLogDate.setEnabled(false);
+
+        // Auto-fill date text
+        EditText editTextMaintenanceLogID = (EditText) findViewById(R.id.editTextMaintenanceLogID);
+        editTextMaintenanceLogID.setEnabled(false);
+
+        // Auto-fill completed by text
+        EditText editTextMaintenanceLogCompletedBy = (EditText) findViewById(R.id.editTextMaintenanceLogCompletedBy);
+        editTextMaintenanceLogCompletedBy.setEnabled(false);
+
         // Configure buttons visibility
         Button buttonMaintenanceLogCreateMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogCreateMaintenanceLog);
         buttonMaintenanceLogCreateMaintenanceLog.setVisibility(View.GONE);
@@ -102,8 +130,41 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
     private void configureActivityCreateMode() {
         setTitle("Create Maintenance Log");
 
+        // Related work request ID should be sent via intent when this is create mode
+        mMaintenanceLogRelatedRequestID = getIntent().getStringExtra(MAINTENANCE_LOG_RELATED_REQUEST_ID);
+
+        // Auto-fill date text
+        Calendar calendar = Calendar.getInstance();
+        EditText editTextMaintenanceLogDate = (EditText) findViewById(R.id.editTextMaintenanceLogDate);
+        editTextMaintenanceLogDate.setEnabled(false);
+        editTextMaintenanceLogDate.setText(Utility.convertDateYYYYMMDDToShow(Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH))));
+
+        // Auto-fill completed by text
+        EditText editTextMaintenanceLogCompletedBy = (EditText) findViewById(R.id.editTextMaintenanceLogCompletedBy);
+        editTextMaintenanceLogCompletedBy.setText(User.getInstance().userID);
+        editTextMaintenanceLogCompletedBy.setEnabled(false);
+
+        // Auto-fill related work request id
+        EditText editTextMaintenanceLogRelatedWorkRequestID = (EditText) findViewById(R.id.editTextMaintenanceLogRelatedWorkRequestID);
+        editTextMaintenanceLogRelatedWorkRequestID.setText(mMaintenanceLogRelatedRequestID);
+        editTextMaintenanceLogRelatedWorkRequestID.setEnabled(false);
+
+        // Hide LOG ID field since it's a new log
+        LinearLayout logIDlinearLayout = (LinearLayout) findViewById(R.id.middleRow1Col1);
+        logIDlinearLayout.setVisibility(View.GONE);
+
         // Switch do Edits and Spinner
         SwitchViewsMode(0);
+
+        // Configure buttons visibility
+        Button buttonMaintenanceLogCreateMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogCreateMaintenanceLog);
+        buttonMaintenanceLogCreateMaintenanceLog.setVisibility(View.VISIBLE);
+        Button buttonMaintenanceLogSaveEditMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogSaveEditMaintenanceLog);
+        buttonMaintenanceLogSaveEditMaintenanceLog.setVisibility(View.GONE);
+        Button buttonMaintenanceLogEditMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogEditMaintenanceLog);
+        buttonMaintenanceLogEditMaintenanceLog.setVisibility(View.GONE);
     }
 
     private void fillMaintenanceLogFields(MaintenanceLog maintenanceLog) {
@@ -153,6 +214,52 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         contractorCompany.setText(maintenanceLog.getContractorCompany());
     }
 
+    private void getMaintenanceLogFields() {
+        ViewSwitcher viewSwitcherMaintenanceLogID = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogID);
+        TextView maintenanceLogID = (TextView) viewSwitcherMaintenanceLogID.getCurrentView();
+        mMaintenanceLogID = maintenanceLogID.getText().toString().trim();
+
+        ViewSwitcher viewSwitcherMaintenanceLogDate = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogDate);
+        TextView maintenanceLogDate = (TextView) viewSwitcherMaintenanceLogDate.getCurrentView();
+        mMaintenanceLogDate = maintenanceLogDate.getText().toString().trim();
+
+        ViewSwitcher viewSwitcherMaintenanceLogCompletedBy = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogCompletedBy);
+        TextView completedBy = (TextView) viewSwitcherMaintenanceLogCompletedBy.getCurrentView();
+        mMaintenanceLogCompletedBy = completedBy.getText().toString().trim();
+
+        ViewSwitcher viewSwitcherMaintenanceLogRelatedWorkRequestID = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogRelatedWorkRequestID);
+        TextView relatedWorkRequestID = (TextView) viewSwitcherMaintenanceLogRelatedWorkRequestID.getCurrentView();
+        mMaintenanceLogRelatedRequestID = relatedWorkRequestID.getText().toString().trim();
+
+        ViewSwitcher viewSwitcherMaintenanceLogMaintenanceRequired = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogMaintenanceRequired);
+        TextView maintenanceRequired = (TextView) viewSwitcherMaintenanceLogMaintenanceRequired.getCurrentView();
+        mMaintenanceLogMaintenanceRequired = maintenanceRequired.getText().toString().trim();
+
+        ViewSwitcher viewSwitcherMaintenanceLogActionTaken = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogActionTaken);
+        TextView actionTaken = (TextView) viewSwitcherMaintenanceLogActionTaken.getCurrentView();
+        mMaintenanceLogActionTaken = actionTaken.getText().toString().trim();
+
+        ViewSwitcher viewSwitcherMaintenanceLogPartsRequired = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogPartsRequired);
+        TextView partsRequired = (TextView) viewSwitcherMaintenanceLogPartsRequired.getCurrentView();
+        mMaintenanceLogPartsRequired = partsRequired.getText().toString().trim();
+
+        ViewSwitcher viewSwitcherMaintenanceLogApproximateCost = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogApproximateCost);
+        TextView approxCost = (TextView) viewSwitcherMaintenanceLogApproximateCost.getCurrentView();
+        mMaintenanceLogApproxCost = approxCost.getText().toString().trim();
+
+        ViewSwitcher viewSwitcherMaintenanceLogRequisitionNumber = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogRequisitionNumber);
+        TextView requisitionNumber = (TextView) viewSwitcherMaintenanceLogRequisitionNumber.getCurrentView();
+        mMaintenanceLogRequisitionNumber = requisitionNumber.getText().toString().trim();
+
+        ViewSwitcher viewSwitcherMaintenanceLogContractor = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogContractor);
+        TextView contractorName = (TextView) viewSwitcherMaintenanceLogContractor.getCurrentView();
+        mMaintenanceLogContractorName = contractorName.getText().toString().trim();
+
+        ViewSwitcher viewSwitcherMaintenanceLogContractorCompany = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogContractorCompany);
+        TextView contractorCompany = (TextView) viewSwitcherMaintenanceLogContractorCompany.getCurrentView();
+        mMaintenanceLogContractorCompany = contractorCompany.getText().toString().trim();
+    }
+
     private void SwitchViewsMode(int viewIndex) {
         ViewSwitcher viewSwitcherMaintenanceLogID = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogID);
         ViewSwitcher viewSwitcherMaintenanceLogDate = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogDate);
@@ -177,7 +284,22 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         viewSwitcherMaintenanceLogRequisitionNumber.setDisplayedChild(viewIndex);
         viewSwitcherMaintenanceLogContractor.setDisplayedChild(viewIndex);
         viewSwitcherMaintenanceLogContractorCompany.setDisplayedChild(viewIndex);
+    }
 
+    private void FillJsonObject(JSONObject jsonParam) throws JSONException {
+        jsonParam.put("userID", User.getInstance().userID);
+        // TODO: fill machine
+        jsonParam.put("machineID", "123");
+        jsonParam.put("date", mMaintenanceLogDate);
+        jsonParam.put("completedBy", mMaintenanceLogCompletedBy);
+        jsonParam.put("requestID", mMaintenanceLogRelatedRequestID);
+        jsonParam.put("maintenanceRequired", mMaintenanceLogMaintenanceRequired);
+        jsonParam.put("actionTaken", mMaintenanceLogActionTaken);
+        jsonParam.put("partsRequired", mMaintenanceLogPartsRequired);
+        jsonParam.put("partCost", mMaintenanceLogApproxCost);
+        jsonParam.put("partRequisitionNum", mMaintenanceLogRequisitionNumber);
+        jsonParam.put("contractor", mMaintenanceLogContractorName);
+        jsonParam.put("contractorCompany", mMaintenanceLogContractorCompany);
     }
 
     private void initMachineInformation()
@@ -230,12 +352,53 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                 // first callback
                 mMachine = jsonString;
                 setMachineInformation();
-                fillMaintenanceLogFields(currentMaintenanceLog);
+
+                if (!maintenanceLogMode.equals(MODE_CREATE))
+                    fillMaintenanceLogFields(currentMaintenanceLog);
             }
 
+            if (jsonObject.has("createdMaintenanceLogID")) {
+                String createdMaintenanceLogID = jsonObject.getString("createdMaintenanceLogID");
+                Utility.showToast(this, "LOG mock created with ID: " + createdMaintenanceLogID);
+
+                SearchMaintenanceLog(createdMaintenanceLogID);
+                return;
+            }
+
+            if (jsonObject.has("modifiedMaintenanceLogID")) {
+                String modifiedMaintenanceLogID = jsonObject.getString("modifiedMaintenanceLogID");
+                Utility.showToast(this, "LOG mock modified within ID: " + modifiedMaintenanceLogID);
+
+                SearchMaintenanceLog(modifiedMaintenanceLogID);
+                return;
+            }
+
+            if (jsonObject.has("maintenanceLogID")) {
+                // Search result - redirect to view mode
+                MaintenanceLog ml = new MaintenanceLog(jsonObject);
+                Intent intent = new Intent(DisplayMaintenanceLogActivity.this, DisplayMaintenanceLogActivity.class);
+                intent.putExtra(DisplayMaintenanceLogActivity.EXTRA_MAINTENANCE_LOG, ml.createJson());
+                intent.putExtra(DisplayMaintenanceLogActivity.EXTRA_MACHINE, mMachine);
+                intent.putExtra(DisplayMaintenanceLogActivity.MAINTENANCE_LOG_MODE, DisplayMaintenanceLogActivity.MODE_VIEW);
+                startActivity(intent);
+                return;
+            }
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
+    }
+
+    private void SearchMaintenanceLog(String maintenanceLogID) {
+        JSONObject jsonSearchRequest = new JSONObject();
+
+        try {
+            jsonSearchRequest.put("userID", User.getInstance().userID);
+            jsonSearchRequest.put("maintenanceLogID", maintenanceLogID);
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+
+        callAPI("SearchMaintenanceLog", jsonSearchRequest);
     }
 
     public void onClickModifyMaintenanceLogActivity(View view) {
@@ -246,8 +409,39 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         intent.putExtra(DisplayMaintenanceLogActivity.EXTRA_MAINTENANCE_LOG, currentMaintenanceLog.createJson());
         intent.putExtra(DisplayMaintenanceLogActivity.MAINTENANCE_LOG_MODE, DisplayMaintenanceLogActivity.MODE_EDIT);
 
-
         startActivity(intent);
+    }
+
+    public void onClickMaintenanceLogActivitySaveEditedLog(View view) {
+        getMaintenanceLogFields();
+        JSONObject jsonParam = new JSONObject();
+
+        try {
+            FillJsonObject(jsonParam);
+
+            jsonParam.put("maintenanceLogID", currentMaintenanceLog.getMaintenanceLogID());
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+
+        callAPI("ModifyMaintenanceLog", jsonParam);
+    }
+
+
+    public void onClickCreateRequestActivityCreateRequest(View view) {
+        getMaintenanceLogFields();
+        JSONObject jsonParam = new JSONObject();
+
+        try {
+            FillJsonObject(jsonParam);
+
+            // attach related work request ID
+            jsonParam.put("requestID", mMaintenanceLogRelatedRequestID);
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+
+        callAPI("CreateMaintenanceLog", jsonParam);
     }
 
     public void onClickBack(View view) {

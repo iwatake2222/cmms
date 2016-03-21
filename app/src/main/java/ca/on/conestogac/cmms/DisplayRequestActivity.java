@@ -349,6 +349,14 @@ public class DisplayRequestActivity extends BaseActivity {
             if (result.compareTo(ValueConstants.RET_OK) != 0) {
                 // do something if needed when error happens
             }
+
+            // note: if response contains linkToDocument, I assume it the response for SearchMachine
+            if (jsonObject.has("linkToDocument")) {
+                // this is the very last callback
+                mMachine = jsonString;
+                setMachineInformation();
+            }
+
             if (jsonObject.has("createdRequestID")) {
                 String createdRequestID = jsonObject.getString("createdRequestID");
                 Utility.showToast(this, "Request mock created with ID: " + createdRequestID);
@@ -404,13 +412,6 @@ public class DisplayRequestActivity extends BaseActivity {
 
                 // all callbacks received, now we can populate machine info
                 initMachineInformation();
-            }
-
-            // note: if response contains linkToDocument, I assume it the response for SearchMachine
-            if (jsonObject.has("linkToDocument")) {
-                // this is the very last callback
-                mMachine = jsonString;
-                setMachineInformation();
             }
 
         } catch (JSONException e) {

@@ -212,6 +212,14 @@
             android:text="Search"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
+        <!-- dummy component to grab focus -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+            <requestFocus/>
+        </TextView>
     </LinearLayout>
 
 </ScrollView>

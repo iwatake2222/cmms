@@ -17,10 +17,11 @@
     tools:showIn="@layout/activity_search_request_list">
 
 
-    <LinearLayout
+    <com.wefika.flowlayout.FlowLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="start|top">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,13 +51,13 @@
             android:layout_height="wrap_content"
             android:onClick="onClickSortByProgress"
             android:text="Progress"/>
-            -->
-    </LinearLayout>
+    </com.wefika.flowlayout.FlowLayout>
 
     <ListView
         android:id="@+id/listViewRequestList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"></ListView>
 
     <!-- dummy component to grab focus -->
     <TextView

@@ -27,16 +27,16 @@
         android:layout_height="wrap_content"
         android:onClick="onClickSearchMachine"
         android:text="Search for Machine"
-        android:layout_marginTop="15sp"
-        android:textSize="45sp"/>
+        android:drawableLeft="@android:drawable/ic_menu_manage"
+        android:theme="@style/MidButton"/>
     <Button
         android:id="@+id/buttonHomeSearchRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickSearchRequest"
         android:text="Search for Work Request"
-        android:layout_marginTop="15sp"
-        android:textSize="45sp"/>
+        android:drawableLeft="@android:drawable/ic_menu_edit"
+        android:theme="@style/MidButton"/>
 
     <Button
         android:id="@+id/buttonHomeLogout"
@@ -44,8 +44,8 @@
         android:layout_height="wrap_content"
         android:onClick="onClickLogout"
         android:text="Logout"
-        android:layout_marginTop="15sp"
-        android:textSize="45sp" />
+        android:drawableLeft="@android:drawable/ic_lock_power_off"
+        android:theme="@style/MidButton"/>
 
     <!-- dummy component to grab focus -->
     <TextView

@@ -58,7 +58,7 @@ public class MachineFragment extends Fragment {
         if(mMachine.getLinkToPicture().contains("http")) {
             Uri uri = Uri.parse(mMachine.getLinkToPicture());
             Uri.Builder builder = uri.buildUpon();
-            HttpAsyncLoaderBitmap task = new HttpAsyncLoaderBitmap(imageView);
+            HttpAsyncLoaderBitmap task = new HttpAsyncLoaderBitmap(v.getContext(), imageView);
             task.execute(builder);
         } else {
             imageView.setVisibility(View.INVISIBLE);

@@ -15,12 +15,6 @@
     tools:context=".HomeActivity"
     tools:showIn="@layout/activity_home">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="45sp"
-        android:text="Home"/>
-
     <Button
         android:id="@+id/buttonHomeSearchMachine"
         android:layout_width="match_parent"
@@ -36,6 +30,25 @@
         android:onClick="onClickSearchRequest"
         android:text="Search for Work Request"
         android:drawableLeft="@android:drawable/ic_menu_edit"
+        android:theme="@style/MidButton"/>
+
+    <Button
+        android:id="@+id/buttonHomeNews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickNews"
+        android:text="News"
+        android:enabled="false"
+        android:drawableLeft="@android:drawable/ic_menu_info_details"
+        android:theme="@style/MidButton"/>
+
+    <Button
+        android:id="@+id/buttonHomeAbout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickAbout"
+        android:text="About"
+        android:drawableLeft="@android:drawable/ic_menu_help"
         android:theme="@style/MidButton"/>
 
     <Button

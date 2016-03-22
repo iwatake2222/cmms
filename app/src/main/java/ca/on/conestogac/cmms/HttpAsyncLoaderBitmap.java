@@ -1,9 +1,12 @@
 package ca.on.conestogac.cmms;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.widget.ImageView;
 
 import java.io.IOException;
@@ -16,10 +19,25 @@ import java.net.URL;
  * Created by user on 2016-03-16.
  */
 public class HttpAsyncLoaderBitmap extends AsyncTask<Uri.Builder, Void, Bitmap> {
+    private Context context;
     private ImageView imageView;
+    private AlertDialog mDialog;
 
-    public HttpAsyncLoaderBitmap(ImageView imageView){
+    public HttpAsyncLoaderBitmap(Context context, ImageView imageView){
         this.imageView = imageView;
+        this.context = context;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Connecting server").setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+        mDialog = builder.create();
+        mDialog.show();
     }
 
     @Override
@@ -33,6 +51,7 @@ public class HttpAsyncLoaderBitmap extends AsyncTask<Uri.Builder, Void, Bitmap> 
             URL url = new URL(builder[0].toString());
             connection = (HttpURLConnection)url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setConnectTimeout(ValueConstants.SERVER_TIMEOUT);
             connection.connect();
             inputStream = connection.getInputStream();
 
@@ -58,5 +77,12 @@ public class HttpAsyncLoaderBitmap extends AsyncTask<Uri.Builder, Void, Bitmap> 
     @Override
     protected void onPostExecute(Bitmap result){
         this.imageView.setImageBitmap(result);
+        mDialog.dismiss();
+    }
+
+    @Override
+    protected void onCancelled() {
+        super.onCancelled();
+        mDialog.dismiss();
     }
 }

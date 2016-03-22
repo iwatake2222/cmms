@@ -17,7 +17,7 @@
     <string name="title_activity_display_request">Work Request</string>
     <string name="title_activity_display_maintenance_log">Maintenance Log</string>
     <string name="title_activity_maintenance_log_list">Maintenance Log List</string>
-    <string name="text_about">This is a CMMS application</string>
+    <string name="text_about">This is a CMMS application.\nConestoga College, Wood Working</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

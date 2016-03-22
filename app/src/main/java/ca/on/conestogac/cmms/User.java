@@ -18,6 +18,20 @@ public class User {
         }
         return instance;
     }
+    public boolean canDisplayMachine() {
+        switch (accessLevel) {
+            default:
+                return false;
+            case ACCESS_LEVEL_STUDENT:
+                return true;
+            case ACCESS_LEVEL_TECHNICIAN:
+                return true;
+            case ACCESS_LEVEL_INSTRUCTOR:
+                return true;
+            case ACCESS_LEVEL_ADMINISTRATOR:
+                return true;
+        }
+    }
     public boolean canDisplayWorkRequest() {
         switch (accessLevel) {
             default:
@@ -44,7 +58,7 @@ public class User {
                 return true;
         }
     }
-    public boolean canDisplayModifyRepairRequest() {
+    public boolean canModifyWorkRequest() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -57,7 +71,7 @@ public class User {
                 return true;
         }
     }
-    public boolean canDisplayListOfRepairRequest() {
+    public boolean canDisplayMaintenanceLog() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -83,7 +97,7 @@ public class User {
                 return true;
         }
     }
-    public boolean canDisplayModifyMaintenanceLog() {
+    public boolean canModifyMaintenanceLog() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -96,19 +110,7 @@ public class User {
                 return true;
         }
     }
-    public boolean canDisplayMaintenanceLog() {
-        switch (accessLevel) {
-            default:
-            case ACCESS_LEVEL_STUDENT:
-                return false;
-            case ACCESS_LEVEL_TECHNICIAN:
-                return true;
-            case ACCESS_LEVEL_INSTRUCTOR:
-                return true;
-            case ACCESS_LEVEL_ADMINISTRATOR:
-                return true;
-        }
-    }
+
     // left this business stuff in maybe we can hide the button from other users so they can save a bunch  of files that the admin has to go through later
     public boolean canViewBusinessReport() {
         switch (accessLevel) {

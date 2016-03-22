@@ -1,7 +1,9 @@
 package ca.on.conestogac.cmms;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +28,7 @@ public class SearchMachineActivity extends BaseActivity {
     private ArrayAdapter<String> mAdapterCampus;
     private ArrayAdapter<String> mAdapterShop;
     private ArrayAdapter<String> mAdapterDisposed;
+    static private JSONObject mApiPrm; // just to pass parameter to dialog. todo: should use bundle
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +69,23 @@ public class SearchMachineActivity extends BaseActivity {
                 if(mDisposed.compareTo("") != 0) {
                     jsonParam.put("isDisposed",mDisposed);
                 }
-                callAPI("SearchMachineList", jsonParam);
+                if(mShop.compareTo("")==0) {
+                    SearchMachineActivity.mApiPrm = jsonParam;      // todo: should use bundle
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder
+                            .setTitle("Are you sure?" )
+                            .setMessage("It may take some time to get information without setting Shop name or ID" )
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    callAPI("SearchMachineList", SearchMachineActivity.mApiPrm );
+                                }
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
+                } else {
+                    callAPI("SearchMachineList", jsonParam);
+                }
             } catch (JSONException e) {
                 Utility.logDebug(e.getMessage());
             }
@@ -108,6 +127,8 @@ public class SearchMachineActivity extends BaseActivity {
                 } else if (jsonObject.has("shopName")) {
                     JSONArray jsonArray = jsonObject.getJSONArray("shopName");
                     setList(jsonArray, LIST_TYPE.SHOP);
+                } else {
+                    Utility.showToast(this, "No Result");
                 }
             }
         } catch (JSONException e) {

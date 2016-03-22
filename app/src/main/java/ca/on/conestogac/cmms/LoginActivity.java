@@ -65,16 +65,17 @@ public class LoginActivity extends BaseActivity {
             String result = jsonObject.getString("result");
             if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
                 // do something if needed when error happens
-            }
-            else if(jsonObject.has("accessLevel")){
-               try {
-                    integerAccessLevel = jsonObject.getInt("accessLevel");
-                    User.getInstance().accessLevel = integerAccessLevel;
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-               }
-               catch(JSONException e){
-                    Utility.logError(e.getMessage());
+            } else {
+                if(jsonObject.has("accessLevel")){
+                    try {
+                        integerAccessLevel = jsonObject.getInt("accessLevel");
+                        User.getInstance().accessLevel = integerAccessLevel;
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
+                    catch(JSONException e){
+                        Utility.logError(e.getMessage());
+                    }
                 }
             }
         } catch (JSONException e) {

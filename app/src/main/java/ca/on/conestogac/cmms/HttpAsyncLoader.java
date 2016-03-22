@@ -36,7 +36,6 @@ public class HttpAsyncLoader  extends AsyncTaskLoader<String> {
 
     @Override
     public String loadInBackground() {
-
         HttpURLConnection conn = null;
         try {
             if(method.compareTo("GET") == 0){

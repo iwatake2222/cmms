@@ -30,24 +30,41 @@ public class WorkRequest {
     public WorkRequest(JSONObject jsonObject) {
         relatedMaintenanceLogList = new ArrayList<String>();
         try {
-            this.requestID = jsonObject.getString("requestID");
-            this.machineID = jsonObject.getString("machineID");
-            this.campus = jsonObject.getString("campus");
-            this.shop = jsonObject.getString("shop");
-            this.createdBy = jsonObject.getString("createdBy");
-            this.completedBy = jsonObject.getString("completedBy");
-            this.dateRequested = jsonObject.getString("dateRequested");
-            this.dateDue = jsonObject.getString("dateDue");
-            this.dateResolved = jsonObject.getString("dateResolved");
-            this.progress = jsonObject.getString("progress");
-            this.title = jsonObject.getString("title");
-            this.requestFor = jsonObject.getString("requestFor");
-            this.status = jsonObject.getString("status");
-            this.priority = jsonObject.getString("priority");
-            this.description = jsonObject.getString("description");
-            JSONArray jsonArray = jsonObject.getJSONArray("relatedMaintenanceLogList");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                relatedMaintenanceLogList.add(jsonArray.getString(i));
+            if(jsonObject.has("requestID"))
+                this.requestID = jsonObject.getString("requestID");
+            if(jsonObject.has("machineID"))
+                this.machineID = jsonObject.getString("machineID");
+            if(jsonObject.has("campus"))
+                this.campus = jsonObject.getString("campus");
+            if(jsonObject.has("shop"))
+                this.shop = jsonObject.getString("shop");
+            if(jsonObject.has("createdBy"))
+                this.createdBy = jsonObject.getString("createdBy");
+            if(jsonObject.has("completedBy"))
+                this.completedBy = jsonObject.getString("completedBy");
+            if(jsonObject.has("dateRequested"))
+                this.dateRequested = jsonObject.getString("dateRequested");
+            if(jsonObject.has("dateDue"))
+                this.dateDue = jsonObject.getString("dateDue");
+            if(jsonObject.has("dateResolved"))
+                this.dateResolved = jsonObject.getString("dateResolved");
+            if(jsonObject.has("progress"))
+                this.progress = jsonObject.getString("progress");
+            if(jsonObject.has("title"))
+                this.title = jsonObject.getString("title");
+            if(jsonObject.has("requestFor"))
+                this.requestFor = jsonObject.getString("requestFor");
+            if(jsonObject.has("status"))
+                this.status = jsonObject.getString("status");
+            if(jsonObject.has("priority"))
+                this.priority = jsonObject.getString("priority");
+            if(jsonObject.has("description"))
+                this.description = jsonObject.getString("description");
+            if(jsonObject.has("relatedMaintenanceLogList")) {
+                JSONArray jsonArray = jsonObject.getJSONArray("relatedMaintenanceLogList" );
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    relatedMaintenanceLogList.add(jsonArray.getString(i));
+                }
             }
         } catch (JSONException e) {
             Utility.logError(e.getMessage());

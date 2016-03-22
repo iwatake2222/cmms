@@ -18,7 +18,7 @@ public class User {
         }
         return instance;
     }
-    public boolean canSearchRepairRequest() {
+    public boolean canDisplayWorkRequest() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -31,13 +31,13 @@ public class User {
                 return true;
         }
     }
-    public boolean canCreateRepairRequest() {
+    public boolean canCreateWorkRequest() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
                 return false;
             case ACCESS_LEVEL_TECHNICIAN:
-                return true;
+                return false;
             case ACCESS_LEVEL_INSTRUCTOR:
                 return true;
             case ACCESS_LEVEL_ADMINISTRATOR:
@@ -96,7 +96,7 @@ public class User {
                 return true;
         }
     }
-    public boolean canDisplayListOfMaintenanceLog() {
+    public boolean canDisplayMaintenanceLog() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -104,7 +104,7 @@ public class User {
             case ACCESS_LEVEL_TECHNICIAN:
                 return true;
             case ACCESS_LEVEL_INSTRUCTOR:
-                return false;
+                return true;
             case ACCESS_LEVEL_ADMINISTRATOR:
                 return true;
         }

@@ -15,16 +15,48 @@
     tools:context=".SearchMachineListActivity"
     tools:showIn="@layout/activity_search_machine_list">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <com.wefika.flowlayout.FlowLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Machine List"/>
-    <Button
-        android:id="@+id/buttonMachineList"
-        android:layout_width="wrap_content"
+        android:gravity="start|top">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sort by: "/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSortByID"
+            android:text="Machine ID"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSortByLocation"
+            android:text="Location"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSortByManufacturer"
+            android:text="Manufacturer"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSortByDisposed"
+            android:text="Disposed"/>
+    </com.wefika.flowlayout.FlowLayout>
+
+    <ListView
+        android:id="@+id/listViewMachineList"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickSearchMachineList"
-        android:text="assume selecting one of machines"/>
+        android:paddingBottom="16dp"></ListView>
 
     <!-- dummy component to grab focus -->
     <TextView
@@ -32,6 +64,8 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true">
+
         <requestFocus/>
     </TextView>
+
 </LinearLayout>

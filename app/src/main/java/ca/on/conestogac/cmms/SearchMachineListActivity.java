@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class SearchMachineListActivity extends BaseActivity {
+    public static final String EXTRA_MACHINE_LIST = "ca.on.conestogac.cmms.EXTRA_MACHINE_LIST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -28,25 +28,21 @@
             android:text="Sort by: "/>
 
         <Button
-            android:id="@+id/buttonRequestListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClickSortByTitle"
             android:text="Title"/>
         <Button
-            android:id="@+id/buttonRequestListCreationDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClickSortByCreationDate"
             android:text="Date Requested"/>
         <Button
-            android:id="@+id/buttonRequestListDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClickSortByDueDate"
             android:text="Due Date"/>
         <Button
-            android:id="@+id/buttonRequestListProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClickSortByProgress"

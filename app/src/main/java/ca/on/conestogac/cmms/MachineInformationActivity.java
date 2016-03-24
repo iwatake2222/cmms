@@ -162,7 +162,7 @@ public class MachineInformationActivity extends BaseActivity {
                 } else if(jsonObject.has("maintenanceLogList")) {
                     JSONArray jsonArray = jsonObject.getJSONArray("maintenanceLogList");
                     Intent intent = new Intent(this, MaintenanceLogListActivity.class);
-                    intent.putExtra(MaintenanceLogListActivity.EXTRA_MAINTENANCELOG_LIST, jsonArray.toString());
+                    intent.putExtra(MaintenanceLogListActivity.EXTRA_MAINTENANCE_LOG_LIST, jsonArray.toString());
                     startActivity(intent);
                 } else {
                     Utility.logError("unexpected response");

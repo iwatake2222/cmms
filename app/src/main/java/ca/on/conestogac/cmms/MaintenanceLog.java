@@ -175,4 +175,59 @@ public class MaintenanceLog {
                 ", contractorCompany='" + contractorCompany + '\'' +
                 '}';
     }
+    public String generateReport() {
+        // todo: get machine name
+        String str;
+        str = date + "\n";
+        str += "Contractor: " +contractor + "\n";
+        str += "Contractor Company: " +contractorCompany + "\n";
+        str += "Request ID: " + requestID + "\n";
+        str += "Machine ID: " + machineID + "\n";
+        str += "Maintenance Log ID: " + maintenanceLogID  + "\n";
+        str += "Maintenance Required: " + maintenanceRequired + "\n";
+        str += "Action Taken: " + actionTaken + "\n";
+        str += "Parts Required: " + partsRequired + "\n";
+        str += "Part Cost: " + partCost + "\n";
+        str += "Part Requisition Num: " + partRequisitionNum + "\n";
+        str += "Completed by: " + completedBy + "\n";
+        return str;
+    }
+
+    static public String generateReportCSVTitle() {
+        // todo: get machine name
+        String str;
+        str  = "Date";
+        str += "Contractor,";
+        str += "Contractor Company,";
+        str += "Request ID,";
+        str += "Machine ID,";
+        str += "Maintenance Log ID,";
+        str += "Maintenance Required,";
+        str += "Action Taken,";
+        str += "Parts Required,";
+        str += "Part Cost,";
+        str += "Part Requisition Num,";
+        str += "Completed by,";
+        str += "\n";
+        return str;
+    }
+
+    public String generateReportCSV() {
+        // todo: get machine name
+        String str;
+        str  = Utility.escapeForCSV(date) + ",";
+        str += Utility.escapeForCSV(contractor) + ",";
+        str += Utility.escapeForCSV(contractorCompany) + ",";
+        str += Utility.escapeForCSV(requestID) + ",";
+        str += Utility.escapeForCSV(machineID) + ",";
+        str += Utility.escapeForCSV(maintenanceLogID) + ",";
+        str += Utility.escapeForCSV(maintenanceRequired) + ",";
+        str += Utility.escapeForCSV(actionTaken) + ",";
+        str += Utility.escapeForCSV(partsRequired) + ",";
+        str += Utility.escapeForCSV(partCost) + ",";
+        str += Utility.escapeForCSV(partRequisitionNum) + ",";
+        str += Utility.escapeForCSV(completedBy) + ",";
+        str += "\n";
+        return str;
+    }
 }

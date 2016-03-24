@@ -18,7 +18,13 @@ public class User {
         }
         return instance;
     }
-    public boolean canSearchRepairRequest() {
+    public boolean isSearchWorkRequestButtonDisabled(){
+        if (accessLevel==ACCESS_LEVEL_STUDENT)
+             return false;
+        else
+            return true;
+    }
+    public boolean isAbleToSearchRepairRequest() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -31,7 +37,7 @@ public class User {
                 return true;
         }
     }
-    public boolean canCreateRepairRequest() {
+    public boolean isAbleToCreateRepairRequest() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -44,7 +50,7 @@ public class User {
                 return true;
         }
     }
-    public boolean canDisplayModifyRepairRequest() {
+    public boolean isAbleToDisplayModifyRepairRequest() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -57,7 +63,7 @@ public class User {
                 return true;
         }
     }
-    public boolean canDisplayListOfRepairRequest() {
+    public boolean isAbleToDisplayListOfRepairRequest() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -70,7 +76,7 @@ public class User {
                 return true;
         }
     }
-    public boolean canCreateMaintenanceLog() {
+    public boolean isAbleToCreateMaintenanceLog() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -83,7 +89,7 @@ public class User {
                 return true;
         }
     }
-    public boolean canDisplayModifyMaintenanceLog() {
+    public boolean isAbleToDisplayModifyMaintenanceLog() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -96,7 +102,7 @@ public class User {
                 return true;
         }
     }
-    public boolean canDisplayListOfMaintenanceLog() {
+    public boolean isAbleToDisplayListOfMaintenanceLog() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -110,7 +116,7 @@ public class User {
         }
     }
     // left this business stuff in maybe we can hide the button from other users so they can save a bunch  of files that the admin has to go through later
-    public boolean canViewBusinessReport() {
+    public boolean isAbleToViewBusinessReport() {
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:

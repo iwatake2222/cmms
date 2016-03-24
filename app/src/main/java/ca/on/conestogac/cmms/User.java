@@ -18,17 +18,9 @@ public class User {
         }
         return instance;
     }
-<<<<<<< HEAD
-    public boolean isSearchWorkRequestButtonDisabled(){
-        if (accessLevel==ACCESS_LEVEL_STUDENT)
-             return false;
-        else
-            return true;
-    }
-    public boolean isAbleToSearchRepairRequest() {
-=======
+
     public boolean canDisplayMachine() {
->>>>>>> origin/master
+
         switch (accessLevel) {
             default:
                 return false;
@@ -42,11 +34,9 @@ public class User {
                 return true;
         }
     }
-<<<<<<< HEAD
-    public boolean isAbleToCreateRepairRequest() {
-=======
+
     public boolean canDisplayWorkRequest() {
->>>>>>> origin/master
+
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -59,11 +49,10 @@ public class User {
                 return true;
         }
     }
-<<<<<<< HEAD
-    public boolean isAbleToDisplayModifyRepairRequest() {
-=======
+
+
     public boolean canCreateWorkRequest() {
->>>>>>> origin/master
+
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -76,11 +65,9 @@ public class User {
                 return true;
         }
     }
-<<<<<<< HEAD
-    public boolean isAbleToDisplayListOfRepairRequest() {
-=======
+
     public boolean canModifyWorkRequest() {
->>>>>>> origin/master
+
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -93,11 +80,9 @@ public class User {
                 return true;
         }
     }
-<<<<<<< HEAD
-    public boolean isAbleToCreateMaintenanceLog() {
-=======
+
     public boolean canDisplayMaintenanceLog() {
->>>>>>> origin/master
+
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -110,11 +95,9 @@ public class User {
                 return true;
         }
     }
-<<<<<<< HEAD
-    public boolean isAbleToDisplayModifyMaintenanceLog() {
-=======
+
     public boolean canCreateMaintenanceLog() {
->>>>>>> origin/master
+
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:
@@ -127,11 +110,9 @@ public class User {
                 return true;
         }
     }
-<<<<<<< HEAD
-    public boolean isAbleToDisplayListOfMaintenanceLog() {
-=======
+
     public boolean canModifyMaintenanceLog() {
->>>>>>> origin/master
+
         switch (accessLevel) {
             default:
             case ACCESS_LEVEL_STUDENT:

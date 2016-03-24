@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public abstract class BaseActivity extends AppCompatActivity  implements LoaderManager.LoaderCallbacks<String>  {
+    AlertDialog  mDialog = null;
 
     abstract void onAPIResponse(String jsonString);
 
@@ -41,11 +42,12 @@ public abstract class BaseActivity extends AppCompatActivity  implements LoaderM
             /*
             case R.id.action_logout:
                 // todo: confirm
-                // todo: call logout -> no. do this in login activity
+                // todo: call logout -> no. do this in home activity
                 Intent intent2 = new Intent(this, LoginActivity.class);
                 startActivity(intent2);
                 return true;
             */
+            /*
             case R.id.action_about:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(getString(R.string.text_about)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -54,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity  implements LoaderM
                 });
                 builder.show();
                 return true;
+            */
         }
         return super.onOptionsItemSelected(item);
     }
@@ -64,6 +67,14 @@ public abstract class BaseActivity extends AppCompatActivity  implements LoaderM
         bundle.putString("method", "POST");
         bundle.putString("param", jsonParam.toString());
         getSupportLoaderManager().restartLoader(0, bundle, this);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Connecting server").setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+        mDialog = builder.create();
+        mDialog.show();
     }
 
     protected void callAPIwoParam(String API){
@@ -85,11 +96,16 @@ public abstract class BaseActivity extends AppCompatActivity  implements LoaderM
         HttpAsyncLoader loader = new HttpAsyncLoader(this, args.getString("url"), args.getString("method"), args.getString("param"));
         //Utility.logDebug("onCreateLoader: " + args.getString("url"));
         loader.forceLoad();
+
         return loader;
     }
 
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
+        if(mDialog != null) {
+            mDialog.dismiss();
+            mDialog = null;
+        }
         if ( loader.getId() == 0 ) {
             if (data != null) {
                 Utility.logDebug(data);

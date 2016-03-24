@@ -5,11 +5,29 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorButtonNormal">@color/colorButtonNormal</item>
         <item name="android:imeOptions">flagNoExtractUi|flagNoFullscreen</item>
+        <item name="android:textSize">25sp</item>
     </style>
 
+    <style name="MidText" parent="AppTheme">
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="BigText" parent="AppTheme">
+        <item name="android:textSize">60sp</item>
+    </style>
+
+    <style name="MidButton" parent="AppTheme">
+        <item name="android:textSize">40sp</item>
+        <item name="android:padding">10sp</item>
+        <item name="android:layout_margin">5sp</item>
+    </style>
+
+    <style name="BigButton" parent="AppTheme">
+        <item name="android:textSize">60sp</item>
+        <item name="android:padding">20sp</item>
+        <item name="android:layout_margin">10sp</item>
+    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

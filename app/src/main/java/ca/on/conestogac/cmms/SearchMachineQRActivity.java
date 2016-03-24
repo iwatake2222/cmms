@@ -80,9 +80,14 @@ public class SearchMachineQRActivity extends BaseActivity {
             if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
                 // do something if needed when error happens
             } else {
-                Intent intent = new Intent(SearchMachineQRActivity.this, MachineInformationActivity.class);
-                intent.putExtra(MachineInformationActivity.EXTRA_MACHINE, jsonString);
-                startActivity(intent);
+                if (jsonObject.has("machineID")) {
+                    Intent intent = new Intent(SearchMachineQRActivity.this, MachineInformationActivity.class);
+                    intent.putExtra(MachineInformationActivity.EXTRA_MACHINE, jsonString);
+                    startActivity(intent);
+                } else {
+                    Utility.showToast(this, "No Result");
+                }
+
             }
         } catch (JSONException e) {
             Utility.logError(e.getMessage());

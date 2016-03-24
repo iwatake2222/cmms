@@ -17,47 +17,52 @@
     tools:showIn="@layout/activity_search_request_list">
 
 
-    <LinearLayout
+    <com.wefika.flowlayout.FlowLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="start|top">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="Sort by: "/>
 
         <Button
-            android:id="@+id/buttonRequestListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClickSortByTitle"
             android:text="Title"/>
         <Button
-            android:id="@+id/buttonRequestListCreationDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClickSortByCreationDate"
             android:text="Date Requested"/>
         <Button
-            android:id="@+id/buttonRequestListDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClickSortByDueDate"
             android:text="Due Date"/>
         <Button
-            android:id="@+id/buttonRequestListProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClickSortByProgress"
             android:text="Progress"/>
-            -->
-    </LinearLayout>
+    </com.wefika.flowlayout.FlowLayout>
 
     <ListView
         android:id="@+id/listViewRequestList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"></ListView>
 
-
+    <!-- dummy component to grab focus -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <requestFocus/>
+    </TextView>
 
 </LinearLayout>

@@ -15,28 +15,41 @@
     tools:context=".HomeActivity"
     tools:showIn="@layout/activity_home">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="45sp"
-        android:text="Home"/>
-
     <Button
         android:id="@+id/buttonHomeSearchMachine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickSearchMachine"
         android:text="Search for Machine"
-        android:layout_marginTop="15sp"
-        android:textSize="45sp"/>
+        android:drawableLeft="@android:drawable/ic_menu_manage"
+        android:theme="@style/MidButton"/>
     <Button
         android:id="@+id/buttonHomeSearchRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickSearchRequest"
         android:text="Search for Work Request"
-        android:layout_marginTop="15sp"
-        android:textSize="45sp"/>
+        android:drawableLeft="@android:drawable/ic_menu_edit"
+        android:theme="@style/MidButton"/>
+
+    <Button
+        android:id="@+id/buttonHomeNews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickNews"
+        android:text="News"
+        android:enabled="false"
+        android:drawableLeft="@android:drawable/ic_menu_info_details"
+        android:theme="@style/MidButton"/>
+
+    <Button
+        android:id="@+id/buttonHomeAbout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickAbout"
+        android:text="About"
+        android:drawableLeft="@android:drawable/ic_menu_help"
+        android:theme="@style/MidButton"/>
 
     <Button
         android:id="@+id/buttonHomeLogout"
@@ -44,6 +57,15 @@
         android:layout_height="wrap_content"
         android:onClick="onClickLogout"
         android:text="Logout"
-        android:layout_marginTop="15sp"
-        android:textSize="45sp" />
+        android:drawableLeft="@android:drawable/ic_lock_power_off"
+        android:theme="@style/MidButton"/>
+
+    <!-- dummy component to grab focus -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <requestFocus/>
+    </TextView>
 </LinearLayout>

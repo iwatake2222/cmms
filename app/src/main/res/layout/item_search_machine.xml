@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingBottom="5dp"
+              android:paddingTop="15dp">
+
+    <TextView
+        android:id="@+id/textViewItemMachineID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Machine ID"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewItemMachineCampus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="category"/>
+
+        <TextView
+            android:id="@+id/textViewItemMachineShop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="category"/>
+
+        <TextView
+            android:id="@+id/textViewItemMachineDisposed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="category"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manufacturer: "/>
+
+        <TextView
+            android:id="@+id/textViewItemMachineManufacturer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="category"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Serial Number: "/>
+
+        <TextView
+            android:id="@+id/textViewItemMachineSerialNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="category"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Model Number: "/>
+
+        <TextView
+            android:id="@+id/textViewItemMachineModelNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="category"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description: "/>
+
+        <TextView
+            android:id="@+id/textViewItemMachineDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="categorycategor "/>
+    </LinearLayout>
+</LinearLayout>
+
+

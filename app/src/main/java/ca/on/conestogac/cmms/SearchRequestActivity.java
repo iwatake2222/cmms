@@ -27,8 +27,6 @@ public class SearchRequestActivity extends BaseActivity  {
         PRIORITY,
     }
 
-    // test
-
     private String mCampus;
     private String mShop;
     private String mProgress;
@@ -254,30 +252,28 @@ public class SearchRequestActivity extends BaseActivity  {
             String result = jsonObject.getString("result");
             if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
                 // do something if needed when error happens
-            }
-            if(jsonObject.has("campusName")){
-                JSONArray jsonArray = jsonObject.getJSONArray("campusName");
-                setList(jsonArray, LIST_TYPE.CAMPUS);
-            }
-            if(jsonObject.has("shopName")){
-                JSONArray jsonArray = jsonObject.getJSONArray("shopName");
-                setList(jsonArray, LIST_TYPE.SHOP);
-            }
-            if(jsonObject.has("progress")){
-                JSONArray jsonArray = jsonObject.getJSONArray("progress");
-                setList(jsonArray, LIST_TYPE.PROGRESS);
-            }
-            if(jsonObject.has("status")){
-                JSONArray jsonArray = jsonObject.getJSONArray("status");
-                setList(jsonArray, LIST_TYPE.STATUS);
-            }
-            if(jsonObject.has("priority")){
-                JSONArray jsonArray = jsonObject.getJSONArray("priority");
-                setList(jsonArray, LIST_TYPE.PRIORITY);
-            }
-            if(jsonObject.has("requestList")){
-                JSONArray jsonArray = jsonObject.getJSONArray("requestList");
-                retrieveRequestList(jsonArray);
+            } else {
+                if (jsonObject.has("campusName" )) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("campusName" );
+                    setList(jsonArray, LIST_TYPE.CAMPUS);
+                } else if (jsonObject.has("shopName" )) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("shopName" );
+                    setList(jsonArray, LIST_TYPE.SHOP);
+                } else if (jsonObject.has("progress" )) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("progress" );
+                    setList(jsonArray, LIST_TYPE.PROGRESS);
+                } else if (jsonObject.has("status" )) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("status" );
+                    setList(jsonArray, LIST_TYPE.STATUS);
+                } else if (jsonObject.has("priority" )) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("priority" );
+                    setList(jsonArray, LIST_TYPE.PRIORITY);
+                } else if (jsonObject.has("requestList" )) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("requestList" );
+                    retrieveRequestList(jsonArray);
+                } else {
+                    Utility.showToast(this, "No Result");
+                }
             }
         } catch (JSONException e) {
             Utility.logError(e.getMessage());

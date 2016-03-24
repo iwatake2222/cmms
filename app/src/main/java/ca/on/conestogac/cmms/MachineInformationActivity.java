@@ -41,8 +41,27 @@ public class MachineInformationActivity extends BaseActivity {
 
         convertMachine(mMachineJsonString);
         createDocumentLinks();
+
+        changeViewVisibilityByUserPriviledge();
     }
 
+    private void changeViewVisibilityByUserPriviledge(){
+        if(User.getInstance().canCreateWorkRequest()){
+            ((Button)findViewById(R.id.buttonMachineInformationCreateWorkRequests)).setEnabled(true);
+        } else {
+            ((Button)findViewById(R.id.buttonMachineInformationCreateWorkRequests)).setEnabled(false);
+        }
+        if(User.getInstance().canDisplayWorkRequest()){
+            ((Button)findViewById(R.id.buttonMachineInformationDisplayWorkRequests)).setEnabled(true);
+        } else {
+            ((Button)findViewById(R.id.buttonMachineInformationDisplayWorkRequests)).setEnabled(false);
+        }
+        if(User.getInstance().canDisplayMaintenanceLog()){
+            ((Button)findViewById(R.id.buttonMachineInformationDisplayMaintenanceLogs)).setEnabled(true);
+        } else {
+            ((Button)findViewById(R.id.buttonMachineInformationDisplayMaintenanceLogs)).setEnabled(false);
+        }
+    }
 
     private void createDocumentLinks() {
         final int MAX_DOCUMENT_NUM = 8;

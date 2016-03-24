@@ -15,21 +15,180 @@
     tools:context=".SearchMachineActivity"
     tools:showIn="@layout/activity_search_machine">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search for Machine"/>
-    <Button
-        android:id="@+id/buttonSearchMachineByQR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClickSearchMachineByQR"
-        android:text="Search for Machine by QR code"/>
-    <Button
-        android:id="@+id/buttonHomeSearchRequestByRequest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClickSearchMachineByKeywords"
-        android:text="Search for Machines"/>
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:theme="@style/MidButton"
+                android:id="@+id/buttonSearchMachineByQR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClickSearchMachineByQR"
+                android:drawableLeft="@android:drawable/ic_menu_camera"
+                android:text="Scan QR code"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="30dp"
+                android:background="#333333">
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textStyle="bold"
+                    android:text="Machine ID:"/>
+
+                <EditText
+                    android:id="@+id/editTextSearchMachineID"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:inputType="text"
+                    android:layout_weight="2"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textStyle="bold"
+                    android:text="Campus:"/>
+
+                <Spinner
+                    android:id="@+id/spinnerSearchMachineCampus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="2"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textStyle="bold"
+                    android:text="Shop:"/>
+
+                <Spinner
+                    android:id="@+id/spinnerSearchMachineShop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="2"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textStyle="bold"
+                    android:text="Disposed?:"/>
+
+                <Spinner
+                    android:id="@+id/spinnerSearchMachineDisposed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="2"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textStyle="bold"
+                    android:text="Keyword:"/>
+
+                <EditText
+                    android:id="@+id/editTextSearchMachineKeywords"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:inputType="text"
+                    android:layout_weight="2"/>
+            </LinearLayout>
+
+            <Button
+                android:theme="@style/MidButton"
+                android:id="@+id/buttonSearchMachine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClickSearchMachineByKeywords"
+                android:drawableLeft="@android:drawable/ic_menu_search"
+                android:text="Search"/>
+
+            <!-- dummy component to grab focus -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+                <requestFocus/>
+            </TextView>
+        </LinearLayout>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
 
 </LinearLayout>

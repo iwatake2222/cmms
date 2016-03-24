@@ -87,12 +87,12 @@ public class Machine {
     public String generateReport() {
         String str;
         str  = "Machine ID: " + machineID + "\n";
-        str += "Description: " + description + "\n";
+        str += "Disposed: " + ((isDisposed.compareTo("0")==0)?"No":"Yes") + "\n";
         str += "Location: " + campus + " (" + shop + ")" + "\n";
         str += "Manufacturer: " + manufacturer + "\n";
         str += "SerialNumber: " + serialNumber + "\n";
         str += "ModelNumber: " + modelNumber + "\n";
-        str += "Disposed: " + ((isDisposed=="0")?"No":"Yes") + "\n";
+        str += "Description: " + description + "\n";
         return str;
     }
 
@@ -100,13 +100,13 @@ public class Machine {
         // todo: get machine name
         String str;
         str  = "Machine ID,";
-        str += "Description,";
-        str += "Campups,";
+        str += "Campus,";
         str += "Shop,";
+        str += "Disposed,";
         str += "Manufacturer,";
         str += "SerialNumber,";
         str += "ModelNumber,";
-        str += "Disposed,";
+        str += "Description,";
         str += "\n";
         return str;
     }
@@ -115,13 +115,13 @@ public class Machine {
         // todo: get machine name
         String str;
         str  = Utility.escapeForCSV(machineID) + ",";
-        str += Utility.escapeForCSV(description) + ",";
         str += Utility.escapeForCSV(campus) + ",";
         str += Utility.escapeForCSV(shop) + ",";
+        str += Utility.escapeForCSV(((isDisposed.compareTo("0")==0)?"No":"Yes")) + ",";
         str += Utility.escapeForCSV(manufacturer) + ",";
         str += Utility.escapeForCSV(serialNumber) + ",";
         str += Utility.escapeForCSV(modelNumber) + ",";
-        str += Utility.escapeForCSV(((isDisposed=="0")?"No":"Yes")) + ",";
+        str += Utility.escapeForCSV(description) + ",";
         str += "\n";
         return str;
     }

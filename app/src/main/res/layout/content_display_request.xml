@@ -625,6 +625,15 @@
             android:layout_width="match_parent"
             android:padding="3dp"
             android:layout_height="match_parent"></ListView>
+
+        <!-- dummy component to grab focus -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+            <requestFocus/>
+        </TextView>
     </LinearLayout>
 
 </ScrollView>

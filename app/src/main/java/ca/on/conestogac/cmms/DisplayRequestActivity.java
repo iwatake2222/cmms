@@ -53,6 +53,7 @@ public class DisplayRequestActivity extends BaseActivity {
     private WorkRequest workRequest;
     private String receivedRequest;
     private String mMachine;
+    private Machine mMachineObject;
     private String workRequestMode;
 
     @Override
@@ -142,7 +143,6 @@ public class DisplayRequestActivity extends BaseActivity {
     }
 
     private void configureActivityCreateMode() {
-        // TODO: create JSON for machine ID and use it to create the work request
         setTitle("Create Work-Request");
 
         // Auto-fill date text
@@ -365,6 +365,14 @@ public class DisplayRequestActivity extends BaseActivity {
                 return;
             }
 
+            if(jsonObject.has("maintenanceLogList")) {
+                JSONArray jsonArray = jsonObject.getJSONArray("maintenanceLogList");
+                Intent intent = new Intent(this, MaintenanceLogListActivity.class);
+                intent.putExtra(MaintenanceLogListActivity.EXTRA_MAINTENANCE_LOG_LIST, jsonArray.toString());
+                startActivity(intent);
+                return;
+            }
+
             if (jsonObject.has("modifiedRequestID")) {
                 String modifiedRequestID = jsonObject.getString("modifiedRequestID");
                 Utility.showToast(this, "Request mock modified for ID: " + modifiedRequestID);
@@ -514,8 +522,8 @@ public class DisplayRequestActivity extends BaseActivity {
 
     private void FillJsonObject(JSONObject jsonParam) throws JSONException {
         jsonParam.put("userID", User.getInstance().userID);
-        // TODO fill machine ID
-        jsonParam.put("machineID", "123");
+
+        jsonParam.put("machineID", mMachineObject.getMachineID());
         jsonParam.put("createdBy", mCreatedBy);
         jsonParam.put("dateRequested", mDateCreated);
         jsonParam.put("dateDue", mMachineIsRequired);
@@ -558,6 +566,20 @@ public class DisplayRequestActivity extends BaseActivity {
         datePickerDialog.show();
     }
 
+    public void onClickWorkRequestShowMaintenanceLogs(View view) {
+        JSONObject jsonParam = new JSONObject();
+        try{
+            jsonParam.put("userID", User.getInstance().userID);
+            jsonParam.put("maintenanceLogID", "");
+            jsonParam.put("machineID", "");
+            jsonParam.put("requestID", workRequest.getRequestID());
+            jsonParam.put("creationDateFrom", "");
+            jsonParam.put("creationDateTo","" );
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+        callAPI("SearchMaintenanceLogList", jsonParam);
+    }
 
     private void initMachineInformation()
     {
@@ -586,6 +608,15 @@ public class DisplayRequestActivity extends BaseActivity {
     private void setMachineInformation ()
     {
         if(mMachine == null) return;
+
+        try {
+            JSONObject jsonMachine = new JSONObject(mMachine);
+            mMachineObject = new Machine(jsonMachine);
+        }
+        catch (JSONException e) {
+            Utility.logError(e.getMessage());
+        }
+
         /* Common Machine Information */
         Fragment fragment = MachineFragment.newInstance(mMachine);
         getFragmentManager().beginTransaction()

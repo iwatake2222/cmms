@@ -620,11 +620,14 @@
             android:padding="3dp"
             android:text="Maintenance logs: " />
 
-        <ListView
-            android:id="@+id/listViewDisplayRequestMaintenanceLogList"
-            android:layout_width="match_parent"
-            android:padding="3dp"
-            android:layout_height="match_parent"></ListView>
+        <Button
+            android:id="@+id/buttonWorkRequestDisplayMaintenanceLogs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:onClick="onClickWorkRequestShowMaintenanceLogs"
+            android:drawableLeft="@android:drawable/ic_menu_manage"
+            android:text="Display Maintenance Logs"/>
 
         <!-- dummy component to grab focus -->
         <TextView

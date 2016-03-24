@@ -42,6 +42,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
     private String mMaintenanceLogRequisitionNumber;
     private String mMaintenanceLogContractorName;
     private String mMaintenanceLogContractorCompany;
+    private Machine mMachineObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -288,8 +289,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
     private void FillJsonObject(JSONObject jsonParam) throws JSONException {
         jsonParam.put("userID", User.getInstance().userID);
-        // TODO: fill machine
-        jsonParam.put("machineID", "123");
+        jsonParam.put("machineID", mMachineObject.getMachineID());
         jsonParam.put("date", mMaintenanceLogDate);
         jsonParam.put("completedBy", mMaintenanceLogCompletedBy);
         jsonParam.put("requestID", mMaintenanceLogRelatedRequestID);
@@ -329,6 +329,15 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
     private void setMachineInformation ()
     {
         if(mMachine == null) return;
+
+        try {
+            JSONObject jsonMachine = new JSONObject(mMachine);
+            mMachineObject = new Machine(jsonMachine);
+        }
+        catch (JSONException e) {
+            Utility.logError(e.getMessage());
+        }
+
         /* Common Machine Information */
         Fragment fragment = MachineFragment.newInstance(mMachine);
         getFragmentManager().beginTransaction()
@@ -383,6 +392,15 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                 startActivity(intent);
                 return;
             }
+
+            if (jsonObject.has("requestID")) {
+                WorkRequest wr = new WorkRequest(jsonObject);
+                Intent intent = new Intent(this, DisplayRequestActivity.class);
+                intent.putExtra(DisplayRequestActivity.EXTRA_REQUEST, wr.createJson());
+                intent.putExtra(DisplayRequestActivity.WORK_REQUEST_MODE, DisplayRequestActivity.MODE_VIEW);
+                startActivity(intent);
+                return;
+            }
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
@@ -427,6 +445,17 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         callAPI("ModifyMaintenanceLog", jsonParam);
     }
 
+    public void onClickMaintenanceLogShowRelatedWorkRequest(View view) {
+        String relatedRequestID;
+
+        if (maintenanceLogMode.equals(MODE_VIEW)) {
+            relatedRequestID = mMaintenanceLogRelatedRequestID;
+        } else {
+            relatedRequestID = currentMaintenanceLog.getRequestID();
+        }
+
+        SearchWorkRequest(relatedRequestID);
+    }
 
     public void onClickCreateRequestActivityCreateRequest(View view) {
         getMaintenanceLogFields();
@@ -447,5 +476,18 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
     public void onClickBack(View view) {
         Intent intent = new Intent(this, MachineInformationActivity.class);
         startActivity(intent);
+    }
+
+    private void SearchWorkRequest(String workRequestID) {
+        JSONObject jsonSearchRequest = new JSONObject();
+
+        try {
+            jsonSearchRequest.put("userID", User.getInstance().userID);
+            jsonSearchRequest.put("requestID", workRequestID);
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+
+        callAPI("SearchWorkRequest", jsonSearchRequest);
     }
 }

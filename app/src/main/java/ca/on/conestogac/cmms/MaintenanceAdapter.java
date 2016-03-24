@@ -23,7 +23,7 @@ public class MaintenanceAdapter extends ArrayAdapter<MaintenanceLog> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = layoutInflater.inflate(R.layout.item_search_request, parent, false);
+        convertView = layoutInflater.inflate(R.layout.item_maintenance_log, parent, false);
         ((TextView)convertView.findViewById(R.id.textViewMaintenanceLogDate)).setText("Date: " + Utility.convertDateYYYYMMDDToShow(getItem(position).getDate()));
         ((TextView)convertView.findViewById(R.id.textViewMaintenanceLogName)).setText("Completed By: " + (getItem(position).getContractor()));
         ((TextView)convertView.findViewById(R.id.textViewMaintenanceLogMaintenanceRequired)).setText(getItem(position).getMaintenanceRequired());

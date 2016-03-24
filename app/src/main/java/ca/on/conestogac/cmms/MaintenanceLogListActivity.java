@@ -24,7 +24,7 @@ public class MaintenanceLogListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_request_list);
+        setContentView(R.layout.activity_maintenance_log_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -34,7 +34,7 @@ public class MaintenanceLogListActivity extends BaseActivity {
         } else {
             Utility.logDebug(maintenanceList);
             initListView();
-            convertRequestList(maintenanceList);
+            convertMaintenanceLogList(maintenanceList);
         }
 
     }
@@ -59,15 +59,16 @@ public class MaintenanceLogListActivity extends BaseActivity {
     }
 
     private void initListView() {
-        ListView listViewItems = (ListView)findViewById(R.id.listViewRequestList);
+        ListView listViewItems = (ListView)findViewById(R.id.listViewMaintenanceList);
         ArrayList<MaintenanceLog> list = new ArrayList<MaintenanceLog>();
-        mMaintenanceAdapter = new MaintenanceAdapter(this, R.layout.item_search_request, list);
+        mMaintenanceAdapter = new MaintenanceAdapter(this, R.layout.item_maintenance_log, list);
         listViewItems.setAdapter(mMaintenanceAdapter);
         listViewItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedMaintenance = mMaintenanceAdapter.getItem(position).createJson();
                 Intent intent = new Intent(MaintenanceLogListActivity.this, DisplayMaintenanceLogActivity.class);
+                intent.putExtra(DisplayMaintenanceLogActivity.EXTRA_MACHINE, selectedMaintenance);
                 intent.putExtra(DisplayMaintenanceLogActivity.EXTRA_MAINTENANCE_LOG, selectedMaintenance);
                 intent.putExtra(DisplayMaintenanceLogActivity.MAINTENANCE_LOG_MODE, DisplayMaintenanceLogActivity.MODE_VIEW);
                 startActivity(intent);
@@ -75,9 +76,9 @@ public class MaintenanceLogListActivity extends BaseActivity {
         });
     }
 
-    private void convertRequestList(String requestList){
+    private void convertMaintenanceLogList(String maintenanceLogList){
         try {
-            JSONArray jsonArray = new JSONArray(requestList);
+            JSONArray jsonArray = new JSONArray(maintenanceLogList);
             for (int i = 0; i < jsonArray.length(); i++) {
                 mMaintenanceAdapter.add(new MaintenanceLog(jsonArray.getJSONObject(i)));
             }
@@ -86,16 +87,16 @@ public class MaintenanceLogListActivity extends BaseActivity {
         }
     }
 
-    public void onClickSortByTitle(View view) {
+    public void onClickSortByContractor(View view) {
         mMaintenanceAdapter.sort(new ComparatorContractorMaintenanceLog());
-        ListView listViewItems = (ListView)findViewById(R.id.listViewRequestList);
+        ListView listViewItems = (ListView)findViewById(R.id.listViewMaintenanceList);
         listViewItems.setAdapter(mMaintenanceAdapter);
         ComparatorTitle.inverse = !ComparatorTitle.inverse;
     }
 
-    public void onClickSortByCreationDate(View view) {
+    public void onClickSortByDate(View view) {
         mMaintenanceAdapter.sort(new ComparatorDateMaintenanceLog());
-        ListView listViewItems = (ListView)findViewById(R.id.listViewRequestList);
+        ListView listViewItems = (ListView)findViewById(R.id.listViewMaintenanceList);
         listViewItems.setAdapter(mMaintenanceAdapter);
         ComparatorDate.inverse = !ComparatorDate.inverse;
     }
@@ -107,14 +108,14 @@ public class MaintenanceLogListActivity extends BaseActivity {
             MaintenanceLog ml = mMaintenanceAdapter.getItem(i);
             report += ml.generateReport() + "\n" + "===========" + "\n";
         }
-        ret = Utility.saveTextFile(this, "Request", "txt", report);
+        ret = Utility.saveTextFile(this, "Maintenance", "txt", report);
         if (ret == true) {
             report = MaintenanceLog.generateReportCSVTitle();
             for(int i = 0; i < mMaintenanceAdapter.getCount(); i++) {
                 MaintenanceLog ml = mMaintenanceAdapter.getItem(i);
                 report += ml.generateReportCSV();
             }
-            ret = Utility.saveTextFile(this, "Request", "csv", report);
+            ret = Utility.saveTextFile(this, "Maintenance", "csv", report);
         }
         if(ret == true) {
             Utility.showToast(this, "Saved report");

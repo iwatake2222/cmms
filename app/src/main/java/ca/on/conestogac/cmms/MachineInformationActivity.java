@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -118,8 +119,14 @@ public class MachineInformationActivity extends BaseActivity {
 
     private void gotoDocument(String url) {
         //Utility.showToast(MachineInformationActivity.this, url);
+        //Intent intent = new Intent(Intent.ACTION_VIEW);
+        //intent.setDataAndType(Uri.parse("http://docs.google.com/viewer?url=" + url), "text/html");
+        //startActivity(intent);
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse("http://docs.google.com/viewer?url=" + url), "text/html");
+        String extention = MimeTypeMap.getFileExtensionFromUrl(url);
+        String mimetype =MimeTypeMap.getSingleton().getMimeTypeFromExtension(extention);
+        intent.setDataAndType(Uri.parse(url), mimetype);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         startActivity(intent);
     }
 

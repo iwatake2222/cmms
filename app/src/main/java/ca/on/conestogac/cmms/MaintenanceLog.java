@@ -1,6 +1,5 @@
 package ca.on.conestogac.cmms;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -196,7 +195,7 @@ public class MaintenanceLog {
     static public String generateReportCSVTitle() {
         // todo: get machine name
         String str;
-        str  = "Date";
+        str  = "Date,";
         str += "Contractor,";
         str += "Contractor Company,";
         str += "Request ID,";

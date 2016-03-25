@@ -28,6 +28,10 @@ public class SearchMachineQRActivity extends BaseActivity {
         Utility.getPermissionCamera(this);
 
         mBarcodeView = (CompoundBarcodeView)findViewById(R.id.barcodeView);
+
+    }
+
+    private void startQRCapture(){
         mBarcodeView.decodeSingle(new BarcodeCallback() {
             @Override
             public void barcodeResult(BarcodeResult barcodeResult) {
@@ -49,7 +53,18 @@ public class SearchMachineQRActivity extends BaseActivity {
                                 callAPI("SearchMachine", jsonParam);
                             }
                         })
-                        .setNegativeButton("Cancel", null)
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startQRCapture();
+                            }
+                        })
+                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                startQRCapture();
+                            }
+                        })
                         .show();
             }
 
@@ -63,6 +78,7 @@ public class SearchMachineQRActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        startQRCapture();
         mBarcodeView.resume();
     }
 

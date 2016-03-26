@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -43,6 +44,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
     private String mMaintenanceLogContractorName;
     private String mMaintenanceLogContractorCompany;
     private Machine mMachineObject;
+    private String createdMaintenanceLogID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +112,10 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         buttonMaintenanceLogSaveEditMaintenanceLog.setVisibility(View.VISIBLE);
         Button buttonMaintenanceLogEditMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogEditMaintenanceLog);
         buttonMaintenanceLogEditMaintenanceLog.setVisibility(View.GONE);
+
+        // Checkbox visibility
+        CheckBox checkBoxMaintenanceLogCloseRequest = (CheckBox) findViewById(R.id.checkBoxMaintenanceLogCloseRequest);
+        checkBoxMaintenanceLogCloseRequest.setVisibility(View.GONE);
     }
 
     private void configureActivityViewMode() {
@@ -126,6 +132,10 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         buttonMaintenanceLogSaveEditMaintenanceLog.setVisibility(View.GONE);
         Button buttonMaintenanceLogEditMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogEditMaintenanceLog);
         buttonMaintenanceLogEditMaintenanceLog.setVisibility(View.VISIBLE);
+
+        // Checkbox visibility
+        Button checkBoxMaintenanceLogCloseRequest = (Button) findViewById(R.id.checkBoxMaintenanceLogCloseRequest);
+        checkBoxMaintenanceLogCloseRequest.setVisibility(View.GONE);
     }
 
     private void configureActivityCreateMode() {
@@ -166,6 +176,10 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         buttonMaintenanceLogSaveEditMaintenanceLog.setVisibility(View.GONE);
         Button buttonMaintenanceLogEditMaintenanceLog = (Button) findViewById(R.id.buttonMaintenanceLogEditMaintenanceLog);
         buttonMaintenanceLogEditMaintenanceLog.setVisibility(View.GONE);
+
+        // Checkbox visibility
+        Button checkBoxMaintenanceLogCloseRequest = (Button) findViewById(R.id.checkBoxMaintenanceLogCloseRequest);
+        checkBoxMaintenanceLogCloseRequest.setVisibility(View.VISIBLE);
     }
 
     private void fillMaintenanceLogFields(MaintenanceLog maintenanceLog) {
@@ -367,10 +381,28 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
             }
 
             if (jsonObject.has("createdMaintenanceLogID")) {
-                String createdMaintenanceLogID = jsonObject.getString("createdMaintenanceLogID");
+                createdMaintenanceLogID = jsonObject.getString("createdMaintenanceLogID");
                 Utility.showToast(this, "LOG mock created with ID: " + createdMaintenanceLogID);
 
+                CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxMaintenanceLogCloseRequest);
+
+                if (checkBox.isChecked()) {
+                    Utility.logDebug("createdMaintenanceLogID callback: changing workRequest to closed");
+                    ChangeRelatedWorkRequestStatus("Closed"); // TODO: do not hard-code
+                }
+                else {
+                    Utility.logDebug("createdMaintenanceLogID callback: changing workRequest to Working");
+                    ChangeRelatedWorkRequestStatus("Working"); // TODO: do not hard-code
+                }
+
+                return;
+            }
+
+            if (jsonObject.has("modifiedRequestID")) {
+                Utility.logDebug("modifiedRequestID callback: Work Request successfully modified. Going to Displaymode (maintenance log)");
+                // after closing or changing the request to working, go to view mode
                 SearchMaintenanceLog(createdMaintenanceLogID);
+
                 return;
             }
 
@@ -404,6 +436,22 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }
+    }
+
+    private void ChangeRelatedWorkRequestStatus(String status) {
+        String requestID = GetRelatedWorkRequestID();
+
+        JSONObject jsonModifyWorkRequest = new JSONObject();
+
+        try {
+            jsonModifyWorkRequest.put("userID", User.getInstance().userID);
+            jsonModifyWorkRequest.put("requestID", requestID);
+            jsonModifyWorkRequest.put("status", status);
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+
+        callAPI("ModifyWorkRequest", jsonModifyWorkRequest);
     }
 
     private void SearchMaintenanceLog(String maintenanceLogID) {
@@ -446,15 +494,20 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
     }
 
     public void onClickMaintenanceLogShowRelatedWorkRequest(View view) {
+        String relatedRequestID = GetRelatedWorkRequestID();
+
+        SearchWorkRequest(relatedRequestID);
+    }
+
+    private String GetRelatedWorkRequestID() {
         String relatedRequestID;
 
-        if (maintenanceLogMode.equals(MODE_VIEW)) {
+        if (maintenanceLogMode.equals(MODE_CREATE)) {
             relatedRequestID = mMaintenanceLogRelatedRequestID;
         } else {
             relatedRequestID = currentMaintenanceLog.getRequestID();
         }
-
-        SearchWorkRequest(relatedRequestID);
+        return relatedRequestID;
     }
 
     public void onClickCreateRequestActivityCreateRequest(View view) {

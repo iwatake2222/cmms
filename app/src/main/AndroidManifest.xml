@@ -82,6 +82,7 @@
             android:name=".DisplayMaintenanceLogActivity"
             android:label="@string/title_activity_display_maintenance_log"
             android:screenOrientation="landscape"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity

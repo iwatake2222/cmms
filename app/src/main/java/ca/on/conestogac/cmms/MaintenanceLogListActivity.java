@@ -91,14 +91,14 @@ public class MaintenanceLogListActivity extends BaseActivity {
         mMaintenanceAdapter.sort(new ComparatorContractorMaintenanceLog());
         ListView listViewItems = (ListView)findViewById(R.id.listViewMaintenanceList);
         listViewItems.setAdapter(mMaintenanceAdapter);
-        ComparatorTitle.inverse = !ComparatorTitle.inverse;
+        ComparatorContractorMaintenanceLog.inverse = !ComparatorContractorMaintenanceLog.inverse;
     }
 
     public void onClickSortByDate(View view) {
         mMaintenanceAdapter.sort(new ComparatorDateMaintenanceLog());
         ListView listViewItems = (ListView)findViewById(R.id.listViewMaintenanceList);
         listViewItems.setAdapter(mMaintenanceAdapter);
-        ComparatorDate.inverse = !ComparatorDate.inverse;
+        ComparatorDateMaintenanceLog.inverse = !ComparatorDateMaintenanceLog.inverse;
     }
 
     private void save() {

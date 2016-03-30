@@ -447,6 +447,12 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
             jsonModifyWorkRequest.put("userID", User.getInstance().userID);
             jsonModifyWorkRequest.put("requestID", requestID);
             jsonModifyWorkRequest.put("status", status);
+
+            if (status.equals("Closed")) { // TODO: do not hardcode
+                Calendar calendar = Calendar.getInstance();
+                String dateResolved = Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                jsonModifyWorkRequest.put("dateResolved", dateResolved);
+            }
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }

@@ -38,6 +38,7 @@ public class DisplayRequestActivity extends BaseActivity {
     }
 
     private String mDateCreated;
+    private String mDateResolved;
     private String mCreatedBy;
     private String mProgress;
     private String mTitle;
@@ -109,6 +110,9 @@ public class DisplayRequestActivity extends BaseActivity {
         EditText linearLayoutDisplayDateCreated = (EditText) findViewById(R.id.editTextDateCreated);
         linearLayoutDisplayDateCreated.setEnabled(false);
 
+        EditText editTextDateResolved = (EditText) findViewById(R.id.editTextDateResolved);
+        editTextDateResolved.setEnabled(false);
+
         // Configure buttons visibility
         Button buttonDisplayRequestCreateMaintenanceLog = (Button) findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog);
         buttonDisplayRequestCreateMaintenanceLog.setVisibility(View.GONE);
@@ -153,6 +157,10 @@ public class DisplayRequestActivity extends BaseActivity {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH))));
 
+
+        EditText editTextDateResolved = (EditText) findViewById(R.id.editTextDateResolved);
+        editTextDateResolved.setEnabled(false);
+
         // Auto-fill created by text
         EditText editTextCreatedBy = (EditText) findViewById(R.id.editTextCreatedBy);
         editTextCreatedBy.setText(User.getInstance().userID);
@@ -179,6 +187,7 @@ public class DisplayRequestActivity extends BaseActivity {
     private void SwitchViewsMode(int viewIndex) {
         ViewSwitcher viewSwitcherRequestID = (ViewSwitcher) findViewById(R.id.viewSwitcherRequestID);
         ViewSwitcher viewSwitcherDateCreated = (ViewSwitcher) findViewById(R.id.viewSwitcherDateCreated);
+        ViewSwitcher viewSwitcherDateResolved = (ViewSwitcher) findViewById(R.id.viewSwitcherDateResolved);
         ViewSwitcher viewSwitcherCreatedBy = (ViewSwitcher) findViewById(R.id.viewSwitcherCreatedBy);
         ViewSwitcher viewSwitcherProgress = (ViewSwitcher) findViewById(R.id.viewSwitcherProgress);
         ViewSwitcher viewSwitcherTitle = (ViewSwitcher) findViewById(R.id.viewSwitcherTitle);
@@ -189,6 +198,7 @@ public class DisplayRequestActivity extends BaseActivity {
         ViewSwitcher viewSwitcherCompletedBy = (ViewSwitcher) findViewById(R.id.viewSwitcherCompletedBy);
         viewSwitcherRequestID.setDisplayedChild(viewIndex);
         viewSwitcherDateCreated.setDisplayedChild(viewIndex);
+        viewSwitcherDateResolved.setDisplayedChild(viewIndex);
         viewSwitcherCreatedBy.setDisplayedChild(viewIndex);
         viewSwitcherProgress.setDisplayedChild(viewIndex);
         viewSwitcherTitle.setDisplayedChild(viewIndex);
@@ -208,6 +218,10 @@ public class DisplayRequestActivity extends BaseActivity {
         ViewSwitcher viewSwitcherDateCreated = (ViewSwitcher) findViewById(R.id.viewSwitcherDateCreated);
         TextView viewDateCreated = (TextView) viewSwitcherDateCreated.getCurrentView();
         viewDateCreated.setText(Utility.convertDateYYYYMMDDToShow(workRequest.getDateRequested()));
+
+        ViewSwitcher viewSwitcherDateResolved = (ViewSwitcher) findViewById(R.id.viewSwitcherDateResolved);
+        TextView viewDateResolved = (TextView) viewSwitcherDateResolved.getCurrentView();
+        viewDateResolved.setText(Utility.convertDateYYYYMMDDToShow(workRequest.getDateResolved()));
 
         ViewSwitcher viewSwitcherCreatedBy = (ViewSwitcher) findViewById(R.id.viewSwitcherCreatedBy);
         TextView viewCreatedBy = (TextView) viewSwitcherCreatedBy.getCurrentView();
@@ -288,6 +302,9 @@ public class DisplayRequestActivity extends BaseActivity {
         EditText editTextDateCreated = (EditText) findViewById(R.id.editTextDateCreated);
         mDateCreated = Utility.convertFormattedDateToRaw(editTextDateCreated.getText().toString());
 
+        EditText editTextDateResolved = (EditText) findViewById(R.id.editTextDateResolved);
+        mDateResolved = Utility.convertFormattedDateToRaw(editTextDateResolved.getText().toString());
+
         EditText editTextCreatedBy = (EditText) findViewById(R.id.editTextCreatedBy);
         mCreatedBy = editTextCreatedBy.getText().toString().trim();
 
@@ -296,6 +313,12 @@ public class DisplayRequestActivity extends BaseActivity {
 
         Spinner spinnerDisplayRequestProgress = (Spinner) findViewById(R.id.spinnerDisplayRequestProgress);
         mProgress = spinnerDisplayRequestProgress.getSelectedItem().toString().trim();
+
+        // if user is editing work request and progress changed to closed
+        if (workRequestMode.equals(MODE_EDIT) && mProgress.equals("Closed") && !workRequest.getProgress().equals("Closed")) { // TODO: do not hardcode
+            Calendar calendar = Calendar.getInstance();
+            mDateResolved = Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        }
 
         Spinner spinnerDisplayRequestRequestFor = (Spinner) findViewById(R.id.spinnerDisplayRequestRequestFor);
         mRequestFor = spinnerDisplayRequestRequestFor.getSelectedItem().toString().trim();
@@ -526,9 +549,8 @@ public class DisplayRequestActivity extends BaseActivity {
         jsonParam.put("machineID", mMachineObject.getMachineID());
         jsonParam.put("createdBy", mCreatedBy);
         jsonParam.put("dateRequested", mDateCreated);
+        jsonParam.put("dateResolved", mDateResolved);
         jsonParam.put("dateDue", mMachineIsRequired);
-        // TODO: leave it blank?
-        jsonParam.put("dateResolved", "");
         jsonParam.put("title", mTitle);
         jsonParam.put("description", mDescription);
         jsonParam.put("progress", mProgress.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mProgress);

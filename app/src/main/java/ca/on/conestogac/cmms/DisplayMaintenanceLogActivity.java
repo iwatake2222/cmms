@@ -190,7 +190,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
         ViewSwitcher viewSwitcherMaintenanceLogDate = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogDate);
         TextView maintenanceLogDate = (TextView) viewSwitcherMaintenanceLogDate.getCurrentView();
-        maintenanceLogDate.setText(maintenanceLog.getDate());
+        maintenanceLogDate.setText(Utility.convertDateYYYYMMDDToShow(maintenanceLog.getDate()));
 
         ViewSwitcher viewSwitcherMaintenanceLogCompletedBy = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogCompletedBy);
         TextView completedBy = (TextView) viewSwitcherMaintenanceLogCompletedBy.getCurrentView();
@@ -236,7 +236,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
         ViewSwitcher viewSwitcherMaintenanceLogDate = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogDate);
         TextView maintenanceLogDate = (TextView) viewSwitcherMaintenanceLogDate.getCurrentView();
-        mMaintenanceLogDate = maintenanceLogDate.getText().toString().trim();
+        mMaintenanceLogDate = Utility.convertFormattedDateToRaw(maintenanceLogDate.getText().toString());
 
         ViewSwitcher viewSwitcherMaintenanceLogCompletedBy = (ViewSwitcher) findViewById(R.id.viewSwitcherMaintenanceLogCompletedBy);
         TextView completedBy = (TextView) viewSwitcherMaintenanceLogCompletedBy.getCurrentView();

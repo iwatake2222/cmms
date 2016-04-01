@@ -18,11 +18,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/textViewMaintenanceLogMaintenanceLogID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Maintenance Log ID"/>
+        <TextView
             android:id="@+id/textViewMaintenanceLogName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Completed By:"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <TextView
             android:id="@+id/textViewMaintenanceLogMaintenanceRequired"
             android:layout_width="0dp"
@@ -35,31 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView
-            android:id="@+id/textViewMaintenanceLogMachineID"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MachineID"/>
-        <TextView
-            android:id="@+id/textViewMaintenanceLogMaintenanceID"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MaintenanceLogID"/>
 
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/textViewMaintenanceLogRequestID"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="RequestID"/>
         <TextView
             android:id="@+id/textViewMaintenanceLogActionTaken"
             android:layout_width="0dp"
@@ -67,6 +56,53 @@
             android:layout_weight="1"
             android:text="ActionTaken"/>
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textViewMaintenanceLogContractorCompany"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Contractor Company"/>
+        <TextView
+            android:id="@+id/textViewMaintenanceLogContractor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Contractor"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textViewMaintenanceLogPartCost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PartCost"/>
+        <TextView
+            android:id="@+id/textViewMaintenanceLogMaintenanceID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MaintenanceID"/>
+        <TextView
+            android:id="@+id/textViewMaintenanceLogMachineID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MachineID"/>
+        <TextView
+            android:id="@+id/textViewMaintenanceLogRequestID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RequestID"/>
 
     </LinearLayout>
 </LinearLayout>

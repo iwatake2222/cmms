@@ -76,8 +76,13 @@ public class HttpAsyncLoaderBitmap extends AsyncTask<Uri.Builder, Void, Bitmap> 
 
     @Override
     protected void onPostExecute(Bitmap result){
-        this.imageView.setImageBitmap(result);
-        mDialog.dismiss();
+        try{
+            this.imageView.setImageBitmap(result);
+            mDialog.dismiss();
+        } catch (Exception e) {
+            Utility.logError(e.getMessage());
+        }
+
     }
 
     @Override

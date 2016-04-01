@@ -13,7 +13,7 @@ public class Machine {
     private String machineID;
     private String campus;
     private String shop;
-    private String isDisposed;
+    private String machineStatus;
     private String manufacturer;
     private String serialNumber;
     private String modelNumber;
@@ -33,8 +33,8 @@ public class Machine {
                 this.campus = jsonObject.getString("campus");
             if(jsonObject.has("shop"))
                 this.shop = jsonObject.getString("shop");
-            if(jsonObject.has("isDisposed"))
-                this.isDisposed = jsonObject.getString("isDisposed");
+            if(jsonObject.has("machineStatus"))
+                this.machineStatus = jsonObject.getString("machineStatus");
             if(jsonObject.has("manufacturer"))
                 this.manufacturer = jsonObject.getString("manufacturer");
             if(jsonObject.has("serialNumber"))
@@ -64,7 +64,7 @@ public class Machine {
             jsonParam.put("machineID", machineID);
             jsonParam.put("campus", campus);
             jsonParam.put("shop", shop);
-            jsonParam.put("isDisposed", isDisposed);
+            jsonParam.put("machineStatus", machineStatus);
             jsonParam.put("manufacturer", manufacturer);
             jsonParam.put("serialNumber",serialNumber );
             jsonParam.put("modelNumber",modelNumber );
@@ -87,7 +87,7 @@ public class Machine {
     public String generateReport() {
         String str;
         str  = "Machine ID: " + machineID + "\n";
-        str += "Disposed: " + ((isDisposed.compareTo("0")==0)?"No":"Yes") + "\n";
+        str += "Status: " + machineStatus + "\n";
         str += "Location: " + campus + " (" + shop + ")" + "\n";
         str += "Manufacturer: " + manufacturer + "\n";
         str += "SerialNumber: " + serialNumber + "\n";
@@ -102,7 +102,7 @@ public class Machine {
         str  = "Machine ID,";
         str += "Campus,";
         str += "Shop,";
-        str += "Disposed,";
+        str += "Status,";
         str += "Manufacturer,";
         str += "SerialNumber,";
         str += "ModelNumber,";
@@ -117,7 +117,7 @@ public class Machine {
         str  = Utility.escapeForCSV(machineID) + ",";
         str += Utility.escapeForCSV(campus) + ",";
         str += Utility.escapeForCSV(shop) + ",";
-        str += Utility.escapeForCSV(((isDisposed.compareTo("0")==0)?"No":"Yes")) + ",";
+        str += Utility.escapeForCSV(machineStatus) + ",";
         str += Utility.escapeForCSV(manufacturer) + ",";
         str += Utility.escapeForCSV(serialNumber) + ",";
         str += Utility.escapeForCSV(modelNumber) + ",";
@@ -142,12 +142,12 @@ public class Machine {
         this.description = description;
     }
 
-    public String getIsDisposed() {
-        return isDisposed;
+    public String getMachineStatus() {
+        return machineStatus;
     }
 
-    public void setIsDisposed(String isDisposed) {
-        this.isDisposed = isDisposed;
+    public void setMachineStatus(String machineStatus) {
+        this.machineStatus = machineStatus;
     }
 
     public ArrayList<String> getLinksToDocument() {

@@ -21,13 +21,14 @@ public class SearchMachineActivity extends BaseActivity {
     private enum LIST_TYPE {
         CAMPUS,
         SHOP,
+        STATUS,
     }
     private String mCampus;
     private String mShop;
-    private String mDisposed;
+    private String mStatus;
     private ArrayAdapter<String> mAdapterCampus;
     private ArrayAdapter<String> mAdapterShop;
-    private ArrayAdapter<String> mAdapterDisposed;
+    private ArrayAdapter<String> mAdapterStatus;
     static private JSONObject mApiPrm; // just to pass parameter to dialog. todo: should use bundle
 
     @Override
@@ -50,13 +51,7 @@ public class SearchMachineActivity extends BaseActivity {
         EditText editTextMachineID = (EditText)findViewById(R.id.editTextSearchMachineID);
         if(mCampus.compareTo(ValueConstants.ITEM_ANY)==0)mCampus="";
         if(mShop.compareTo(ValueConstants.ITEM_ANY)==0)mShop="";
-        if(mDisposed.compareTo("No")==0) {
-            mDisposed="0";
-        } else if(mDisposed.compareTo("Yes")==0) {
-            mDisposed="1";
-        } else {
-            mDisposed="";
-        }
+        if(mStatus.compareTo(ValueConstants.ITEM_ANY)==0)mStatus="";
 
         if(editTextMachineID.getText().toString().trim().isEmpty()) {
             JSONObject jsonParam = new JSONObject();
@@ -64,11 +59,10 @@ public class SearchMachineActivity extends BaseActivity {
                 jsonParam.put("userID", User.getInstance().userID);
                 jsonParam.put("campus", mCampus);
                 jsonParam.put("shop", mShop);
+                jsonParam.put("machineStatus", mStatus);
                 jsonParam.put("keywords", editTextKeywords.getText().toString().trim());
                 jsonParam.put("MachineID","dummy"); // todo delete
-                if(mDisposed.compareTo("") != 0) {
-                    jsonParam.put("isDisposed",mDisposed);
-                }
+
                 if(mShop.compareTo("")==0) {
                     SearchMachineActivity.mApiPrm = jsonParam;      // todo: should use bundle
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -127,6 +121,9 @@ public class SearchMachineActivity extends BaseActivity {
                 } else if (jsonObject.has("shopName")) {
                     JSONArray jsonArray = jsonObject.getJSONArray("shopName");
                     setList(jsonArray, LIST_TYPE.SHOP);
+                } else if (jsonObject.has("machineStatus")) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("machineStatus");
+                    setList(jsonArray, LIST_TYPE.STATUS);
                 } else {
                     Utility.showToast(this, "No Result");
                 }
@@ -141,8 +138,8 @@ public class SearchMachineActivity extends BaseActivity {
         mAdapterCampus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAdapterShop = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         mAdapterShop.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mAdapterDisposed = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        mAdapterDisposed.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mAdapterStatus = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        mAdapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinnerCampus = (Spinner)findViewById(R.id.spinnerSearchMachineCampus);
         spinnerCampus.setAdapter(mAdapterCampus);
@@ -182,15 +179,15 @@ public class SearchMachineActivity extends BaseActivity {
             }
         });
 
-        Spinner spinnerDisposed = (Spinner)findViewById(R.id.spinnerSearchMachineDisposed);
-        spinnerDisposed.setAdapter(mAdapterDisposed);
-        spinnerDisposed.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner spinnerStatus = (Spinner)findViewById(R.id.spinnerSearchMachineStatus);
+        spinnerStatus.setAdapter(mAdapterStatus);
+        spinnerStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 Spinner spinner = (Spinner) parent;
                 String item = (String) spinner.getSelectedItem();
-                mDisposed = item;
+                mStatus = item;
             }
 
             @Override
@@ -199,14 +196,8 @@ public class SearchMachineActivity extends BaseActivity {
         });
 
 
-        // spinners with static values
-        mAdapterDisposed.clear();
-        mAdapterDisposed.add(ValueConstants.ITEM_ANY);
-        mAdapterDisposed.add("No");
-        mAdapterDisposed.add("Yes");
 
-        // spinners with dynamic values
-        callAPIwoParam("GetCampusList");
+        callAPIwoParam("GetMachineStatusList");
     }
 
     private void setList(JSONArray jsonArray, LIST_TYPE listType) {
@@ -233,6 +224,14 @@ public class SearchMachineActivity extends BaseActivity {
                 for (int i = 0; i < items.size(); i++) {
                     mAdapterShop.add(items.get(i));
                 }
+                break;
+            case STATUS:
+                mAdapterStatus.clear();
+                mAdapterStatus.add(ValueConstants.ITEM_ANY);
+                for (int i = 0; i < items.size(); i++) {
+                    mAdapterStatus.add(items.get(i));
+                }
+                callAPIwoParam("GetCampusList");
                 break;
             default:
                 Utility.logError("Implementation error");

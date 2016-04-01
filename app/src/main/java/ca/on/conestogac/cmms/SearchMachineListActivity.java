@@ -132,11 +132,11 @@ public class SearchMachineListActivity extends BaseActivity {
         ComparatorManufacturer.inverse = !ComparatorManufacturer.inverse;
     }
 
-    public void onClickSortByDisposed(View view) {
-        mMachineAdapter.sort(new ComparatorDisposed());
+    public void onClickSortByMachineStatus(View view) {
+        mMachineAdapter.sort(new ComparatorMachineStatus());
         ListView listViewItems = (ListView) findViewById(R.id.listViewMachineList);
         listViewItems.setAdapter(mMachineAdapter);
-        ComparatorDisposed.inverse = !ComparatorDisposed.inverse;
+        ComparatorMachineStatus.inverse = !ComparatorMachineStatus.inverse;
     }
 
 }
@@ -183,15 +183,15 @@ class ComparatorManufacturer implements Comparator<Machine> {
     }
 }
 
-class ComparatorDisposed implements Comparator<Machine> {
+class ComparatorMachineStatus implements Comparator<Machine> {
     static Boolean inverse = false;
 
     @Override
     public int compare(Machine lhs, Machine rhs) {
         if (inverse) {
-            return lhs.getIsDisposed().compareToIgnoreCase(rhs.getIsDisposed());
+            return lhs.getMachineStatus().compareToIgnoreCase(rhs.getMachineStatus());
         } else {
-            return rhs.getIsDisposed().compareToIgnoreCase(lhs.getIsDisposed());
+            return rhs.getMachineStatus().compareToIgnoreCase(lhs.getMachineStatus());
         }
     }
 }

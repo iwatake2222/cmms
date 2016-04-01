@@ -26,7 +26,7 @@ public class MachineAdapter extends ArrayAdapter<Machine> {
         ((TextView)convertView.findViewById(R.id.textViewItemMachineID)).setText(getItem(position).getMachineID());
         ((TextView)convertView.findViewById(R.id.textViewItemMachineCampus)).setText(getItem(position).getCampus());
         ((TextView)convertView.findViewById(R.id.textViewItemMachineShop)).setText(getItem(position).getShop());
-        ((TextView)convertView.findViewById(R.id.textViewItemMachineDisposed)).setText("Disposed: " + (getItem(position).getIsDisposed().compareTo("0")==0?"No" : "Yes") );
+        ((TextView)convertView.findViewById(R.id.textViewItemMachineStatus)).setText(getItem(position).getMachineStatus());
         ((TextView)convertView.findViewById(R.id.textViewItemMachineManufacturer)).setText(getItem(position).getManufacturer());
         ((TextView)convertView.findViewById(R.id.textViewItemMachineSerialNumber)).setText(getItem(position).getSerialNumber());
         ((TextView)convertView.findViewById(R.id.textViewItemMachineModelNumber)).setText(getItem(position).getModelNumber());

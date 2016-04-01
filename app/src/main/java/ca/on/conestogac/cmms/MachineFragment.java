@@ -50,7 +50,7 @@ public class MachineFragment extends Fragment {
         ((TextView)v.findViewById(R.id.textViewMachineManufacturer)).setText(mMachine.getManufacturer());
         ((TextView)v.findViewById(R.id.textViewMachineSerialNumber)).setText(mMachine.getSerialNumber());
         ((TextView)v.findViewById(R.id.textViewMachineModelNumber)).setText(mMachine.getModelNumber());
-        ((TextView)v.findViewById(R.id.textViewMachineIsDisposed)).setText(mMachine.getIsDisposed().compareTo("0")!=0?"Yes":"No");
+        ((TextView)v.findViewById(R.id.textViewItemMachineStatus)).setText(mMachine.getMachineStatus());
         ((TextView)v.findViewById(R.id.textViewMachineDescription)).setText(mMachine.getDescription());
 
 

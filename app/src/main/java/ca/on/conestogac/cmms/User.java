@@ -58,7 +58,7 @@ public class User {
             case ACCESS_LEVEL_STUDENT:
                 return false;
             case ACCESS_LEVEL_TECHNICIAN:
-                return false;
+                return true;
             case ACCESS_LEVEL_INSTRUCTOR:
                 return true;
             case ACCESS_LEVEL_ADMINISTRATOR:
@@ -105,7 +105,7 @@ public class User {
             case ACCESS_LEVEL_TECHNICIAN:
                 return true;
             case ACCESS_LEVEL_INSTRUCTOR:
-                return false;
+                return true;
             case ACCESS_LEVEL_ADMINISTRATOR:
                 return true;
         }
@@ -120,7 +120,7 @@ public class User {
             case ACCESS_LEVEL_TECHNICIAN:
                 return true;
             case ACCESS_LEVEL_INSTRUCTOR:
-                return false;
+                return true;
             case ACCESS_LEVEL_ADMINISTRATOR:
                 return true;
         }

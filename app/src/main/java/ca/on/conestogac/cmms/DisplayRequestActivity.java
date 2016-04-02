@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -56,6 +60,8 @@ public class DisplayRequestActivity extends BaseActivity {
     private String mMachine;
     private Machine mMachineObject;
     private String workRequestMode;
+    private MaintenanceAdapter mMaintenanceAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -378,6 +384,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 // this is the very last callback
                 mMachine = jsonString;
                 setMachineInformation();
+                initMaintenanceLogList();
             }
 
             if (jsonObject.has("createdRequestID")) {
@@ -389,10 +396,11 @@ public class DisplayRequestActivity extends BaseActivity {
             }
 
             if(jsonObject.has("maintenanceLogList")) {
-                JSONArray jsonArray = jsonObject.getJSONArray("maintenanceLogList");
-                Intent intent = new Intent(this, MaintenanceLogListActivity.class);
-                intent.putExtra(MaintenanceLogListActivity.EXTRA_MAINTENANCE_LOG_LIST, jsonArray.toString());
-                startActivity(intent);
+                //JSONArray jsonArray = jsonObject.getJSONArray("maintenanceLogList");
+                //Intent intent = new Intent(this, MaintenanceLogListActivity.class);
+                //intent.putExtra(MaintenanceLogListActivity.EXTRA_MAINTENANCE_LOG_LIST, jsonArray.toString());
+                //startActivity(intent);
+                setMaintenanceLogList(jsonObject.getJSONArray("maintenanceLogList").toString());
                 return;
             }
 
@@ -589,6 +597,7 @@ public class DisplayRequestActivity extends BaseActivity {
     }
 
     public void onClickWorkRequestShowMaintenanceLogs(View view) {
+        /*
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("userID", User.getInstance().userID);
@@ -601,6 +610,7 @@ public class DisplayRequestActivity extends BaseActivity {
             Utility.logDebug(e.getMessage());
         }
         callAPI("SearchMaintenanceLogList", jsonParam);
+        */
     }
 
     private void initMachineInformation()
@@ -645,5 +655,74 @@ public class DisplayRequestActivity extends BaseActivity {
                 .add(R.id.fragmentContainer, fragment)
                 .commit();
         /* !Common Machine Information */
+    }
+
+    private void initMaintenanceLogList()
+    {
+        JSONObject jsonParam = new JSONObject();
+        try{
+            jsonParam.put("userID", User.getInstance().userID);
+            jsonParam.put("maintenanceLogID", "");
+            jsonParam.put("machineID", "");
+            jsonParam.put("requestID", workRequest.getRequestID());
+            jsonParam.put("creationDateFrom", "");
+            jsonParam.put("creationDateTo","" );
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+        callAPI("SearchMaintenanceLogList", jsonParam);
+    }
+
+    private void setMaintenanceLogList(String maintenanceLogList)
+    {
+        ListView listViewItems = (ListView)findViewById(R.id.listViewDisplayRequestMaintenanceList);
+        ArrayList<MaintenanceLog> list = new ArrayList<MaintenanceLog>();
+        mMaintenanceAdapter = new MaintenanceAdapter(this, R.layout.item_maintenance_log, list);
+        listViewItems.setAdapter(mMaintenanceAdapter);
+        listViewItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedMaintenance = mMaintenanceAdapter.getItem(position).createJson();
+                Intent intent = new Intent(DisplayRequestActivity.this, DisplayMaintenanceLogActivity.class);
+                intent.putExtra(DisplayMaintenanceLogActivity.EXTRA_MACHINE, mMachine);
+                intent.putExtra(DisplayMaintenanceLogActivity.EXTRA_MAINTENANCE_LOG, selectedMaintenance);
+                intent.putExtra(DisplayMaintenanceLogActivity.MAINTENANCE_LOG_MODE, DisplayMaintenanceLogActivity.MODE_VIEW);
+                startActivity(intent);
+            }
+        });
+
+
+        try {
+            JSONArray jsonArray = new JSONArray(maintenanceLogList);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                mMaintenanceAdapter.add(new MaintenanceLog(jsonArray.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            Utility.logError(e.getMessage());
+        }
+        listViewItems.setAdapter(mMaintenanceAdapter);
+
+        setListViewHeightBasedOnChildren(listViewItems);
+    }
+
+    private void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            if (listItem instanceof ViewGroup) {
+                listItem.setLayoutParams(new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT));
+            }
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        params.height *=2;  // todo: workaround
+        listView.setLayoutParams(params);
     }
 }

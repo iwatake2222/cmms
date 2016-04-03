@@ -466,6 +466,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                 Calendar calendar = Calendar.getInstance();
                 String dateResolved = Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 jsonModifyWorkRequest.put("dateResolved", dateResolved);
+                jsonModifyWorkRequest.put("completedBy", User.getInstance().userID);
             }
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());

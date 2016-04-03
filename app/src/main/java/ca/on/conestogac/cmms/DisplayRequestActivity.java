@@ -51,6 +51,7 @@ public class DisplayRequestActivity extends BaseActivity {
     private String mPriority;
     private String mMachineIsRequired;
     private String mDescription;
+    private String mCompletedBy;
     private ArrayAdapter<String> mAdapterRequestFor;
     private ArrayAdapter<String> mAdapterStatus;
     private ArrayAdapter<String> mAdapterPriority;
@@ -337,10 +338,13 @@ public class DisplayRequestActivity extends BaseActivity {
         Spinner spinnerDisplayRequestProgress = (Spinner) findViewById(R.id.spinnerDisplayRequestProgress);
         mProgress = spinnerDisplayRequestProgress.getSelectedItem().toString().trim();
 
+        mCompletedBy = "";
+        
         // if user is editing work request and progress changed to closed
         if (workRequestMode.equals(MODE_EDIT) && mProgress.equals("Closed") && !workRequest.getProgress().equals("Closed")) { // TODO: do not hardcode
             Calendar calendar = Calendar.getInstance();
             mDateResolved = Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            mCompletedBy = User.getInstance().userID;
         }
 
         Spinner spinnerDisplayRequestRequestFor = (Spinner) findViewById(R.id.spinnerDisplayRequestRequestFor);
@@ -577,6 +581,7 @@ public class DisplayRequestActivity extends BaseActivity {
         jsonParam.put("dateResolved", mDateResolved);
         jsonParam.put("dateDue", mMachineIsRequired);
         jsonParam.put("title", mTitle);
+        jsonParam.put("completedBy", mCompletedBy);
         jsonParam.put("description", mDescription);
         jsonParam.put("progress", mProgress.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mProgress);
         jsonParam.put("priority", mPriority.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mPriority);

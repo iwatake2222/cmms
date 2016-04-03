@@ -97,8 +97,25 @@ public class DisplayRequestActivity extends BaseActivity {
                 Utility.logError("unexpected call");
                 throw new IllegalArgumentException();
             }
+
+            changeViewVisibilityByUserPrivilege();
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
+        }
+    }
+
+    private void changeViewVisibilityByUserPrivilege() {
+        if (!User.getInstance().canModifyWorkRequest()) {
+            ((Button)findViewById(R.id.buttonDisplayRequestEditRequest)).setEnabled(false);
+        }
+        if (!User.getInstance().canCreateWorkRequest()) {
+            ((Button)findViewById(R.id.buttonDisplayRequestCreateRequest)).setEnabled(false);
+        }
+        if (!User.getInstance().canCreateMaintenanceLog()) {
+            ((Button)findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog)).setEnabled(false);
+        }
+        if (!User.getInstance().canDisplayMaintenanceLog()) {
+            ((ListView)findViewById(R.id.listViewDisplayRequestMaintenanceList)).setVisibility(View.GONE);
         }
     }
 

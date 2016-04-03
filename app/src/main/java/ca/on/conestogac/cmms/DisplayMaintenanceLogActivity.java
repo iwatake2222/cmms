@@ -79,7 +79,21 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
             Utility.logError(e.getMessage());
         }
 
+        changeViewVisibilityByUserPrivilege();
         initMachineInformation();
+    }
+
+    private void changeViewVisibilityByUserPrivilege() {
+        if (!User.getInstance().canModifyMaintenanceLog()) {
+            ((Button)findViewById(R.id.buttonMaintenanceLogEditMaintenanceLog)).setEnabled(false);
+            ((Button)findViewById(R.id.buttonMaintenanceLogSaveEditMaintenanceLog)).setEnabled(false);
+        }
+        if (!User.getInstance().canCreateMaintenanceLog()) {
+            ((Button)findViewById(R.id.buttonMaintenanceLogCreateMaintenanceLog)).setEnabled(false);
+        }
+        if (!User.getInstance().canDisplayWorkRequest()) {
+            ((Button)findViewById(R.id.buttonMaintenanceLogShowRelatedWorkRequest)).setEnabled(false);
+        }
     }
 
     private void configureActivityEditMode() {

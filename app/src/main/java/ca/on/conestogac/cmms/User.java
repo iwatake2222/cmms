@@ -1,13 +1,14 @@
 package ca.on.conestogac.cmms;
+
 /**
  * Created by user on 2016-02-23.
  */
 public class User {
     private static User instance = null;
-    public  int accessLevel;
+    public int accessLevel;
     public String userID;
     public String password;
-    private static final int ACCESS_LEVEL_STUDENT=0, ACCESS_LEVEL_TECHNICIAN=1, ACCESS_LEVEL_INSTRUCTOR=2, ACCESS_LEVEL_ADMINISTRATOR=3;
+    private static final int ACCESS_LEVEL_STUDENT = 0, ACCESS_LEVEL_TECHNICIAN = 1, ACCESS_LEVEL_INSTRUCTOR = 2, ACCESS_LEVEL_ADMINISTRATOR = 3;
 
     private User() {
     }

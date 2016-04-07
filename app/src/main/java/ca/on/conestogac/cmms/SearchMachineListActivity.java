@@ -17,6 +17,7 @@ import java.util.Comparator;
 
 public class SearchMachineListActivity extends BaseActivity {
     public static final String EXTRA_MACHINE_LIST = "ca.on.conestogac.cmms.EXTRA_MACHINE_LIST";
+    public static String mMachineList;      // to avoid memory error, set machine list directry instead of using intent
     private static final int MENU_ID_SAVE = 5678;
     private MachineAdapter mMachineAdapter;
 
@@ -29,12 +30,14 @@ public class SearchMachineListActivity extends BaseActivity {
 
         String machineList = getIntent().getStringExtra(EXTRA_MACHINE_LIST);
         if (machineList == null) {
-            Utility.logError("unexpedted call" );
+            //Utility.logError("unexpedted call" );
+            machineList = mMachineList;
         } else {
-            Utility.logDebug(machineList);
-            initListView();
-            convertMachineList(machineList);
+
         }
+        Utility.logDebug(machineList);
+        initListView();
+        convertMachineList(machineList);
     }
 
     @Override

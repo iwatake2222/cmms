@@ -59,19 +59,18 @@ public class SearchRequestActivity extends BaseActivity  {
         if(mProgress.compareTo(ValueConstants.ITEM_ANY)==0)mProgress="";
         if(mStatus.compareTo(ValueConstants.ITEM_ANY)==0)mStatus="";
         if(mPriority.compareTo(ValueConstants.ITEM_ANY)==0)mPriority="";
+        String keywords = editTextKeywords.getText().toString().trim();
 
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("userID", User.getInstance().userID);
-            jsonParam.put("requestID", "");
-            jsonParam.put("machineID", "");
-            jsonParam.put("campus", mCampus);
-            jsonParam.put("shop", mShop);
-            jsonParam.put("progress",mProgress );
-            jsonParam.put("status", mStatus);
-            jsonParam.put("dateRequestedFrom", mFrom);
-            jsonParam.put("dateRequestedTo", mTo);
-            jsonParam.put("keywords", editTextKeywords.getText().toString().trim());
+            if(mCampus.compareTo("")!=0)jsonParam.put("Campus", mCampus);
+            if(mShop.compareTo("")!=0)jsonParam.put("Shop", mShop);
+            if(mProgress.compareTo("")!=0)jsonParam.put("Progress",mProgress );
+            if(mStatus.compareTo("")!=0)jsonParam.put("Status", mStatus);
+            if(mFrom.compareTo("")!=0)jsonParam.put("DateRequestedFrom", mFrom);
+            if(mTo.compareTo("")!=0)jsonParam.put("DateRequestedTo", mTo);
+            if(keywords.compareTo("")!=0)jsonParam.put("Keywords", keywords);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }
@@ -339,7 +338,7 @@ public class SearchRequestActivity extends BaseActivity  {
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("userID", User.getInstance().userID);
-            jsonParam.put("campus", mCampus);
+            jsonParam.put("campusName", mCampus);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }

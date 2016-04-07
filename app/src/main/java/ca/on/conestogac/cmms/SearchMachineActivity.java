@@ -52,16 +52,17 @@ public class SearchMachineActivity extends BaseActivity {
         if(mCampus.compareTo(ValueConstants.ITEM_ANY)==0)mCampus="";
         if(mShop.compareTo(ValueConstants.ITEM_ANY)==0)mShop="";
         if(mStatus.compareTo(ValueConstants.ITEM_ANY)==0)mStatus="";
+        String keywords = editTextKeywords.getText().toString().trim();
 
         if(editTextMachineID.getText().toString().trim().isEmpty()) {
             JSONObject jsonParam = new JSONObject();
             try {
                 jsonParam.put("userID", User.getInstance().userID);
-                jsonParam.put("campus", mCampus);
-                jsonParam.put("shop", mShop);
-                jsonParam.put("machineStatus", mStatus);
-                jsonParam.put("keywords", editTextKeywords.getText().toString().trim());
-                jsonParam.put("MachineID","dummy"); // todo delete
+                if(mCampus.compareTo("")!=0) jsonParam.put("Campus", mCampus);
+                if(mShop.compareTo("")!=0) jsonParam.put("Shop", mShop);
+                if(mStatus.compareTo("")!=0) jsonParam.put("MachineStatus", mStatus);
+                if(keywords.compareTo("")!=0) jsonParam.put("Keywords", keywords);
+                //if(mCampus.compareTo("")!=0) jsonParam.put("MachineID","dummy"); // todo delete
 
                 if(mShop.compareTo("")==0) {
                     SearchMachineActivity.mApiPrm = jsonParam;      // todo: should use bundle
@@ -87,7 +88,7 @@ public class SearchMachineActivity extends BaseActivity {
             JSONObject jsonParam = new JSONObject();
             try {
                 jsonParam.put("userID", User.getInstance().userID);
-                jsonParam.put("machineID", editTextMachineID.getText().toString().trim());
+                jsonParam.put("MachineID", editTextMachineID.getText().toString().trim());
                 callAPI("SearchMachine", jsonParam);
             } catch (JSONException e) {
                 Utility.logDebug(e.getMessage());
@@ -101,16 +102,19 @@ public class SearchMachineActivity extends BaseActivity {
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             String result = jsonObject.getString("result");
-            if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
+            // todo check ret code, after server returns correct return code
+            if (result.compareTo(ValueConstants.RET_OK) != 0  && result.compareTo("nok") != 0) {
                 // do something if needed when error happens
             } else {
                 if (jsonObject.has("machineList")) {
                     /* if response contains "machineList", I assume I sent SearchWorkRequestList */
-                    JSONArray jsonArray = jsonObject.getJSONArray("machineList");
+                    // to avoid memory error, set machine list directry instead of using intent
+                    //JSONArray jsonArray = jsonObject.getJSONArray("machineList");
                     Intent intent = new Intent(this, SearchMachineListActivity.class);
-                    intent.putExtra(SearchMachineListActivity.EXTRA_MACHINE_LIST, jsonArray.toString());
+                    //intent.putExtra(SearchMachineListActivity.EXTRA_MACHINE_LIST, jsonArray.toString());
+                    SearchMachineListActivity.mMachineList = jsonObject.getJSONArray("machineList").toString();
                     startActivity(intent);
-                } else if (jsonObject.has("machineID")) {
+                } else if (jsonObject.has("MachineID")) {
                     /* if response contains "title", I assume I sent SearchWorkRequest */
                     Intent intent = new Intent(this, MachineInformationActivity.class);
                     intent.putExtra(MachineInformationActivity.EXTRA_MACHINE, jsonObject.toString());
@@ -242,7 +246,7 @@ public class SearchMachineActivity extends BaseActivity {
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("userID", User.getInstance().userID);
-            jsonParam.put("campus", mCampus);
+            jsonParam.put("campusName", mCampus);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }

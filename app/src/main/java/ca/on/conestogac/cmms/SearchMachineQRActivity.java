@@ -46,7 +46,7 @@ public class SearchMachineQRActivity extends BaseActivity {
                                 JSONObject jsonParam = new JSONObject();
                                 try{
                                     jsonParam.put("userID", User.getInstance().userID);
-                                    jsonParam.put("machineID", readData);
+                                    jsonParam.put("MachineID", readData);
                                 } catch (JSONException e) {
                                     Utility.logDebug(e.getMessage());
                                 }
@@ -93,10 +93,11 @@ public class SearchMachineQRActivity extends BaseActivity {
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             String result = jsonObject.getString("result");
-            if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
+            // todo check ret code, after server returns correct return code
+            if (result.compareTo(ValueConstants.RET_OK) != 0  && result.compareTo("nok") != 0) {
                 // do something if needed when error happens
             } else {
-                if (jsonObject.has("machineID")) {
+                if (jsonObject.has("MachineID")) {
                     Intent intent = new Intent(SearchMachineQRActivity.this, MachineInformationActivity.class);
                     intent.putExtra(MachineInformationActivity.EXTRA_MACHINE, jsonString);
                     startActivity(intent);

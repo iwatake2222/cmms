@@ -7,7 +7,9 @@ public class ValueConstants {
     private ValueConstants(){}
 
     //public static final String SERVER_URL = "http://192.168.0.104:80/saveJsonPOST.php/";
-    public static final String SERVER_URL = "http://cmmsmock.apphb.com/Service1.svc/";
+    //public static final String SERVER_URL = "http://cmmsmock.apphb.com/Service1.svc/";
+    public static final String SERVER_URL = "http://cmms-1.apphb.com/Service1.svc/";
+
     public static final int SERVER_TIMEOUT = 10000;
 
     public static final String ITEM_ANY = "Any";

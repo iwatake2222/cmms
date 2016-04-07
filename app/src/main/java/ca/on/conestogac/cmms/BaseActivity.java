@@ -115,7 +115,7 @@ public abstract class BaseActivity extends AppCompatActivity  implements LoaderM
                     if(jsonObject.has("result")) {
                         result = jsonObject.getString("result");
                     }
-                    if (result.compareTo(ValueConstants.RET_OK) != 0) {
+                    if (result.compareTo(ValueConstants.RET_OK) != 0 && result.compareTo("nok") != 0) {
                         Utility.logError(result);
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setTitle("Server Error");

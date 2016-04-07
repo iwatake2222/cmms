@@ -141,15 +141,7 @@ public class MachineInformationActivity extends BaseActivity {
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("userID", User.getInstance().userID);
-            jsonParam.put("requestID", "");
-            jsonParam.put("machineID", mMachine.getMachineID());
-            jsonParam.put("campus", "");
-            jsonParam.put("shop", "");
-            jsonParam.put("progress","" );
-            jsonParam.put("status", "");
-            jsonParam.put("dateRequestedFrom", "");
-            jsonParam.put("dateRequestedTo", "");
-            jsonParam.put("keywords", "");
+            jsonParam.put("MachineID", mMachine.getMachineID());
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }
@@ -160,11 +152,7 @@ public class MachineInformationActivity extends BaseActivity {
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("userID", User.getInstance().userID);
-            jsonParam.put("maintenanceLogID", "");
-            jsonParam.put("machineID", mMachine.getMachineID());
-            jsonParam.put("requestID", "");
-            jsonParam.put("creationDateFrom", "");
-            jsonParam.put("creationDateTo","" );
+            jsonParam.put("MachineID", mMachine.getMachineID());
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }

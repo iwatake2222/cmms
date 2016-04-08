@@ -173,8 +173,8 @@ public class MachineInformationActivity extends BaseActivity {
                     Intent intent = new Intent(this, SearchRequestListActivity.class);
                     intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST, jsonArray.toString());
                     startActivity(intent);
-                } else if(jsonObject.has("maintenanceLogList")) {
-                    JSONArray jsonArray = jsonObject.getJSONArray("maintenanceLogList");
+                } else if(jsonObject.has("maintenanceList")) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("maintenanceList");
                     Intent intent = new Intent(this, MaintenanceLogListActivity.class);
                     intent.putExtra(MaintenanceLogListActivity.EXTRA_MAINTENANCE_LOG_LIST, jsonArray.toString());
                     startActivity(intent);

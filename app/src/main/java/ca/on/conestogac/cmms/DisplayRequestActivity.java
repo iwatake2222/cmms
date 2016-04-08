@@ -416,12 +416,12 @@ public class DisplayRequestActivity extends BaseActivity {
                 return;
             }
 
-            if(jsonObject.has("maintenanceLogList")) {
+            if(jsonObject.has("maintenanceList")) {
                 //JSONArray jsonArray = jsonObject.getJSONArray("maintenanceLogList");
                 //Intent intent = new Intent(this, MaintenanceLogListActivity.class);
                 //intent.putExtra(MaintenanceLogListActivity.EXTRA_MAINTENANCE_LOG_LIST, jsonArray.toString());
                 //startActivity(intent);
-                setMaintenanceLogList(jsonObject.getJSONArray("maintenanceLogList").toString());
+                setMaintenanceLogList(jsonObject.getJSONArray("maintenanceList").toString());
                 return;
             }
 

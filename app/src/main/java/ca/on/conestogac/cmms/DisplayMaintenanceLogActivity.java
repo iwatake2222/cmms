@@ -394,7 +394,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                     fillMaintenanceLogFields(currentMaintenanceLog);
             }
 
-            if (jsonObject.has("createdMaintenanceLogID")) {
+            if (jsonObject.has("CreatedMaintenanceLogID")) {
                 createdMaintenanceLogID = jsonObject.getString("createdMaintenanceLogID");
                 Utility.showToast(this, "LOG mock created with ID: " + createdMaintenanceLogID);
 
@@ -412,7 +412,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("modifiedRequestID")) {
+            if (jsonObject.has("ModifiedRequestID")) {
                 Utility.logDebug("modifiedRequestID callback: Work Request successfully modified. Going to Displaymode (maintenance log)");
                 // after closing or changing the request to working, go to view mode
                 SearchMaintenanceLog(createdMaintenanceLogID);
@@ -420,7 +420,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("modifiedMaintenanceLogID")) {
+            if (jsonObject.has("ModifiedMaintenanceLogID")) {
                 String modifiedMaintenanceLogID = jsonObject.getString("modifiedMaintenanceLogID");
                 Utility.showToast(this, "LOG mock modified within ID: " + modifiedMaintenanceLogID);
 
@@ -428,7 +428,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("maintenanceLogID")) {
+            if (jsonObject.has("MaintenanceLogID")) {
                 // Search result - redirect to view mode
                 MaintenanceLog ml = new MaintenanceLog(jsonObject);
                 Intent intent = new Intent(DisplayMaintenanceLogActivity.this, DisplayMaintenanceLogActivity.class);
@@ -439,7 +439,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("requestID")) {
+            if (jsonObject.has("RequestID")) {
                 WorkRequest wr = new WorkRequest(jsonObject);
                 Intent intent = new Intent(this, DisplayRequestActivity.class);
                 intent.putExtra(DisplayRequestActivity.EXTRA_REQUEST, wr.createJson());

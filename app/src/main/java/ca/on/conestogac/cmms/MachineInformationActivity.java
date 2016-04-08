@@ -168,8 +168,8 @@ public class MachineInformationActivity extends BaseActivity {
             if (result.compareTo(ValueConstants.RET_OK) != 0 ) {
                 // do something if needed when error happens
             } else {
-                if(jsonObject.has("requestList")) {
-                    JSONArray jsonArray = jsonObject.getJSONArray("requestList");
+                if(jsonObject.has("workRequestList")) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("workRequestList");
                     Intent intent = new Intent(this, SearchRequestListActivity.class);
                     intent.putExtra(SearchRequestListActivity.EXTRA_REQUEST_LIST, jsonArray.toString());
                     startActivity(intent);

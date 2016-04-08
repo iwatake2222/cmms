@@ -401,7 +401,7 @@ public class DisplayRequestActivity extends BaseActivity {
             }
 
             // note: if response contains linkToDocument, I assume it the response for SearchMachine
-            if (jsonObject.has("linkToDocument")) {
+            if (jsonObject.has("LinkToDocument")) {
                 // this is the very last callback
                 mMachine = jsonString;
                 setMachineInformation();

@@ -39,27 +39,27 @@ public class WorkRequest {
             if(jsonObject.has("Shop"))
                 this.shop = jsonObject.getString("Shop");
             if(jsonObject.has("CreatedBy"))
-                this.createdBy = jsonObject.getString("CreatedBy");
+                this.createdBy = jsonObject.getString("CreatedBy").equals("null") ? " " : jsonObject.getString("CreatedBy");
             if(jsonObject.has("CompletedBy"))
-                this.completedBy = jsonObject.getString("CompletedBy");
+                this.completedBy = jsonObject.getString("CompletedBy").equals("null") ? " " : jsonObject.getString("CompletedBy");
             if(jsonObject.has("DateRequested"))
-                this.dateRequested = jsonObject.getString("DateRequested");
+                this.dateRequested = jsonObject.getString("DateRequested").equals("null") ? " " : jsonObject.getString("DateRequested");
             if(jsonObject.has("DateDue"))
-                this.dateDue = jsonObject.getString("DateDue");
+                this.dateDue = jsonObject.getString("DateDue").equals("null") ? " " : jsonObject.getString("DateDue");
             if(jsonObject.has("DateResolved"))
-                this.dateResolved = jsonObject.getString("DateResolved");
+                this.dateResolved = jsonObject.getString("DateResolved").equals("null") ? " " : jsonObject.getString("DateResolved");
             if(jsonObject.has("Progress"))
-                this.progress = jsonObject.getString("Progress");
+                this.progress = jsonObject.getString("Progress").equals("null") ? " " : jsonObject.getString("Progress");
             if(jsonObject.has("Title"))
-                this.title = jsonObject.getString("Title");
+                this.title = jsonObject.getString("Title").equals("null") ? " " : jsonObject.getString("Title");
             if(jsonObject.has("RequestFor"))
-                this.requestFor = jsonObject.getString("RequestFor");
+                this.requestFor = jsonObject.getString("RequestFor").equals("null") ? " " : jsonObject.getString("RequestFor");
             if(jsonObject.has("Status"))
-                this.status = jsonObject.getString("Status");
+                this.status = jsonObject.getString("Status").equals("null") ? " " : jsonObject.getString("Status");
             if(jsonObject.has("Priority"))
-                this.priority = jsonObject.getString("Priority");
+                this.priority = jsonObject.getString("Priority").equals("null") ? " " : jsonObject.getString("Priority");
             if(jsonObject.has("Description"))
-                this.description = jsonObject.getString("Description");
+                this.description = jsonObject.getString("Description").equals("null") ? " " : jsonObject.getString("Description");
             if(jsonObject.has("RelatedMaintenanceLogList")) {
                 JSONArray jsonArray = jsonObject.getJSONArray("RelatedMaintenanceLogList" );
                 for (int i = 0; i < jsonArray.length(); i++) {

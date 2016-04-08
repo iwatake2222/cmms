@@ -385,7 +385,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
             }
 
             // note: if response contains linkToDocument, I assume it the response for SearchMachine
-            if (jsonObject.has("linkToDocument")) {
+            if (jsonObject.has("LinkToDocument")) {
                 // first callback
                 mMachine = jsonString;
                 setMachineInformation();

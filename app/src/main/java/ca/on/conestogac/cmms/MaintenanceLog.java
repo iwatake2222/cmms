@@ -22,18 +22,30 @@ public class MaintenanceLog {
 
     public MaintenanceLog(JSONObject jsonObject) {
         try {
-            this.setMaintenanceLogID(jsonObject.getString("maintenanceLogID"));
-            this.setMachineID(jsonObject.getString("machineID"));
-            this.setDate(jsonObject.getString("date"));
-            this.setCompletedBy(jsonObject.getString("completedBy"));
-            this.setRequestID(jsonObject.getString("requestID"));
-            this.setMaintenanceRequired(jsonObject.getString("maintenanceRequired"));
-            this.setActionTaken(jsonObject.getString("actionTaken"));
-            this.setPartsRequired(jsonObject.getString("partsRequired"));
-            this.setPartCost(jsonObject.getString("partCost"));
-            this.setPartRequisitionNum(jsonObject.getString("partRequisitionNum"));
-            this.setContractor(jsonObject.getString("contractor"));
-            this.setContractorCompany(jsonObject.getString("contractorCompany"));
+            if(jsonObject.has("maintenanceLogID"))
+                this.setMaintenanceLogID(jsonObject.getString("maintenanceLogID"));
+            if(jsonObject.has("machineID"))
+                this.setMachineID(jsonObject.getString("machineID"));
+            if(jsonObject.has("date"))
+                this.setDate(jsonObject.getString("date"));
+            if(jsonObject.has("completedBy"))
+                this.setCompletedBy(jsonObject.getString("completedBy"));
+            if(jsonObject.has("requestID"))
+                this.setRequestID(jsonObject.getString("requestID"));
+            if(jsonObject.has("maintenanceRequired"))
+                this.setMaintenanceRequired(jsonObject.getString("maintenanceRequired"));
+            if(jsonObject.has("actionTaken"))
+                this.setActionTaken(jsonObject.getString("actionTaken"));
+            if(jsonObject.has("partsRequired"))
+                this.setPartsRequired(jsonObject.getString("partsRequired"));
+            if(jsonObject.has("partCost"))
+                this.setPartCost(jsonObject.getString("partCost"));
+            if(jsonObject.has("partRequisitionNum"))
+                this.setPartRequisitionNum(jsonObject.getString("partRequisitionNum"));
+            if(jsonObject.has("contractor"))
+                this.setContractor(jsonObject.getString("contractor"));
+            if(jsonObject.has("contractorCompany"))
+                this.setContractorCompany(jsonObject.getString("contractorCompany"));
         } catch (JSONException e) {
             Utility.logError(e.getMessage());
         }

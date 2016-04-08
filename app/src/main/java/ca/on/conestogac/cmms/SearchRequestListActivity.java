@@ -162,8 +162,19 @@ class ComparatorDate implements Comparator<WorkRequest> {
     static Boolean inverse = false;
     @Override
     public int compare(WorkRequest lhs, WorkRequest rhs) {
-        int left = Integer.parseInt(lhs.getDateRequested());
-        int right = Integer.parseInt(rhs.getDateRequested());
+        int left;
+        try {
+            left = Integer.parseInt(lhs.getDateRequested());
+        } catch (Exception e){
+            left = 0;
+        }
+        int right;
+        try {
+            right = Integer.parseInt(rhs.getDateRequested());
+        } catch (Exception e){
+            right = 0;
+        }
+
         if(inverse) {
             if (left > right) return 1;
             if (left < right) return -1;
@@ -179,8 +190,18 @@ class ComparatorDueDate implements Comparator<WorkRequest> {
     static Boolean inverse = false;
     @Override
     public int compare(WorkRequest lhs, WorkRequest rhs) {
-        int left = Integer.parseInt(lhs.getDateDue());
-        int right = Integer.parseInt(rhs.getDateDue());
+        int left;
+        try {
+            left = Integer.parseInt(lhs.getDateDue());
+        } catch (Exception e){
+            left = 0;
+        }
+        int right;
+        try {
+            right = Integer.parseInt(rhs.getDateDue());
+        } catch (Exception e){
+            right = 0;
+        }
         if(inverse) {
             if (left > right) return 1;
             if (left < right) return -1;

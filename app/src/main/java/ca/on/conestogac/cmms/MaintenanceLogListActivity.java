@@ -146,8 +146,18 @@ class ComparatorDateMaintenanceLog implements Comparator<MaintenanceLog> {
     static Boolean inverse = false;
     @Override
     public int compare(MaintenanceLog lhs, MaintenanceLog rhs) {
-        int left = Integer.parseInt(lhs.getDate());
-        int right = Integer.parseInt(rhs.getDate());
+        int left;
+        try {
+            left = Integer.parseInt(lhs.getDate());
+        } catch (Exception e){
+            left = 0;
+        }
+        int right;
+        try {
+            right = Integer.parseInt(rhs.getDate());
+        } catch (Exception e){
+            right = 0;
+        }
         if(inverse) {
             if (left > right) return 1;
             if (left < right) return -1;

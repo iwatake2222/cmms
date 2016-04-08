@@ -68,9 +68,9 @@ public class SearchRequestActivity extends BaseActivity  {
             if(mShop.compareTo("")!=0)jsonParam.put("Shop", mShop);
             if(mProgress.compareTo("")!=0)jsonParam.put("Progress",mProgress );
             if(mStatus.compareTo("")!=0)jsonParam.put("Status", mStatus);
-            if(mFrom.compareTo("")!=0)jsonParam.put("DateRequestedFrom", mFrom);
-            if(mTo.compareTo("")!=0)jsonParam.put("DateRequestedTo", mTo);
-            if(keywords.compareTo("")!=0)jsonParam.put("Keywords", keywords);
+            //if(mFrom.compareTo("")!=0)jsonParam.put("DateRequestedFrom", mFrom);
+            //if(mTo.compareTo("")!=0)jsonParam.put("DateRequestedTo", mTo);
+            if(keywords.compareTo("")!=0)jsonParam.put("Keyword", keywords);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }
@@ -94,6 +94,7 @@ public class SearchRequestActivity extends BaseActivity  {
 
     private void initDateElements() {
         Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, +1);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);    // 0 - 11
         month++;
@@ -267,8 +268,8 @@ public class SearchRequestActivity extends BaseActivity  {
                 } else if (jsonObject.has("priority" )) {
                     JSONArray jsonArray = jsonObject.getJSONArray("priority" );
                     setList(jsonArray, LIST_TYPE.PRIORITY);
-                } else if (jsonObject.has("requestList" )) {
-                    JSONArray jsonArray = jsonObject.getJSONArray("requestList" );
+                } else if (jsonObject.has("workRequestList" )) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("workRequestList" );
                     retrieveRequestList(jsonArray);
                 } else {
                     Utility.showToast(this, "No Result");

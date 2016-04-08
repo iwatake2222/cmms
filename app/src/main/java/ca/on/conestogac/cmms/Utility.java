@@ -115,8 +115,14 @@ public class Utility {
     }
 
     public static String convertDateYYYYMMDDToShow (String orgDate) {
-        String str = orgDate.substring(0, 4) + "/" + orgDate.substring(4, 6) + "/" + orgDate.substring(6, 8);
-        return str;
+        if(orgDate != null) {
+            if (orgDate.length() == 8) {
+                String str = orgDate.substring(0, 4) + "/" + orgDate.substring(4, 6) + "/" + orgDate.substring(6, 8);
+                return str;
+            }
+        }
+        return orgDate;
+
     }
 
     public static String convertFormattedDateToRaw (String formattedDate) {

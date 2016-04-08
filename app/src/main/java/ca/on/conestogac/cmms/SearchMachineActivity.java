@@ -61,7 +61,7 @@ public class SearchMachineActivity extends BaseActivity {
                 if(mCampus.compareTo("")!=0) jsonParam.put("Campus", mCampus);
                 if(mShop.compareTo("")!=0) jsonParam.put("Shop", mShop);
                 if(mStatus.compareTo("")!=0) jsonParam.put("MachineStatus", mStatus);
-                if(keywords.compareTo("")!=0) jsonParam.put("Keywords", keywords);
+                if(keywords.compareTo("")!=0) jsonParam.put("Keyword", keywords);
                 //if(mCampus.compareTo("")!=0) jsonParam.put("MachineID","dummy"); // todo delete
 
                 if(mShop.compareTo("")==0) {

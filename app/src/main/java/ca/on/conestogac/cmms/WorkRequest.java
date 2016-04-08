@@ -74,26 +74,26 @@ public class WorkRequest {
     public String createJson() {
         JSONObject jsonParam = new JSONObject();
         try{
-            jsonParam.put("requestID", requestID);
-            jsonParam.put("machineID", machineID);
-            jsonParam.put("campus", campus);
-            jsonParam.put("shop", shop);
-            jsonParam.put("createdBy", createdBy);
-            jsonParam.put("completedBy", completedBy);
-            jsonParam.put("dateRequested",dateRequested );
-            jsonParam.put("dateDue",dateDue );
-            jsonParam.put("dateResolved",dateResolved );
-            jsonParam.put("progress", progress);
-            jsonParam.put("title", title);
-            jsonParam.put("requestFor", requestFor);
-            jsonParam.put("status", status);
-            jsonParam.put("priority", priority);
-            jsonParam.put("description", description);
+            jsonParam.put("RequestID", requestID);
+            jsonParam.put("MachineID", machineID);
+            jsonParam.put("Campus", campus);
+            jsonParam.put("Shop", shop);
+            jsonParam.put("CreatedBy", createdBy);
+            jsonParam.put("CompletedBy", completedBy);
+            jsonParam.put("DateRequested",dateRequested );
+            jsonParam.put("DateDue",dateDue );
+            jsonParam.put("DateResolved",dateResolved );
+            jsonParam.put("Progress", progress);
+            jsonParam.put("Title", title);
+            jsonParam.put("RequestFor", requestFor);
+            jsonParam.put("Status", status);
+            jsonParam.put("Priority", priority);
+            jsonParam.put("Description", description);
             JSONArray jsonArray = new JSONArray();
             for(int i = 0; i < relatedMaintenanceLogList.size(); i++){
                 jsonArray.put(relatedMaintenanceLogList.get(i));
             }
-            jsonParam.put("relatedMaintenanceLogList", jsonArray);
+            jsonParam.put("RelatedMaintenanceLogList", jsonArray);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }

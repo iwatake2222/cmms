@@ -582,7 +582,7 @@
                 android:layout_width="218dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:onClick="onClickCreateRequestActivityCreateRequest"
+                android:onClick="onClickCreateMaintenanceLogActivityCreateLog"
                 android:text="Save (New)" />
             <Button
                 android:id="@+id/buttonMaintenanceLogSaveEditMaintenanceLog"

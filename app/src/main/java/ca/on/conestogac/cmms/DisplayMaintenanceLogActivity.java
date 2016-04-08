@@ -531,8 +531,16 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         return relatedRequestID;
     }
 
-    public void onClickCreateRequestActivityCreateRequest(View view) {
+    public void onClickCreateMaintenanceLogActivityCreateLog(View view) {
         getMaintenanceLogFields();
+
+        // if just one is filled out
+        if ((mMaintenanceLogContractorName.equals("") && !mMaintenanceLogContractorCompany.equals("")) ||
+                (!mMaintenanceLogContractorName.equals("") && mMaintenanceLogContractorCompany.equals(""))) {
+            Utility.showToast(this, "If you inform Contractor information, you should inform both name and company.");
+            return;
+        }
+
         JSONObject jsonParam = new JSONObject();
 
         try {

@@ -408,7 +408,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 initMaintenanceLogList();
             }
 
-            if (jsonObject.has("createdRequestID")) {
+            if (jsonObject.has("CreatedRequestID")) {
                 String createdRequestID = jsonObject.getString("createdRequestID");
                 Utility.showToast(this, "Request mock created with ID: " + createdRequestID);
 
@@ -416,7 +416,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 return;
             }
 
-            if(jsonObject.has("maintenanceList")) {
+            if(jsonObject.has("MaintenanceList")) {
                 //JSONArray jsonArray = jsonObject.getJSONArray("maintenanceLogList");
                 //Intent intent = new Intent(this, MaintenanceLogListActivity.class);
                 //intent.putExtra(MaintenanceLogListActivity.EXTRA_MAINTENANCE_LOG_LIST, jsonArray.toString());
@@ -425,7 +425,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("modifiedRequestID")) {
+            if (jsonObject.has("ModifiedRequestID")) {
                 String modifiedRequestID = jsonObject.getString("modifiedRequestID");
                 Utility.showToast(this, "Request mock modified for ID: " + modifiedRequestID);
 
@@ -433,7 +433,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("requestID")) {
+            if (jsonObject.has("RequestID")) {
                 WorkRequest wr = new WorkRequest(jsonObject);
                 Intent intent = new Intent(DisplayRequestActivity.this, DisplayRequestActivity.class);
                 intent.putExtra(DisplayRequestActivity.EXTRA_REQUEST, wr.createJson());
@@ -483,8 +483,8 @@ public class DisplayRequestActivity extends BaseActivity {
         JSONObject jsonSearchRequest = new JSONObject();
 
         try {
-            jsonSearchRequest.put("userID", User.getInstance().userID);
-            jsonSearchRequest.put("requestID", workRequestID);
+            jsonSearchRequest.put("UserID", User.getInstance().userID);
+            jsonSearchRequest.put("RequestID", workRequestID);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }
@@ -573,20 +573,20 @@ public class DisplayRequestActivity extends BaseActivity {
     }
 
     private void FillJsonObject(JSONObject jsonParam) throws JSONException {
-        jsonParam.put("userID", User.getInstance().userID);
+        jsonParam.put("UserID", User.getInstance().userID);
 
-        jsonParam.put("machineID", mMachineObject.getMachineID());
-        jsonParam.put("createdBy", mCreatedBy);
-        jsonParam.put("dateRequested", mDateCreated);
-        jsonParam.put("dateResolved", mDateResolved);
-        jsonParam.put("dateDue", mMachineIsRequired);
-        jsonParam.put("title", mTitle);
-        jsonParam.put("completedBy", mCompletedBy);
-        jsonParam.put("description", mDescription);
-        jsonParam.put("progress", mProgress.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mProgress);
-        jsonParam.put("priority", mPriority.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mPriority);
-        jsonParam.put("status", mStatus.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mStatus);
-        jsonParam.put("requestFor", mRequestFor.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mRequestFor);
+        jsonParam.put("MachineID", mMachineObject.getMachineID());
+        jsonParam.put("CreatedBy", mCreatedBy);
+        jsonParam.put("DateRequested", mDateCreated);
+        jsonParam.put("DateResolved", mDateResolved);
+        jsonParam.put("DateDue", mMachineIsRequired);
+        jsonParam.put("Title", mTitle);
+        jsonParam.put("CompletedBy", mCompletedBy);
+        jsonParam.put("Description", mDescription);
+        jsonParam.put("Progress", mProgress.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mProgress);
+        jsonParam.put("Priority", mPriority.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mPriority);
+        jsonParam.put("Status", mStatus.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mStatus);
+        jsonParam.put("RequestFor", mRequestFor.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mRequestFor);
     }
 
     public void onClickCreateRequestActivityBeginEditRequest(View view) {
@@ -683,12 +683,12 @@ public class DisplayRequestActivity extends BaseActivity {
     {
         JSONObject jsonParam = new JSONObject();
         try{
-            jsonParam.put("userID", User.getInstance().userID);
-            jsonParam.put("maintenanceLogID", "");
-            jsonParam.put("machineID", "");
-            jsonParam.put("requestID", workRequest.getRequestID());
-            jsonParam.put("creationDateFrom", "");
-            jsonParam.put("creationDateTo","" );
+            jsonParam.put("UserID", User.getInstance().userID);
+            jsonParam.put("MaintenanceLogID", "");
+            jsonParam.put("MachineID", "");
+            jsonParam.put("RequestID", workRequest.getRequestID());
+            jsonParam.put("CreationDateFrom", "");
+            jsonParam.put("CreationDateTo","" );
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }

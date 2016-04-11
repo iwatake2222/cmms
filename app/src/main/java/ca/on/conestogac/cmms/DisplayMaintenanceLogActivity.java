@@ -394,7 +394,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                     fillMaintenanceLogFields(currentMaintenanceLog);
             }
 
-            if (jsonObject.has("CreatedMaintenanceLogID")) {
+            if (jsonObject.has("createdMaintenanceLogID")) {
                 createdMaintenanceLogID = jsonObject.getString("createdMaintenanceLogID");
                 Utility.showToast(this, "LOG mock created with ID: " + createdMaintenanceLogID);
 
@@ -412,7 +412,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("ModifiedRequestID")) {
+            if (jsonObject.has("modifiedRequestID")) {
                 Utility.logDebug("modifiedRequestID callback: Work Request successfully modified. Going to Displaymode (maintenance log)");
                 // after closing or changing the request to working, go to view mode
                 SearchMaintenanceLog(createdMaintenanceLogID);
@@ -420,7 +420,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("ModifiedMaintenanceLogID")) {
+            if (jsonObject.has("modifiedMaintenanceLogID")) {
                 String modifiedMaintenanceLogID = jsonObject.getString("modifiedMaintenanceLogID");
                 Utility.showToast(this, "LOG mock modified within ID: " + modifiedMaintenanceLogID);
 

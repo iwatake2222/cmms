@@ -42,8 +42,11 @@ public class MaintenanceLog {
                 this.setPartCost(jsonObject.getString("PartCost").equals("null") ? " " : jsonObject.getString("PartCost"));
             if(jsonObject.has("PartRequisitionNum"))
                 this.setPartRequisitionNum(jsonObject.getString("PartRequisitionNum").equals("null") ? " " : jsonObject.getString("PartRequisitionNum"));
-            if(jsonObject.has("Contractor"))
-                this.setContractor(jsonObject.getString("Contractor").equals("null") ? " " : jsonObject.getString("Contractor"));
+
+            if(jsonObject.has("ContractorName")) {
+                this.setContractor(jsonObject.getString("ContractorName").equals("null") ? " " : jsonObject.getString("ContractorName"));
+            }
+
             if(jsonObject.has("ContractorCompany"))
                 this.setContractorCompany(jsonObject.getString("ContractorCompany").equals("null") ? " " : jsonObject.getString("ContractorCompany"));
         } catch (JSONException e) {
@@ -64,7 +67,7 @@ public class MaintenanceLog {
             jsonParam.put("PartsRequired", partsRequired);
             jsonParam.put("PartCost", partCost);
             jsonParam.put("PartRequisitionNum", partRequisitionNum);
-            jsonParam.put("Contractor", contractor);
+            jsonParam.put("ContractorName", contractor);
             jsonParam.put("ContractorCompany", contractorCompany);
 
         } catch (JSONException e) {

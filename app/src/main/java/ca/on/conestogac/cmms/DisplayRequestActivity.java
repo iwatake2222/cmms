@@ -408,7 +408,8 @@ public class DisplayRequestActivity extends BaseActivity {
                 initMaintenanceLogList();
             }
 
-            if (jsonObject.has("CreatedRequestID")) {
+            // verified 2016-04-09
+            if (jsonObject.has("createdRequestID")) {
                 String createdRequestID = jsonObject.getString("createdRequestID");
                 Utility.showToast(this, "Request mock created with ID: " + createdRequestID);
 
@@ -425,7 +426,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("ModifiedRequestID")) {
+            if (jsonObject.has("modifiedRequestID")) {
                 String modifiedRequestID = jsonObject.getString("modifiedRequestID");
                 Utility.showToast(this, "Request mock modified for ID: " + modifiedRequestID);
 
@@ -573,20 +574,21 @@ public class DisplayRequestActivity extends BaseActivity {
     }
 
     private void FillJsonObject(JSONObject jsonParam) throws JSONException {
-        jsonParam.put("UserID", User.getInstance().userID);
+        // verified lowercase for create (2016-04-09)
+        jsonParam.put("userID", User.getInstance().userID);
 
-        jsonParam.put("MachineID", mMachineObject.getMachineID());
-        jsonParam.put("CreatedBy", mCreatedBy);
-        jsonParam.put("DateRequested", mDateCreated);
-        jsonParam.put("DateResolved", mDateResolved);
-        jsonParam.put("DateDue", mMachineIsRequired);
-        jsonParam.put("Title", mTitle);
-        jsonParam.put("CompletedBy", mCompletedBy);
-        jsonParam.put("Description", mDescription);
-        jsonParam.put("Progress", mProgress.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mProgress);
-        jsonParam.put("Priority", mPriority.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mPriority);
-        jsonParam.put("Status", mStatus.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mStatus);
-        jsonParam.put("RequestFor", mRequestFor.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mRequestFor);
+        jsonParam.put("machineID", mMachineObject.getMachineID());
+        jsonParam.put("createdBy", mCreatedBy);
+        jsonParam.put("dateRequested", mDateCreated);
+        jsonParam.put("dateResolved", mDateResolved);
+        jsonParam.put("dateDue", mMachineIsRequired);
+        jsonParam.put("title", mTitle);
+        jsonParam.put("completedBy", mCompletedBy);
+        jsonParam.put("description", mDescription);
+        jsonParam.put("progress", mProgress.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mProgress);
+        jsonParam.put("priority", mPriority.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mPriority);
+        jsonParam.put("status", mStatus.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mStatus);
+        jsonParam.put("requestFor", mRequestFor.equals(ValueConstants.ITEM_NOTSELECTED) ? "" : mRequestFor);
     }
 
     public void onClickCreateRequestActivityBeginEditRequest(View view) {

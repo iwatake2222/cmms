@@ -44,8 +44,8 @@ public class WorkRequest {
                 this.completedBy = jsonObject.getString("CompletedBy").equals("null") ? " " : jsonObject.getString("CompletedBy");
             if(jsonObject.has("DateRequested"))
                 this.dateRequested = jsonObject.getString("DateRequested").equals("null") ? " " : jsonObject.getString("DateRequested");
-            if(jsonObject.has("DateDue"))
-                this.dateDue = jsonObject.getString("DateDue").equals("null") ? " " : jsonObject.getString("DateDue");
+            if(jsonObject.has("DueDate"))
+                this.dateDue = jsonObject.getString("DueDate").equals("null") ? " " : jsonObject.getString("DueDate");
             if(jsonObject.has("DateResolved"))
                 this.dateResolved = jsonObject.getString("DateResolved").equals("null") ? " " : jsonObject.getString("DateResolved");
             if(jsonObject.has("Progress"))
@@ -81,7 +81,7 @@ public class WorkRequest {
             jsonParam.put("CreatedBy", createdBy);
             jsonParam.put("CompletedBy", completedBy);
             jsonParam.put("DateRequested",dateRequested );
-            jsonParam.put("DateDue",dateDue );
+            jsonParam.put("DueDate",dateDue );
             jsonParam.put("DateResolved",dateResolved );
             jsonParam.put("Progress", progress);
             jsonParam.put("Title", title);
@@ -120,7 +120,7 @@ public class WorkRequest {
         str  = "Request ID,";
         str += "Title,";
         str += "Machine ID,";
-        str += "Campups,";
+        str += "Campus,";
         str += "Shop,";
         str += "Date requested,";
         str += "Date resolved,";

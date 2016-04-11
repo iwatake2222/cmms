@@ -416,7 +416,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 return;
             }
 
-            if(jsonObject.has("MaintenanceList")) {
+            if(jsonObject.has("maintenanceList")) {
                 //JSONArray jsonArray = jsonObject.getJSONArray("maintenanceLogList");
                 //Intent intent = new Intent(this, MaintenanceLogListActivity.class);
                 //intent.putExtra(MaintenanceLogListActivity.EXTRA_MAINTENANCE_LOG_LIST, jsonArray.toString());
@@ -683,12 +683,12 @@ public class DisplayRequestActivity extends BaseActivity {
     {
         JSONObject jsonParam = new JSONObject();
         try{
-            jsonParam.put("UserID", User.getInstance().userID);
-            jsonParam.put("MaintenanceLogID", "");
-            jsonParam.put("MachineID", "");
+            jsonParam.put("userID", User.getInstance().userID);
+            //jsonParam.put("MaintenanceLogID", "");
+            //jsonParam.put("MachineID", "");
             jsonParam.put("RequestID", workRequest.getRequestID());
-            jsonParam.put("CreationDateFrom", "");
-            jsonParam.put("CreationDateTo","" );
+            //jsonParam.put("CreationDateFrom", "");
+            //jsonParam.put("CreationDateTo","" );
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }

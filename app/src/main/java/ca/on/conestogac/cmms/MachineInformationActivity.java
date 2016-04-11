@@ -145,7 +145,7 @@ public class MachineInformationActivity extends BaseActivity {
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("userID", User.getInstance().userID);
-            jsonParam.put("MachineID", mMachine.getMachineID());
+            jsonParam.put("machineID", mMachine.getMachineID());
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }
@@ -156,7 +156,7 @@ public class MachineInformationActivity extends BaseActivity {
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("userID", User.getInstance().userID);
-            jsonParam.put("MachineID", mMachine.getMachineID());
+            jsonParam.put("machineID", mMachine.getMachineID());
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }

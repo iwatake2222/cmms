@@ -385,7 +385,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
             }
 
             // note: if response contains linkToDocument, I assume it the response for SearchMachine
-            if (jsonObject.has("LinkToDocument")) {
+            if (jsonObject.has("linkToDocument")) {
                 // first callback
                 mMachine = jsonString;
                 setMachineInformation();
@@ -428,7 +428,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("MaintenanceLogID")) {
+            if (jsonObject.has("maintenanceLogID")) {
                 // Search result - redirect to view mode
                 MaintenanceLog ml = new MaintenanceLog(jsonObject);
                 Intent intent = new Intent(DisplayMaintenanceLogActivity.this, DisplayMaintenanceLogActivity.class);
@@ -439,7 +439,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("RequestID")) {
+            if (jsonObject.has("requestID")) {
                 WorkRequest wr = new WorkRequest(jsonObject);
                 Intent intent = new Intent(this, DisplayRequestActivity.class);
                 intent.putExtra(DisplayRequestActivity.EXTRA_REQUEST, wr.createJson());

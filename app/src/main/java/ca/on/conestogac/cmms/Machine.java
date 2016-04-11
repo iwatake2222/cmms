@@ -27,30 +27,30 @@ public class Machine {
         namesOfDocument = new ArrayList<String>();
         linksToDocument = new ArrayList<String>();
         try {
-            if(jsonObject.has("MachineID"))
-                this.machineID = jsonObject.getString("MachineID");
-            if(jsonObject.has("Campus"))
-                this.campus = jsonObject.getString("Campus");
-            if(jsonObject.has("Shop"))
-                this.shop = jsonObject.getString("Shop");
-            if(jsonObject.has("MachineStatus"))
-                this.machineStatus = jsonObject.getString("MachineStatus");
-            if(jsonObject.has("Manufacturer"))
-                this.manufacturer = jsonObject.getString("Manufacturer");
-            if(jsonObject.has("SerialNumber"))
-                this.serialNumber = jsonObject.getString("SerialNumber");
-            if(jsonObject.has("ModelNumber"))
-                this.modelNumber = jsonObject.getString("ModelNumber");
-            if(jsonObject.has("Description"))
-                this.description = jsonObject.getString("Description");
-            if(jsonObject.has("LinkToPicture"))
-                this.linkToPicture = jsonObject.getString("LinkToPicture");
-            if(jsonObject.has("LinkToDocument")) {
-                JSONArray jsonArray = jsonObject.getJSONArray("LinkToDocument");
+            if(jsonObject.has("machineID"))
+                this.machineID = jsonObject.getString("machineID");
+            if(jsonObject.has("campus"))
+                this.campus = jsonObject.getString("campus");
+            if(jsonObject.has("shop"))
+                this.shop = jsonObject.getString("shop");
+            if(jsonObject.has("machineStatus"))
+                this.machineStatus = jsonObject.getString("machineStatus");
+            if(jsonObject.has("manufacturer"))
+                this.manufacturer = jsonObject.getString("manufacturer");
+            if(jsonObject.has("serialNumber"))
+                this.serialNumber = jsonObject.getString("serialNumber");
+            if(jsonObject.has("modelNumber"))
+                this.modelNumber = jsonObject.getString("modelNumber");
+            if(jsonObject.has("description"))
+                this.description = jsonObject.getString("description");
+            if(jsonObject.has("linkToPicture"))
+                this.linkToPicture = jsonObject.getString("linkToPicture");
+            if(jsonObject.has("linkToDocument")) {
+                JSONArray jsonArray = jsonObject.getJSONArray("linkToDocument");
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject eachDocument = jsonArray.getJSONObject(i);
-                    this.namesOfDocument.add(eachDocument.getString("DocumentName"));
-                    this.linksToDocument.add(eachDocument.getString("Link"));
+                    this.namesOfDocument.add(eachDocument.getString("documentName"));
+                    this.linksToDocument.add(eachDocument.getString("link"));
                 }
             }
         } catch (JSONException e) {
@@ -61,23 +61,23 @@ public class Machine {
     public String createJson() {
         JSONObject jsonParam = new JSONObject();
         try{
-            jsonParam.put("MachineID", machineID);
-            jsonParam.put("Campus", campus);
-            jsonParam.put("Shop", shop);
-            jsonParam.put("MachineStatus", machineStatus);
-            jsonParam.put("Manufacturer", manufacturer);
-            jsonParam.put("SerialNumber",serialNumber );
-            jsonParam.put("ModelNumber",modelNumber );
-            jsonParam.put("Description",description );
-            jsonParam.put("LinkToPicture",linkToPicture );
+            jsonParam.put("machineID", machineID);
+            jsonParam.put("campus", campus);
+            jsonParam.put("shop", shop);
+            jsonParam.put("machineStatus", machineStatus);
+            jsonParam.put("manufacturer", manufacturer);
+            jsonParam.put("serialNumber",serialNumber );
+            jsonParam.put("modelNumber",modelNumber );
+            jsonParam.put("description",description );
+            jsonParam.put("linkToPicture",linkToPicture );
             JSONArray jsonArray = new JSONArray();
             for(int i = 0; i < namesOfDocument.size(); i++){
                 JSONObject eachDocument = new JSONObject();
-                eachDocument.put("DocumentName", namesOfDocument.get(i));
-                eachDocument.put("Link", linksToDocument.get(i));
+                eachDocument.put("documentName", namesOfDocument.get(i));
+                eachDocument.put("link", linksToDocument.get(i));
                 jsonArray.put(eachDocument);
             }
-            jsonParam.put("LinkToDocument", jsonArray);
+            jsonParam.put("linkToDocument", jsonArray);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }

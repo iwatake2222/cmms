@@ -58,10 +58,10 @@ public class SearchMachineActivity extends BaseActivity {
             JSONObject jsonParam = new JSONObject();
             try {
                 jsonParam.put("userID", User.getInstance().userID);
-                if(mCampus.compareTo("")!=0) jsonParam.put("Campus", mCampus);
-                if(mShop.compareTo("")!=0) jsonParam.put("Shop", mShop);
-                if(mStatus.compareTo("")!=0) jsonParam.put("MachineStatus", mStatus);
-                if(keywords.compareTo("")!=0) jsonParam.put("Keyword", keywords);
+                if(mCampus.compareTo("")!=0) jsonParam.put("campus", mCampus);
+                if(mShop.compareTo("")!=0) jsonParam.put("shop", mShop);
+                if(mStatus.compareTo("")!=0) jsonParam.put("machineStatus", mStatus);
+                if(keywords.compareTo("")!=0) jsonParam.put("keyword", keywords);
                 //if(mCampus.compareTo("")!=0) jsonParam.put("MachineID","dummy"); // todo delete
 
                 if(mShop.compareTo("")==0) {
@@ -88,8 +88,8 @@ public class SearchMachineActivity extends BaseActivity {
             JSONObject jsonParam = new JSONObject();
             try {
                 jsonParam.put("userID", User.getInstance().userID);
-                jsonParam.put("MachineID", editTextMachineID.getText().toString().trim());
-                callAPI("SearchMachine", jsonParam);
+                jsonParam.put("machineID", editTextMachineID.getText().toString().trim());
+                callAPI("searchMachine", jsonParam);
             } catch (JSONException e) {
                 Utility.logDebug(e.getMessage());
             }
@@ -114,7 +114,7 @@ public class SearchMachineActivity extends BaseActivity {
                     //intent.putExtra(SearchMachineListActivity.EXTRA_MACHINE_LIST, jsonArray.toString());
                     SearchMachineListActivity.mMachineList = jsonObject.getJSONArray("machineList").toString();
                     startActivity(intent);
-                } else if (jsonObject.has("MachineID")) {
+                } else if (jsonObject.has("machineID")) {
                     /* if response contains "title", I assume I sent SearchWorkRequest */
                     Intent intent = new Intent(this, MachineInformationActivity.class);
                     intent.putExtra(MachineInformationActivity.EXTRA_MACHINE, jsonObject.toString());

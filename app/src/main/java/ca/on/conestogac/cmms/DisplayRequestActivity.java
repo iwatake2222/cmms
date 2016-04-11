@@ -401,7 +401,7 @@ public class DisplayRequestActivity extends BaseActivity {
             }
 
             // note: if response contains linkToDocument, I assume it the response for SearchMachine
-            if (jsonObject.has("LinkToDocument")) {
+            if (jsonObject.has("linkToDocument")) {
                 // this is the very last callback
                 mMachine = jsonString;
                 setMachineInformation();
@@ -434,7 +434,7 @@ public class DisplayRequestActivity extends BaseActivity {
                 return;
             }
 
-            if (jsonObject.has("RequestID")) {
+            if (jsonObject.has("requestID")) {
                 WorkRequest wr = new WorkRequest(jsonObject);
                 Intent intent = new Intent(DisplayRequestActivity.this, DisplayRequestActivity.class);
                 intent.putExtra(DisplayRequestActivity.EXTRA_REQUEST, wr.createJson());
@@ -549,6 +549,17 @@ public class DisplayRequestActivity extends BaseActivity {
         getWorkRequestFields();
         JSONObject jsonParam = new JSONObject();
 
+        if(mTitle.equals("") ||
+        mProgress.equals("") ||
+        mRequestFor.equals("") ||
+        mStatus.equals("") ||
+        mPriority.equals("") ||
+        mMachineIsRequired.equals("") ||
+        mDescription.equals("")) {
+            Utility.showToast(this, "Please fill all the information");
+            return;
+        }
+
         try {
             FillJsonObject(jsonParam);
         } catch (JSONException e) {
@@ -561,6 +572,17 @@ public class DisplayRequestActivity extends BaseActivity {
     public void onClickCreateRequestActivitySaveEditedRequest(View view) {
         getWorkRequestFields();
         JSONObject jsonParam = new JSONObject();
+
+        if(mTitle.equals("") ||
+                mProgress.equals("") ||
+                mRequestFor.equals("") ||
+                mStatus.equals("") ||
+                mPriority.equals("") ||
+                mMachineIsRequired.equals("") ||
+                mDescription.equals("")) {
+            Utility.showToast(this, "Please fill all the information");
+            return;
+        }
 
         try {
             FillJsonObject(jsonParam);
@@ -688,7 +710,7 @@ public class DisplayRequestActivity extends BaseActivity {
             jsonParam.put("userID", User.getInstance().userID);
             //jsonParam.put("MaintenanceLogID", "");
             //jsonParam.put("MachineID", "");
-            jsonParam.put("RequestID", workRequest.getRequestID());
+            jsonParam.put("requestID", workRequest.getRequestID());
             //jsonParam.put("CreationDateFrom", "");
             //jsonParam.put("CreationDateTo","" );
         } catch (JSONException e) {

@@ -64,13 +64,13 @@ public class SearchRequestActivity extends BaseActivity  {
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("userID", User.getInstance().userID);
-            if(mCampus.compareTo("")!=0)jsonParam.put("Campus", mCampus);
-            if(mShop.compareTo("")!=0)jsonParam.put("Shop", mShop);
-            if(mProgress.compareTo("")!=0)jsonParam.put("Progress",mProgress );
-            if(mStatus.compareTo("")!=0)jsonParam.put("Status", mStatus);
+            if(mCampus.compareTo("")!=0)jsonParam.put("campus", mCampus);
+            if(mShop.compareTo("")!=0)jsonParam.put("shop", mShop);
+            if(mProgress.compareTo("")!=0)jsonParam.put("progress",mProgress );
+            if(mStatus.compareTo("")!=0)jsonParam.put("status", mStatus);
             //if(mFrom.compareTo("")!=0)jsonParam.put("DateRequestedFrom", mFrom);
             //if(mTo.compareTo("")!=0)jsonParam.put("DateRequestedTo", mTo);
-            if(keywords.compareTo("")!=0)jsonParam.put("Keyword", keywords);
+            if(keywords.compareTo("")!=0)jsonParam.put("keyword", keywords);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }

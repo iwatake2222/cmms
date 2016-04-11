@@ -46,7 +46,7 @@ public class SearchMachineQRActivity extends BaseActivity {
                                 JSONObject jsonParam = new JSONObject();
                                 try{
                                     jsonParam.put("userID", User.getInstance().userID);
-                                    jsonParam.put("MachineID", readData);
+                                    jsonParam.put("machineID", readData);
                                 } catch (JSONException e) {
                                     Utility.logDebug(e.getMessage());
                                 }
@@ -97,7 +97,7 @@ public class SearchMachineQRActivity extends BaseActivity {
             if (result.compareTo(ValueConstants.RET_OK) != 0  && result.compareTo("nok") != 0) {
                 // do something if needed when error happens
             } else {
-                if (jsonObject.has("MachineID")) {
+                if (jsonObject.has("machineID")) {
                     Intent intent = new Intent(SearchMachineQRActivity.this, MachineInformationActivity.class);
                     intent.putExtra(MachineInformationActivity.EXTRA_MACHINE, jsonString);
                     startActivity(intent);

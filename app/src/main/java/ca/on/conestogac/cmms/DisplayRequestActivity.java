@@ -484,8 +484,8 @@ public class DisplayRequestActivity extends BaseActivity {
         JSONObject jsonSearchRequest = new JSONObject();
 
         try {
-            jsonSearchRequest.put("UserID", User.getInstance().userID);
-            jsonSearchRequest.put("RequestID", workRequestID);
+            jsonSearchRequest.put("userID", User.getInstance().userID);
+            jsonSearchRequest.put("requestID", workRequestID);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());
         }

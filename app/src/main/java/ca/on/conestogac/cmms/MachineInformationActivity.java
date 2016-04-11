@@ -122,12 +122,16 @@ public class MachineInformationActivity extends BaseActivity {
         //Intent intent = new Intent(Intent.ACTION_VIEW);
         //intent.setDataAndType(Uri.parse("http://docs.google.com/viewer?url=" + url), "text/html");
         //startActivity(intent);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        String extention = MimeTypeMap.getFileExtensionFromUrl(url);
-        String mimetype =MimeTypeMap.getSingleton().getMimeTypeFromExtension(extention);
-        intent.setDataAndType(Uri.parse(url), mimetype);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-        startActivity(intent);
+        if(url.contains("http")==true) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            String extention = MimeTypeMap.getFileExtensionFromUrl(url);
+            String mimetype = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extention);
+            intent.setDataAndType(Uri.parse(url), mimetype);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+            startActivity(intent);
+        } else {
+            Utility.showToast(this, url + " is not a valid document URL");
+        }
     }
 
     public void onClickCreateRequest(View view) {

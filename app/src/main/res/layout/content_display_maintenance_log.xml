@@ -365,6 +365,7 @@
                             android:id="@+id/editTextMaintenanceLogPartsRequired"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
+                            android:text="-"
                             android:layout_width="match_parent"/>
                         <TextView
                             android:id="@+id/textViewMaintenanceLogPartsRequired"
@@ -404,6 +405,7 @@
                             android:id="@+id/editTextMaintenanceLogApproximateCost"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
+                            android:text="-"
                             android:layout_width="match_parent"/>
                         <TextView
                             android:id="@+id/textViewMaintenanceLogApproximateCost"
@@ -444,6 +446,7 @@
                             android:id="@+id/editTextMaintenanceLogRequisitionNumber"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
+                            android:text="-"
                             android:layout_width="match_parent"/>
                         <TextView
                             android:id="@+id/textViewMaintenanceLogRequisitionNumber"
@@ -492,6 +495,7 @@
                             android:id="@+id/editTextMaintenanceLogContractor"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
+                            android:text="-"
                             android:layout_width="match_parent"/>
                         <TextView
                             android:id="@+id/textViewMaintenanceLogContractor"
@@ -531,6 +535,7 @@
                             android:id="@+id/editTextMaintenanceLogContractorCompany"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
+                            android:text="-"
                             android:layout_width="match_parent"/>
                         <TextView
                             android:id="@+id/textViewMaintenanceLogContractorCompany"

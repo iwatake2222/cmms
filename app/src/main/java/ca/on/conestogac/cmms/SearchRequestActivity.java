@@ -68,8 +68,9 @@ public class SearchRequestActivity extends BaseActivity  {
             if(mShop.compareTo("")!=0)jsonParam.put("shop", mShop);
             if(mProgress.compareTo("")!=0)jsonParam.put("progress",mProgress );
             if(mStatus.compareTo("")!=0)jsonParam.put("status", mStatus);
-            //if(mFrom.compareTo("")!=0)jsonParam.put("DateRequestedFrom", mFrom);
-            //if(mTo.compareTo("")!=0)jsonParam.put("DateRequestedTo", mTo);
+            if(mPriority.compareTo("")!=0)jsonParam.put("priority", mPriority);
+            if(mFrom.compareTo("")!=0)jsonParam.put("DateRequestedFrom", Utility.convertDateYYYYMMDDToShow(mFrom));
+            if(mTo.compareTo("")!=0)jsonParam.put("DateRequestedTo", Utility.convertDateYYYYMMDDToShow(mTo));
             if(keywords.compareTo("")!=0)jsonParam.put("keyword", keywords);
         } catch (JSONException e) {
             Utility.logDebug(e.getMessage());

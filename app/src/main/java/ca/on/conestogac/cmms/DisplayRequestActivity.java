@@ -517,6 +517,9 @@ public class DisplayRequestActivity extends BaseActivity {
                 for (int i = 0; i < items.size(); i++) {
                     mAdapterProgress.add(items.get(i));
                 }
+                // set default balue
+                Spinner spinnerProgress = (Spinner) findViewById(R.id.spinnerDisplayRequestProgress);
+                spinnerProgress.setSelection(1);
                 break;
             case STATUS:
                 mAdapterStatus.clear();
@@ -549,6 +552,7 @@ public class DisplayRequestActivity extends BaseActivity {
         intent.putExtra(DisplayMaintenanceLogActivity.EXTRA_MACHINE, mMachine);
         intent.putExtra(DisplayMaintenanceLogActivity.MAINTENANCE_LOG_MODE, DisplayMaintenanceLogActivity.MODE_CREATE);
         intent.putExtra(DisplayMaintenanceLogActivity.MAINTENANCE_LOG_RELATED_REQUEST_ID, workRequest.getRequestID());
+        intent.putExtra(DisplayMaintenanceLogActivity.MAINTENANCE_LOG_MAINTENANCE_REQUIRED, workRequest.getTitle());
         startActivity(intent);
     }
 

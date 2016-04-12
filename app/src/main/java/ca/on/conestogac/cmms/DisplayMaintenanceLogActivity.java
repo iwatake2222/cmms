@@ -25,6 +25,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
     public static final String EXTRA_MACHINE = "ca.on.conestogac.cmms.EXTRA_MACHINE";
     public static final String MAINTENANCE_LOG_MODE = "ca.on.conestogac.cmms.MAINTENANCE_LOG_MODE";
     public static final String MAINTENANCE_LOG_RELATED_REQUEST_ID = "ca.on.conestogac.cmms.MAINTENANCE_LOG_RELATED_REQUEST_ID";
+    public static final String MAINTENANCE_LOG_MAINTENANCE_REQUIRED = "ca.on.conestogac.cmms.MAINTENANCE_LOG_RELATED_MAINTENANCE_REQUIRED";
     public static final String MODE_CREATE = "CreateMaintenanceLogActivityMODE";
     public static final String MODE_VIEW = "ViewMaintenanceLogActivityMODE";
     public static final String MODE_EDIT = "EditMaintenanceLogActivityMODE";
@@ -157,6 +158,8 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
         // Related work request ID should be sent via intent when this is create mode
         mMaintenanceLogRelatedRequestID = getIntent().getStringExtra(MAINTENANCE_LOG_RELATED_REQUEST_ID);
+        mMaintenanceLogMaintenanceRequired = getIntent().getStringExtra(MAINTENANCE_LOG_MAINTENANCE_REQUIRED);
+
 
         // Auto-fill date text
         Calendar calendar = Calendar.getInstance();
@@ -175,6 +178,11 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         EditText editTextMaintenanceLogRelatedWorkRequestID = (EditText) findViewById(R.id.editTextMaintenanceLogRelatedWorkRequestID);
         editTextMaintenanceLogRelatedWorkRequestID.setText(mMaintenanceLogRelatedRequestID);
         editTextMaintenanceLogRelatedWorkRequestID.setEnabled(false);
+
+        // Auto-fill maintenance required (just default value. can be modified)
+        EditText editTextMaintenanceLogMaintenanceRequired= (EditText) findViewById(R.id.editTextMaintenanceLogMaintenanceRequired);
+        editTextMaintenanceLogMaintenanceRequired.setText(mMaintenanceLogMaintenanceRequired);
+        editTextMaintenanceLogMaintenanceRequired.setEnabled(true);
 
         // Hide LOG ID field since it's a new log
         LinearLayout logIDlinearLayout = (LinearLayout) findViewById(R.id.middleRow1Col1);

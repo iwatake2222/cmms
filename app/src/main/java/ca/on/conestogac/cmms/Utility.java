@@ -122,7 +122,6 @@ public class Utility {
             }
         }
         return orgDate;
-
     }
 
     public static String convertFormattedDateToRaw (String formattedDate) {

@@ -78,7 +78,9 @@ public class SearchRequestListActivity extends BaseActivity {
     private void convertRequestList(String requestList){
         try {
             JSONArray jsonArray = new JSONArray(requestList);
-            for (int i = 0; i < jsonArray.length(); i++) {
+            // set list in the reverse way so that the latest item goes top
+            //for (int i = 0; i < jsonArray.length(); i++) {
+            for (int i = jsonArray.length() - 1; i >= 0 ; i--) {
                 mRequestAdapter.add(new WorkRequest(jsonArray.getJSONObject(i)));
             }
         } catch (JSONException e) {

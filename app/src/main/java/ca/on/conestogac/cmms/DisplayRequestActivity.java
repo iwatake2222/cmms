@@ -137,6 +137,9 @@ public class DisplayRequestActivity extends BaseActivity {
         EditText editTextDateResolved = (EditText) findViewById(R.id.editTextDateResolved);
         editTextDateResolved.setEnabled(false);
 
+        EditText editTextCompletedBy = (EditText) findViewById(R.id.editTextCompletedBy);
+        editTextCompletedBy.setEnabled(true);
+
         // Configure buttons visibility
         Button buttonDisplayRequestCreateMaintenanceLog = (Button) findViewById(R.id.buttonDisplayRequestCreateMaintenanceLog);
         buttonDisplayRequestCreateMaintenanceLog.setVisibility(View.GONE);
@@ -189,6 +192,10 @@ public class DisplayRequestActivity extends BaseActivity {
         EditText editTextCreatedBy = (EditText) findViewById(R.id.editTextCreatedBy);
         editTextCreatedBy.setText(User.getInstance().userID);
         editTextCreatedBy.setEnabled(false);
+
+        // Disable completedBy
+        EditText editTextCompletedBy = (EditText) findViewById(R.id.editTextCompletedBy);
+        editTextCompletedBy.setEnabled(false);
 
         // Switch do Edits and Spinner
         SwitchViewsMode(0);

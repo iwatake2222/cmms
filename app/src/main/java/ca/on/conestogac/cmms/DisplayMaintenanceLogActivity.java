@@ -402,11 +402,11 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
                 if (checkBox.isChecked()) {
                     Utility.logDebug("createdMaintenanceLogID callback: changing workRequest to closed");
-                    ChangeRelatedWorkRequestStatus("Closed"); // TODO: do not hard-code
+                    ChangeRelatedWorkRequestProgress("Closed"); // TODO: do not hard-code
                 }
                 else {
                     Utility.logDebug("createdMaintenanceLogID callback: changing workRequest to Working");
-                    ChangeRelatedWorkRequestStatus("Working"); // TODO: do not hard-code
+                    ChangeRelatedWorkRequestProgress("Working"); // TODO: do not hard-code
                 }
 
                 return;
@@ -452,7 +452,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         }
     }
 
-    private void ChangeRelatedWorkRequestStatus(String status) {
+    private void ChangeRelatedWorkRequestProgress(String progress) {
         String requestID = GetRelatedWorkRequestID();
 
         JSONObject jsonModifyWorkRequest = new JSONObject();
@@ -460,9 +460,9 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         try {
             jsonModifyWorkRequest.put("userID", User.getInstance().userID);
             jsonModifyWorkRequest.put("requestID", requestID);
-            jsonModifyWorkRequest.put("status", status);
+            jsonModifyWorkRequest.put("progress", progress);
 
-            if (status.equals("Closed")) { // TODO: do not hardcode
+            if (progress.equals("Closed")) { // TODO: do not hardcode
                 Calendar calendar = Calendar.getInstance();
                 String dateResolved = Utility.convertDateToStringRaw(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 jsonModifyWorkRequest.put("dateResolved", dateResolved);

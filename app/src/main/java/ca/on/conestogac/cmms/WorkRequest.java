@@ -38,8 +38,8 @@ public class WorkRequest {
                 this.campus = jsonObject.getString("campus");
             if(jsonObject.has("shop"))
                 this.shop = jsonObject.getString("shop");
-            if(jsonObject.has("createdBy"))
-                this.createdBy = jsonObject.getString("createdBy").equals("null") ? " " : jsonObject.getString("createdBy");
+            if(jsonObject.has("requestedBy"))
+                this.createdBy = jsonObject.getString("requestedBy").equals("null") ? " " : jsonObject.getString("requestedBy");
             if(jsonObject.has("completedBy"))
                 this.completedBy = jsonObject.getString("completedBy").equals("null") ? " " : jsonObject.getString("completedBy");
             if(jsonObject.has("dateRequested"))
@@ -78,7 +78,7 @@ public class WorkRequest {
             jsonParam.put("machineID", machineID);
             jsonParam.put("campus", campus);
             jsonParam.put("shop", shop);
-            jsonParam.put("createdBy", createdBy);
+            jsonParam.put("requestedBy", createdBy);
             jsonParam.put("completedBy", completedBy);
             jsonParam.put("dateRequested",dateRequested );
             jsonParam.put("dueDate",dateDue );
@@ -153,7 +153,7 @@ public class WorkRequest {
                 ", requestID='" + requestID + '\'' +
                 ", machineID='" + machineID + '\'' +
                 ", shop='" + shop + '\'' +
-                ", createdBy='" + createdBy + '\'' +
+                ", requestedBy='" + createdBy + '\'' +
                 ", completedBy='" + completedBy + '\'' +
                 ", dateRequested='" + dateRequested + '\'' +
                 ", dateDue='" + dateDue + '\'' +

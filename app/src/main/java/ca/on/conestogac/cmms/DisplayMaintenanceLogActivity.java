@@ -38,6 +38,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
     private String mMaintenanceLogCompletedBy;
     private String mMaintenanceLogRelatedRequestID;
     private String mMaintenanceLogMaintenanceRequired;
+    private String mMaintenanceLogMaintenanceRequiredEdit;  // only for default value of text edit
     private String mMaintenanceLogActionTaken;
     private String mMaintenanceLogPartsRequired;
     private String mMaintenanceLogApproxCost;
@@ -158,7 +159,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
         // Related work request ID should be sent via intent when this is create mode
         mMaintenanceLogRelatedRequestID = getIntent().getStringExtra(MAINTENANCE_LOG_RELATED_REQUEST_ID);
-        mMaintenanceLogMaintenanceRequired = getIntent().getStringExtra(MAINTENANCE_LOG_MAINTENANCE_REQUIRED);
+        mMaintenanceLogMaintenanceRequiredEdit = getIntent().getStringExtra(MAINTENANCE_LOG_MAINTENANCE_REQUIRED);
 
 
         // Auto-fill date text
@@ -181,7 +182,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
         // Auto-fill maintenance required (just default value. can be modified)
         EditText editTextMaintenanceLogMaintenanceRequired= (EditText) findViewById(R.id.editTextMaintenanceLogMaintenanceRequired);
-        editTextMaintenanceLogMaintenanceRequired.setText(mMaintenanceLogMaintenanceRequired);
+        editTextMaintenanceLogMaintenanceRequired.setText(mMaintenanceLogMaintenanceRequiredEdit);
         editTextMaintenanceLogMaintenanceRequired.setEnabled(true);
 
         // Hide LOG ID field since it's a new log

@@ -549,16 +549,7 @@ public class DisplayRequestActivity extends BaseActivity {
         getWorkRequestFields();
         JSONObject jsonParam = new JSONObject();
 
-        if(mTitle.equals("") ||
-        mProgress.equals("") ||
-        mRequestFor.equals("") ||
-        mStatus.equals("") ||
-        mPriority.equals("") ||
-        mMachineIsRequired.equals("") ||
-        mDescription.equals("")) {
-            Utility.showToast(this, "Please fill all the information");
-            return;
-        }
+        if (isFormInvalid()) return;
 
         try {
             FillJsonObject(jsonParam);
@@ -573,16 +564,7 @@ public class DisplayRequestActivity extends BaseActivity {
         getWorkRequestFields();
         JSONObject jsonParam = new JSONObject();
 
-        if(mTitle.equals("") ||
-                mProgress.equals("") ||
-                mRequestFor.equals("") ||
-                mStatus.equals("") ||
-                mPriority.equals("") ||
-                mMachineIsRequired.equals("") ||
-                mDescription.equals("")) {
-            Utility.showToast(this, "Please fill all the information");
-            return;
-        }
+        if (isFormInvalid()) return;
 
         try {
             FillJsonObject(jsonParam);
@@ -593,6 +575,20 @@ public class DisplayRequestActivity extends BaseActivity {
         }
 
         callAPI("ModifyWorkRequest", jsonParam);
+    }
+
+    private boolean isFormInvalid() {
+        if(mTitle.equals("") ||
+                mProgress.equals("") ||
+                mRequestFor.equals("") ||
+                mStatus.equals("") ||
+                mPriority.equals("") ||
+                mMachineIsRequired.equals("") ||
+                mDescription.equals("")) {
+            Utility.showToast(this, "Please fill all the information");
+            return true;
+        }
+        return false;
     }
 
     private void FillJsonObject(JSONObject jsonParam) throws JSONException {

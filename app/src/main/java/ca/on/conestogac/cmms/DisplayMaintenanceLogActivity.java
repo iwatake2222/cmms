@@ -499,21 +499,6 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    public void onClickMaintenanceLogActivitySaveEditedLog(View view) {
-        getMaintenanceLogFields();
-        JSONObject jsonParam = new JSONObject();
-
-        try {
-            FillJsonObject(jsonParam);
-
-            jsonParam.put("maintenanceLogID", currentMaintenanceLog.getMaintenanceLogID());
-        } catch (JSONException e) {
-            Utility.logDebug(e.getMessage());
-        }
-
-        callAPI("ModifyMaintenanceLog", jsonParam);
-    }
-
     public void onClickMaintenanceLogShowRelatedWorkRequest(View view) {
         String relatedRequestID = GetRelatedWorkRequestID();
 
@@ -531,15 +516,30 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         return relatedRequestID;
     }
 
+    public void onClickMaintenanceLogActivitySaveEditedLog(View view) {
+        getMaintenanceLogFields();
+
+        if (isFormIncomplete()) return;
+
+
+        JSONObject jsonParam = new JSONObject();
+
+        try {
+            FillJsonObject(jsonParam);
+
+            jsonParam.put("maintenanceLogID", currentMaintenanceLog.getMaintenanceLogID());
+        } catch (JSONException e) {
+            Utility.logDebug(e.getMessage());
+        }
+
+        callAPI("ModifyMaintenanceLog", jsonParam);
+    }
+
     public void onClickCreateMaintenanceLogActivityCreateLog(View view) {
         getMaintenanceLogFields();
 
         // if just one is filled out
-        if ((mMaintenanceLogContractorName.equals("") && !mMaintenanceLogContractorCompany.equals("")) ||
-                (!mMaintenanceLogContractorName.equals("") && mMaintenanceLogContractorCompany.equals(""))) {
-            Utility.showToast(this, "If you inform Contractor information, you should inform both name and company.");
-            return;
-        }
+        if (isFormIncomplete()) return;
 
         JSONObject jsonParam = new JSONObject();
 
@@ -553,6 +553,31 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
         }
 
         callAPI("CreateMaintenanceLog", jsonParam);
+    }
+
+    private boolean isFormIncomplete() {
+
+        // if just one is filled out
+        if ((mMaintenanceLogContractorName.equals("") && !mMaintenanceLogContractorCompany.equals("")) ||
+                (!mMaintenanceLogContractorName.equals("") && mMaintenanceLogContractorCompany.equals(""))) {
+
+            Utility.showToast(this, "If you inform Contractor information, you should inform both name and company.");
+
+            return true;
+        }
+
+        if(mMaintenanceLogActionTaken.equals("") ||
+                mMaintenanceLogMaintenanceRequired.equals("") ||
+                mMaintenanceLogPartsRequired.equals("") ||
+                mMaintenanceLogApproxCost.equals("") ||
+                mMaintenanceLogRequisitionNumber.equals("")) {
+
+            Utility.showToast(this, "Please inform all the fields");
+
+            return true;
+        }
+
+        return false;
     }
 
     public void onClickBack(View view) {

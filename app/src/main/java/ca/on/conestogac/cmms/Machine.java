@@ -28,23 +28,23 @@ public class Machine {
         linksToDocument = new ArrayList<String>();
         try {
             if(jsonObject.has("machineID"))
-                this.machineID = jsonObject.getString("machineID");
+                this.machineID = jsonObject.getString("machineID").equals("null") ? " " : jsonObject.getString("machineID");
             if(jsonObject.has("campus"))
-                this.campus = jsonObject.getString("campus");
+                this.campus = jsonObject.getString("campus").equals("null") ? " " : jsonObject.getString("campus");
             if(jsonObject.has("shop"))
-                this.shop = jsonObject.getString("shop");
+                this.shop = jsonObject.getString("shop").equals("null") ? " " : jsonObject.getString("shop");
             if(jsonObject.has("machineStatus"))
-                this.machineStatus = jsonObject.getString("machineStatus");
+                this.machineStatus = jsonObject.getString("machineStatus").equals("null") ? " " : jsonObject.getString("machineStatus");
             if(jsonObject.has("manufacturer"))
-                this.manufacturer = jsonObject.getString("manufacturer");
+                this.manufacturer = jsonObject.getString("manufacturer").equals("null") ? " " : jsonObject.getString("manufacturer");
             if(jsonObject.has("serialNumber"))
-                this.serialNumber = jsonObject.getString("serialNumber");
+                this.serialNumber = jsonObject.getString("serialNumber").equals("null") ? " " : jsonObject.getString("serialNumber");
             if(jsonObject.has("modelNumber"))
-                this.modelNumber = jsonObject.getString("modelNumber");
+                this.modelNumber = jsonObject.getString("modelNumber").equals("null") ? " " : jsonObject.getString("modelNumber");
             if(jsonObject.has("description"))
-                this.description = jsonObject.getString("description");
+                this.description = jsonObject.getString("description").equals("null") ? " " : jsonObject.getString("description");
             if(jsonObject.has("linkToPicture"))
-                this.linkToPicture = jsonObject.getString("linkToPicture");
+                this.linkToPicture = jsonObject.getString("linkToPicture").equals("null") ? " " : jsonObject.getString("linkToPicture");
             if(jsonObject.has("linkToDocument")) {
                 JSONArray jsonArray = jsonObject.getJSONArray("linkToDocument");
                 for (int i = 0; i < jsonArray.length(); i++) {

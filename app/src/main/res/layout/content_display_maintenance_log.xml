@@ -567,6 +567,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Close related Work request"
+                android:checked="true"
                 android:id="@+id/checkBoxMaintenanceLogCloseRequest" />
 
         </LinearLayout>

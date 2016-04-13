@@ -418,7 +418,7 @@ public class DisplayRequestActivity extends BaseActivity {
             // verified 2016-04-09
             if (jsonObject.has("createdRequestID")) {
                 String createdRequestID = jsonObject.getString("createdRequestID");
-                Utility.showToast(this, "Request mock created with ID: " + createdRequestID);
+                Utility.showToast(this, "Work request created. ID: " + createdRequestID);
 
                 SearchWorkRequest(createdRequestID);
                 return;
@@ -435,7 +435,7 @@ public class DisplayRequestActivity extends BaseActivity {
 
             if (jsonObject.has("modifiedRequestID")) {
                 String modifiedRequestID = jsonObject.getString("modifiedRequestID");
-                Utility.showToast(this, "Request mock modified for ID: " + modifiedRequestID);
+                Utility.showToast(this, "Work Request modified. ID: " + modifiedRequestID);
 
                 SearchWorkRequest(modifiedRequestID);
                 return;

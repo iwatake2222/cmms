@@ -405,7 +405,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
             if (jsonObject.has("createdMaintenanceLogID")) {
                 createdMaintenanceLogID = jsonObject.getString("createdMaintenanceLogID");
-                Utility.showToast(this, "LOG mock created with ID: " + createdMaintenanceLogID);
+                Utility.showToast(this, "Maintenance log created. ID: " + createdMaintenanceLogID);
 
                 CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxMaintenanceLogCloseRequest);
 
@@ -431,7 +431,7 @@ public class DisplayMaintenanceLogActivity extends BaseActivity {
 
             if (jsonObject.has("modifiedMaintenanceLogID")) {
                 String modifiedMaintenanceLogID = jsonObject.getString("modifiedMaintenanceLogID");
-                Utility.showToast(this, "LOG mock modified within ID: " + modifiedMaintenanceLogID);
+                Utility.showToast(this, "Maintenance log modified. ID: " + modifiedMaintenanceLogID);
 
                 SearchMaintenanceLog(modifiedMaintenanceLogID);
                 return;
